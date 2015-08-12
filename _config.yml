@@ -1,6 +1,6 @@
-markdown: rdiscount
+# markdown: rdiscount
 permalink: /:year/:month/:title/
 url: http://tiandabao.github.io
-author: dabao
+author: Dabao
 pygments: true
-paginate: 24
+paginate: 2
