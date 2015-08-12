@@ -1,6 +1,6 @@
 markdown: rdiscount
 permalink: /:year/:month/:title/
-url: http://geeklu.com
-author: 卢克
+url: http://tiandabao.github.io
+author: dabao
 pygments: true
 paginate: 24
