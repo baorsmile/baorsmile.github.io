@@ -82,6 +82,7 @@ modified:   .deploy_git (modified content, untracked content)
 modified:   themes/yilia (modified content, untracked content)
 ```
 这部分不用管，主题是从远端clone的， 主题设置可以看这篇博客[yilia](http://litten.github.io/2014/08/31/hexo-theme-yilia/)
+`在设置主题的时候，有个头像问题，一直没解决，就是图片的地址，处理方法：我把图片放到public/images/avatar.jpg下，提交到github后我可以找到我图片的地址“https://github.com/tiandabao/tiandabao.github.io/blob/master/images/avatar.jpg“但是在主题里我设置了这个url显示不出来，后来我发现，在你要显示的图片网页上右键，复制图片网址，“https://github.com/tiandabao/tiandabao.github.io/blob/master/images/avatar.jpg?raw=true”这时图片的地址后面多了个?raw=true，这时候把这个地址赋值给你主题头像字段`
 
 ```
 error: Your local changes to the following files would be overwritten by merge:
@@ -91,6 +92,10 @@ Aborting
 ```
 出现上面的问题，处理步骤删除本地.DS_Store，在进行pull或者push，由于.DS_Store文件存储有冲突，删掉会重新生成一分
 
+> 每次提交到github前记得hexo g 和 hexo d， 不然也页面显示不出来
 
 
+> 友情参考
+<https://segmentfault.com/a/1190000002398039>
+<http://litten.github.io/2014/08/31/hexo-theme-yilia/>
 
