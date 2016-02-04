@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: alberta
+theme: yilia
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
@@ -71,10 +71,3 @@ deploy:
   type: git  #最新版3.X把这个github缩写成git了,这句注视可以不复制的. 
   repository: https://github.com/tiandabao/tiandabao.github.io.git
   branch: master
-
- # Feed
- feed:
-  type: atom
-  path: atom.xml
-  limit: 20
-  hub:
