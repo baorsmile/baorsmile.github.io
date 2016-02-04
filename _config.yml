@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Baorsmile
+title: Dabao
 subtitle:
 description:
 author: 田大宝
@@ -68,4 +68,6 @@ theme: landscape
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git  #最新版3.X把这个github缩写成git了,这句注视可以不复制的. 
+  repository: https://github.com/tiandabao/tiandabao.github.io.git
+  branch: master
