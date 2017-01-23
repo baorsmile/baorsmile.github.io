@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>多个git账号的配置 | Dabao</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="多个git账号的配置有时候我们需要在同一台机器上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，在Mac电脑下，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：注意：整个修改过程按照github的ssh-key为范例
+1、用ssh-keygen命令生成一组新的id_rsa_new和id">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多个git账号的配置">
+<meta property="og:url" content="http://yoursite.com/2017/01/23/多个git账号的配置/index.html">
+<meta property="og:site_name" content="Dabao">
+<meta property="og:description" content="多个git账号的配置有时候我们需要在同一台机器上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，在Mac电脑下，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：注意：整个修改过程按照github的ssh-key为范例
+1、用ssh-keygen命令生成一组新的id_rsa_new和id">
+<meta property="og:updated_time" content="2017-01-23T06:33:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多个git账号的配置">
+<meta name="twitter:description" content="多个git账号的配置有时候我们需要在同一台机器上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，在Mac电脑下，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：注意：整个修改过程按照github的ssh-key为范例
+1、用ssh-keygen命令生成一组新的id_rsa_new和id">
+  
+    <link rel="alternative" href="/atom.xml" title="Dabao" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="https://github.com/tiandabao/tiandabao.github.io/blob/master/images/avatar.jpg?raw=true" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">田大宝</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tiandabao" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/tdbailmy/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/iOS/" style="font-size: 10px;">iOS</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">看什么看，没见过帅哥啊！！！！！</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">田大宝</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="https://github.com/tiandabao/tiandabao.github.io/blob/master/images/avatar.jpg?raw=true" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">田大宝</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tiandabao" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/tdbailmy/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-多个git账号的配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/23/多个git账号的配置/" class="article-date">
+  	<time datetime="2017-01-23T03:17:08.000Z" itemprop="datePublished">2017-01-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      多个git账号的配置
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E"><a href="#u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E" class="headerlink" title="多个git账号的配置"></a>多个git账号的配置</h1><h2 id="u6709_u65F6_u5019_u6211_u4EEC_u9700_u8981_u5728_u540C_u4E00_u53F0_u673A_u5668_u4E0A_u4F7F_u7528_u591A_u4E2Agit_u8D26_u53F7_uFF0C_u4E3A_u4E86_u907F_u514D_u51B2_u7A81_uFF0C_u6211_u4EEC_u9700_u8981_u914D_u7F6E_7E/-ssh/config_u6587_u4EF6_uFF0C_u5728Mac_u7535_u8111_u4E0B_uFF0C_u4F5C_u4E3A_u7A0B_u5E8F_u5458_u4F1A_u6709_u591A_u4E2A_u4EE3_u7801_u7BA1_u7406_u7684_u5E93_uFF0C_u73B0_u5728_u7528SVN_u6BD4_u8F83_u5C11_u4E86_uFF0CGit_u6210_u4E3A_u4E3B_u6D41_uFF0C_u4F46_u662F_u5728_u7535_u8111_u4E0B_u5982_u4F55_u540C_u65F6_u4FDD_u5B58_u591A_u4E2Assh_u8D26_u53F7_u5462_uFF0C_u81EA_u5DF1_u603B_u7ED3_u4E86_u4E00_u4E0B_u6B65_u9AA4_uFF1A"><a href="#u6709_u65F6_u5019_u6211_u4EEC_u9700_u8981_u5728_u540C_u4E00_u53F0_u673A_u5668_u4E0A_u4F7F_u7528_u591A_u4E2Agit_u8D26_u53F7_uFF0C_u4E3A_u4E86_u907F_u514D_u51B2_u7A81_uFF0C_u6211_u4EEC_u9700_u8981_u914D_u7F6E_7E/-ssh/config_u6587_u4EF6_uFF0C_u5728Mac_u7535_u8111_u4E0B_uFF0C_u4F5C_u4E3A_u7A0B_u5E8F_u5458_u4F1A_u6709_u591A_u4E2A_u4EE3_u7801_u7BA1_u7406_u7684_u5E93_uFF0C_u73B0_u5728_u7528SVN_u6BD4_u8F83_u5C11_u4E86_uFF0CGit_u6210_u4E3A_u4E3B_u6D41_uFF0C_u4F46_u662F_u5728_u7535_u8111_u4E0B_u5982_u4F55_u540C_u65F6_u4FDD_u5B58_u591A_u4E2Assh_u8D26_u53F7_u5462_uFF0C_u81EA_u5DF1_u603B_u7ED3_u4E86_u4E00_u4E0B_u6B65_u9AA4_uFF1A" class="headerlink" title="有时候我们需要在同一台机器上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，在Mac电脑下，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤："></a>有时候我们需要在同一台机器上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，在Mac电脑下，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：</h2><p><em>注意：整个修改过程按照github的ssh-key为范例</em></p>
+<p><strong>1、用ssh-keygen命令生成一组新的id_rsa_new和id_rsa_new.pub</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~/<span class="class">.ssh</span></span><br><span class="line"></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"new email"</span></span><br></pre></td></tr></table></figure></p>
+<p>当我们在终端输入完上面的命令，回车后会提示：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter <span class="built_in">file</span> <span class="operator">in</span> which <span class="built_in">to</span> save <span class="operator">the</span> key (/Users/dabao/.ssh/id_rsa):</span><br></pre></td></tr></table></figure></p>
+<p>现在就是生成一个新的pub，在<strong>:</strong> 后输入你想生成文件的新名字，例如github的：id_rsa_github,名字可以随便起，然后回车。<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty <span class="keyword">for</span> <span class="literal">no</span> passphrase):</span><br></pre></td></tr></table></figure></p>
+<p>我感觉整个秘密可以不用输入，我一般就是github的密码，按回车，确认密码，然后就生成了新的key.</p>
+<p><em>这个时候会发现，在~/.ssh文件夹下会多出一个id_rsa_github和id_rsa_github.pub的文件</em></p>
+<p><strong>2、打开config文件，如果没有就生成一个！</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Host git-oschina</span><br><span class="line">    HostName git<span class="class">.oschina</span><span class="class">.net</span></span><br><span class="line">    User <span class="function"><span class="title">xxx</span><span class="params">(名字随便写)</span></span></span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_oschina</span><br><span class="line">Host git-github</span><br><span class="line">    HostName github<span class="class">.com</span></span><br><span class="line">    User <span class="function"><span class="title">xxx</span><span class="params">(名字随便写)</span></span></span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure></p>
+<p><strong>3、然后我们要把ssh添加到git里面</strong><br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">ssh</span>-<span class="keyword">add </span>~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure></p>
+<p><strong>4、然后测试一下是否OK</strong><br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line">Hi xxx! You've successfully authenticated,<span class="keyword">but</span> GitHub <span class="keyword">does</span> <span class="keyword">not</span> provide shell access.</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/01/22/新年新的开端/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">新年新的开端</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="多个git账号的配置" data-title="多个git账号的配置" data-url="http://yoursite.com/2017/01/23/多个git账号的配置/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 田大宝
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
