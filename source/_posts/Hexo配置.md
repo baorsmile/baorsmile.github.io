@@ -15,7 +15,7 @@ category:
 ```
 npm install hexo-cli -g
 ```
-* 通过终端cd 进入到自己的博客文件夹 
+* 通过终端cd 进入到自己的博客文件夹
 ```
 hexo init
 ```
@@ -42,7 +42,7 @@ demo
 * 主要是这一部分的设置，会影响到你在网页上的展示，`如果你出现404页面`，就是因为这里没有设置你自己的博客代码地址
 ```
 deploy:
-  type: git  #最新版3.X把这个github缩写成git了，记得空格. 
+  type: git  #最新版3.X把这个github缩写成git了，记得空格.
   repository: "https://github.com/tiandabao/tiandabao.github.io.git"
   branch: master
 ```
@@ -98,4 +98,3 @@ Aborting
 > 友情参考
 <https://segmentfault.com/a/1190000002398039>
 <http://litten.github.io/2014/08/31/hexo-theme-yilia/>
-

@@ -1,6 +1,6 @@
 title: 多个git账号的配置
 date: 2017-01-23 11:17:08
-tags:
+tags: Git
 category:
 ---
 
