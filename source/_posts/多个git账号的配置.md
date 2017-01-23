@@ -6,11 +6,11 @@ category:
 
 # 多个git账号的配置
 
-## 有时候我们需要在同一台机器上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，在Mac电脑下，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：
+## 有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：
 
 *注意：整个修改过程按照github的ssh-key为范例*
 
-#### 1、用ssh-keygen命令生成一组新的id_rsa_new和id_rsa_new.pub
+#### 1、用ssh-keygen命令生成一组新的id_rsa_github和id_rsa_github.pub
 ```
 cd ~/.ssh
 
