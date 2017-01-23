@@ -10,7 +10,7 @@ category:
 
 *注意：整个修改过程按照github的ssh-key为范例*
 
-**1、用ssh-keygen命令生成一组新的id_rsa_new和id_rsa_new.pub**
+#### 1、用ssh-keygen命令生成一组新的id_rsa_new和id_rsa_new.pub
 ```
 cd ~/.ssh
 
@@ -28,7 +28,7 @@ Enter passphrase (empty for no passphrase):
 
 *这个时候会发现，在~/.ssh文件夹下会多出一个id_rsa_github和id_rsa_github.pub的文件*
 
-**2、打开config文件，如果没有就生成一个！**
+#### 2、打开config文件，如果没有就生成一个!
 ```
 Host git-oschina
     HostName git.oschina.net
@@ -41,11 +41,11 @@ Host git-github
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/id_rsa_github
 ```
-**3、然后我们要把ssh添加到git里面**
+#### 3、然后我们要把ssh添加到git里面
 ```
 ssh-add ~/.ssh/id_rsa_github
 ```
-**4、然后测试一下是否OK**
+#### 4、然后测试一下是否OK
 ```
 ssh -T git@github.com
 Hi xxx! You've successfully authenticated,but GitHub does not provide shell access.
