@@ -4,18 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>UITextView心得 | Dabao</title>
+  <title>常用的iOS开发库 | Dabao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="UITextView最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下1234567891011121314// font = 0  h = 16  selectionh = 1.5// font = 0.5  h = 1">
+  <meta name="description" content="缓存
+EGOCache">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UITextView心得">
-<meta property="og:url" content="http://yoursite.com/2016/07/02/UITextView心得/index.html">
+<meta property="og:title" content="常用的iOS开发库">
+<meta property="og:url" content="http://yoursite.com/2017/02/06/常用的iOS开发库/index.html">
 <meta property="og:site_name" content="Dabao">
-<meta property="og:description" content="UITextView最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下1234567891011121314// font = 0  h = 16  selectionh = 1.5// font = 0.5  h = 1">
-<meta property="og:updated_time" content="2016-07-02T16:04:01.000Z">
+<meta property="og:description" content="缓存
+EGOCache">
+<meta property="og:updated_time" content="2017-02-06T06:48:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UITextView心得">
-<meta name="twitter:description" content="UITextView最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下1234567891011121314// font = 0  h = 16  selectionh = 1.5// font = 0.5  h = 1">
+<meta name="twitter:title" content="常用的iOS开发库">
+<meta name="twitter:description" content="缓存
+EGOCache">
   
     <link rel="alternative" href="/atom.xml" title="Dabao" type="application/atom+xml">
   
@@ -168,11 +171,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-UITextView心得" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-常用的iOS开发库" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/07/02/UITextView心得/" class="article-date">
-  	<time datetime="2016-07-02T15:26:43.000Z" itemprop="datePublished">2016-07-02</time>
+      <a href="/2017/02/06/常用的iOS开发库/" class="article-date">
+  	<time datetime="2017-02-06T06:45:32.000Z" itemprop="datePublished">2017-02-06</time>
 </a>
     </div>
   
@@ -185,7 +188,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      UITextView心得
+      常用的iOS开发库
     </h1>
   
 
@@ -205,10 +208,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="UITextView"><a href="#UITextView" class="headerlink" title="UITextView"></a>UITextView</h1><h3 id="u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B"><a href="#u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B" class="headerlink" title="最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下"></a>最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下</h3><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// font = 0  h = 16  selectionh = 1.5</span></span><br><span class="line"><span class="comment">// font = 0.5  h = 17  selectionh = 2.09668</span></span><br><span class="line"><span class="comment">// font = 1  h = 18  selectionh = 2.69336 // (width = 6, height = 1.193359375)</span></span><br><span class="line"><span class="comment">// font = 1.5  h = 18  selectionh = 3.29004</span></span><br><span class="line"><span class="comment">// font = 2  h = 19  selectionh = 3.88672   2.386719</span></span><br><span class="line"><span class="comment">// font = 3  h = 20  selectionh = 5.08008</span></span><br><span class="line"><span class="comment">// font = 4  h = 21  selectionh = 6.27344</span></span><br><span class="line"><span class="comment">// font = 5  h = 22  selectionh = 7.4668</span></span><br><span class="line"><span class="comment">// font = 10  h = 28  selectionh = 13.4336  contentOffset = &#123; 0, 3 &#125; 25</span></span><br><span class="line"><span class="comment">// font = 11  h = 30  selectionh = 14.627</span></span><br><span class="line"><span class="comment">// font = 100  h = 136  selectionh = 120.836  contentOffset = &#123; 0, 110.5 &#125;  25.5</span></span><br><span class="line"><span class="comment">// font = 1000  h = 1210  selectionh = 1194.86  contentOffset = &#123; 0, 1184.5 &#125; 25.5</span></span><br><span class="line"><span class="comment">// font = 10000  h = 11950  selectionh = 11935.1  contentOffset = &#123; 0, 11924.5 &#125;  25.5</span></span><br><span class="line"><span class="comment">// font = 100000  h = 119352  selectionh = 119337  contentOffset = &#123; 0, 119327 &#125;  25.5</span></span><br></pre></td></tr></table></figure>
-<p>  这是测试的一些font，就想知道到底textView是怎么计算contenSize的，一直从光标高度算起，最终没算出来，但是搞定了光标的高度  min：1.5，光标<strong>height=text.size.height+1.5</strong></p>
-<p>  光标的<strong>point = {4, 7}</strong>, 这是一开始没有文字输入的时候，如果设置<strong>placeholderLabel</strong>的坐标可以通过point来确定</p>
-<h2 id="u5B9E_u9645_u4E0AcontentSize_u7684_u9AD8_u5EA6_u662F_u8FD9_u6837_u6765_u7684"><a href="#u5B9E_u9645_u4E0AcontentSize_u7684_u9AD8_u5EA6_u662F_u8FD9_u6837_u6765_u7684" class="headerlink" title="实际上contentSize的高度是这样来的"></a>实际上contentSize的高度是这样来的</h2><p><strong>contentSizeHeight = round(text.size.height + 16)（四舍五入）</strong>这样能解释为什么当font=0时候，初始化高度为16了，其实和光标没有任何关系。</p>
+        <h2 id="u7F13_u5B58"><a href="#u7F13_u5B58" class="headerlink" title="缓存"></a>缓存</h2><ul>
+<li><a href="https://github.com/enormego/EGOCache" target="_blank" rel="external">EGOCache</a></li>
+</ul>
 
       
     </div>
@@ -218,18 +220,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/01/22/新年新的开端/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          新年新的开端
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/02/29/幻想该怎样处理/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">幻想该怎样处理</div>
+    <a href="/2017/01/23/多个git账号的配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">多个git账号的配置</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -264,7 +257,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="UITextView心得" data-title="UITextView心得" data-url="http://yoursite.com/2016/07/02/UITextView心得/"></div>
+	<div class="ds-thread" data-thread-key="常用的iOS开发库" data-title="常用的iOS开发库" data-url="http://yoursite.com/2017/02/06/常用的iOS开发库/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
