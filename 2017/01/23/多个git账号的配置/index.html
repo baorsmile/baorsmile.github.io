@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Dabao">
 <meta property="og:description" content="多个git账号的配置有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：注意：整个修改过程按照github的ssh-key为范例
 1、用ssh-keygen命令生成一组新的id_rsa_github和id_">
-<meta property="og:updated_time" content="2017-01-23T06:44:28.000Z">
+<meta property="og:updated_time" content="2017-07-13T09:13:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多个git账号的配置">
 <meta name="twitter:description" content="多个git账号的配置有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：注意：整个修改过程按照github的ssh-key为范例
@@ -172,9 +172,27 @@
 <p>现在就是生成一个新的pub，在<strong>:</strong> 后输入你想生成文件的新名字，例如github的：id_rsa_github,名字可以随便起，然后回车。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (<span class="built_in">empty</span> <span class="keyword">for</span> <span class="keyword">no</span> passphrase):</div></pre></td></tr></table></figure></p>
 <p>我感觉整个秘密可以不用输入，我一般就是github的密码，按回车，确认密码，然后就生成了新的key.</p>
 <p><em>这个时候会发现，在~/.ssh文件夹下会多出一个id_rsa_github和id_rsa_github.pub的文件</em></p>
-<h4 id="2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21"><a href="#2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21" class="headerlink" title="2、打开config文件，如果没有就生成一个!"></a>2、打开config文件，如果没有就生成一个!</h4><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Host git-oschina</div><div class="line">    HostName git.oschina.net</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_oschina</div><div class="line">Host git-github</div><div class="line">    HostName github.com</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div></pre></td></tr></table></figure>
+<h4 id="2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21"><a href="#2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21" class="headerlink" title="2、打开config文件，如果没有就生成一个!"></a>2、打开config文件，如果没有就生成一个!</h4><blockquote>
+<p>这里可以修改Host，Host只是一个标记而已，比如说我有两个github账号，这时候我就要生成不同的key，用Host起一个别名用来区分就好了</p>
+</blockquote>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Host git-oschina</div><div class="line">    HostName git.oschina.net</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_oschina</div><div class="line">Host git-github</div><div class="line">    HostName github.com</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div></pre></td></tr></table></figure>
 <h4 id="3_u3001_u7136_u540E_u6211_u4EEC_u8981_u628Assh_u6DFB_u52A0_u5230git_u91CC_u9762"><a href="#3_u3001_u7136_u540E_u6211_u4EEC_u8981_u628Assh_u6DFB_u52A0_u5230git_u91CC_u9762" class="headerlink" title="3、然后我们要把ssh添加到git里面"></a>3、然后我们要把ssh添加到git里面</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-<span class="keyword">add</span><span class="bash"> ~/.ssh/id_rsa_github</span></div></pre></td></tr></table></figure>
 <h4 id="4_u3001_u7136_u540E_u6D4B_u8BD5_u4E00_u4E0B_u662F_u5426OK"><a href="#4_u3001_u7136_u540E_u6D4B_u8BD5_u4E00_u4E0B_u662F_u5426OK" class="headerlink" title="4、然后测试一下是否OK"></a>4、然后测试一下是否OK</h4><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div><div class="line">Hi xxx! You<span class="symbol">'ve</span> successfully authenticated,but GitHub does <span class="keyword">not</span> provide shell <span class="keyword">access</span>.</div></pre></td></tr></table></figure>
+<h4 id="5_u3001_u5B8C_u6210_u4E4B_u540E_u9700_u8981_u8BBE_u7F6Econfig"><a href="#5_u3001_u5B8C_u6210_u4E4B_u540E_u9700_u8981_u8BBE_u7F6Econfig" class="headerlink" title="5、完成之后需要设置config"></a>5、完成之后需要设置config</h4><blockquote>
+<p>在自己git项目下，终端运行</p>
+</blockquote>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config <span class="comment">--list</span></div></pre></td></tr></table></figure>
+<p>查看自己config配置，路径在<strong>~/.gitconfig</strong>里，可以用文本打开</p>
+<blockquote>
+<p>这个地方强调一下</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user<span class="selector-class">.name</span> <span class="string">"xxx"</span></div><div class="line">git config --global user<span class="selector-class">.email</span> <span class="string">"xxx@qq.com"</span></div></pre></td></tr></table></figure>
+<p>这个如果你想全局都是这个你可以选择gloabl，反正我的<strong>~/.gitconfig</strong>里面是我公司的配置，可一个人选择配置</p>
+<blockquote>
+<p>又或者在自己项目里进行单独配置</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config user<span class="selector-class">.name</span> <span class="string">"xxx"</span></div><div class="line">git config user<span class="selector-class">.email</span> <span class="string">"xxx@qq.com"</span></div></pre></td></tr></table></figure>
+<p>这个设置会显示在你的提交信息里面，在自己项目的<strong>.git</strong>目录下，有个名为<strong>config</strong>的文件，如果找不到可以在终端输入<strong>l -list</strong></p>
 
       
 
@@ -314,15 +332,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">新年</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">新年</a>
               </li>
             
             <div class="clearfix"></div>

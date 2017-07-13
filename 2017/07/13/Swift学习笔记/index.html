@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: iOS | Dabao</title>
+  <title>Swift学习笔记 | Dabao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="只是一点点">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dabao">
-<meta property="og:url" content="http://yoursite.com/tags/iOS/index.html">
+  <meta name="description" content="[open/public]和[private/fileprivate]public1.使用public修饰的类,属性或方法,可以被任何类访问2.但在其他的module中不可以被override和继承,而在本module可以
+
+module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift学习笔记">
+<meta property="og:url" content="http://yoursite.com/2017/07/13/Swift学习笔记/index.html">
 <meta property="og:site_name" content="Dabao">
-<meta property="og:description" content="只是一点点">
+<meta property="og:description" content="[open/public]和[private/fileprivate]public1.使用public修饰的类,属性或方法,可以被任何类访问2.但在其他的module中不可以被override和继承,而在本module可以
+
+module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才">
+<meta property="og:updated_time" content="2017-07-13T09:29:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dabao">
-<meta name="twitter:description" content="只是一点点">
+<meta name="twitter:title" content="Swift学习笔记">
+<meta name="twitter:description" content="[open/public]和[private/fileprivate]public1.使用public修饰的类,属性或方法,可以被任何类访问2.但在其他的module中不可以被override和继承,而在本module可以
+
+module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才">
   
     <link rel="alternative" href="/atom.xml" title="Dabao" type="application/atom+xml">
   
@@ -142,36 +149,42 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Swift学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Swift学习笔记
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/13/Swift学习笔记/" class="archive-article-date">
+
+        
+        <a href="/2017/07/13/Swift学习笔记/" class="archive-article-date">
   	<time datetime="2017-07-13T08:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-13</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D"><a href="#5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D" class="headerlink" title="[open/public]和[private/fileprivate]"></a>[open/public]和[private/fileprivate]</h3><h4 id="public"><a href="#public" class="headerlink" title="public"></a>public</h4><p>1.使用public修饰的类,属性或方法,可以被任何类访问<br>2.但在其他的module中不可以被override和继承,而在本module可以</p>
+<blockquote>
+<p>module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才能创建对象才能使用</p>
+<p>这里有个很好的module例子，比如说你项目中用到了<strong>pods</strong>,你要继承里面一个类，这时候public和open就起到作用，但是<strong>如果你在工程里面，通俗的说就是基本上和open没有区别</strong></p>
+</blockquote>
+<h4 id="open"><a href="#open" class="headerlink" title="open"></a>open</h4><p>1.可以被任何人使用<br>2.也可以被override和继承,这是和public的区别</p>
+<h4 id="private"><a href="#private" class="headerlink" title="private"></a>private</h4><p>只在自己的类里面可以使用，在类外不能用，<strong>就是说,不管另外一个类是否在这个文件里，都不能访问，包括自己的extension里面</strong></p>
+<h4 id="fileprivate"><a href="#fileprivate" class="headerlink" title="fileprivate"></a>fileprivate</h4><p>顾名思义，只要在这个文件里面，所有的类、extension都可以访问，比如说类A和B都在同一个swift文件里面，A里面初始化B，调用B里面属性方法都可以</p>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,105 +196,37 @@
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/06/常用的iOS开发库/" class="archive-article-date">
-  	<time datetime="2017-02-06T06:45:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-06</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/06/常用的iOS开发库/">常用的iOS开发库</a>
-    </h1>
+  
+    <a href="/2017/03/02/MyBaby/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MyBaby</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/07/02/UITextView心得/" class="archive-article-date">
-  	<time datetime="2016-07-02T15:26:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/02/UITextView心得/">UITextView心得</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -304,9 +249,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

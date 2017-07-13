@@ -144,6 +144,75 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Swift学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/13/Swift学习笔记/" class="archive-article-date">
+  	<time datetime="2017-07-13T08:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D"><a href="#5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D" class="headerlink" title="[open/public]和[private/fileprivate]"></a>[open/public]和[private/fileprivate]</h3><h4 id="public"><a href="#public" class="headerlink" title="public"></a>public</h4><p>1.使用public修饰的类,属性或方法,可以被任何类访问<br>2.但在其他的module中不可以被override和继承,而在本module可以</p>
+<blockquote>
+<p>module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才能创建对象才能使用</p>
+<p>这里有个很好的module例子，比如说你项目中用到了<strong>pods</strong>,你要继承里面一个类，这时候public和open就起到作用，但是<strong>如果你在工程里面，通俗的说就是基本上和open没有区别</strong></p>
+</blockquote>
+<h4 id="open"><a href="#open" class="headerlink" title="open"></a>open</h4><p>1.可以被任何人使用<br>2.也可以被override和继承,这是和public的区别</p>
+<h4 id="private"><a href="#private" class="headerlink" title="private"></a>private</h4><p>只在自己的类里面可以使用，在类外不能用，<strong>就是说,不管另外一个类是否在这个文件里，都不能访问，包括自己的extension里面</strong></p>
+<h4 id="fileprivate"><a href="#fileprivate" class="headerlink" title="fileprivate"></a>fileprivate</h4><p>顾名思义，只要在这个文件里面，所有的类、extension都可以访问，比如说类A和B都在同一个swift文件里面，A里面初始化B，调用B里面属性方法都可以</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/13/Swift学习笔记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-MyBaby" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -292,9 +361,27 @@
 <p>现在就是生成一个新的pub，在<strong>:</strong> 后输入你想生成文件的新名字，例如github的：id_rsa_github,名字可以随便起，然后回车。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (<span class="built_in">empty</span> <span class="keyword">for</span> <span class="keyword">no</span> passphrase):</div></pre></td></tr></table></figure></p>
 <p>我感觉整个秘密可以不用输入，我一般就是github的密码，按回车，确认密码，然后就生成了新的key.</p>
 <p><em>这个时候会发现，在~/.ssh文件夹下会多出一个id_rsa_github和id_rsa_github.pub的文件</em></p>
-<h4 id="2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21"><a href="#2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21" class="headerlink" title="2、打开config文件，如果没有就生成一个!"></a>2、打开config文件，如果没有就生成一个!</h4><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Host git-oschina</div><div class="line">    HostName git.oschina.net</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_oschina</div><div class="line">Host git-github</div><div class="line">    HostName github.com</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div></pre></td></tr></table></figure>
+<h4 id="2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21"><a href="#2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21" class="headerlink" title="2、打开config文件，如果没有就生成一个!"></a>2、打开config文件，如果没有就生成一个!</h4><blockquote>
+<p>这里可以修改Host，Host只是一个标记而已，比如说我有两个github账号，这时候我就要生成不同的key，用Host起一个别名用来区分就好了</p>
+</blockquote>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Host git-oschina</div><div class="line">    HostName git.oschina.net</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_oschina</div><div class="line">Host git-github</div><div class="line">    HostName github.com</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div></pre></td></tr></table></figure>
 <h4 id="3_u3001_u7136_u540E_u6211_u4EEC_u8981_u628Assh_u6DFB_u52A0_u5230git_u91CC_u9762"><a href="#3_u3001_u7136_u540E_u6211_u4EEC_u8981_u628Assh_u6DFB_u52A0_u5230git_u91CC_u9762" class="headerlink" title="3、然后我们要把ssh添加到git里面"></a>3、然后我们要把ssh添加到git里面</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-<span class="keyword">add</span><span class="bash"> ~/.ssh/id_rsa_github</span></div></pre></td></tr></table></figure>
 <h4 id="4_u3001_u7136_u540E_u6D4B_u8BD5_u4E00_u4E0B_u662F_u5426OK"><a href="#4_u3001_u7136_u540E_u6D4B_u8BD5_u4E00_u4E0B_u662F_u5426OK" class="headerlink" title="4、然后测试一下是否OK"></a>4、然后测试一下是否OK</h4><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div><div class="line">Hi xxx! You<span class="symbol">'ve</span> successfully authenticated,but GitHub does <span class="keyword">not</span> provide shell <span class="keyword">access</span>.</div></pre></td></tr></table></figure>
+<h4 id="5_u3001_u5B8C_u6210_u4E4B_u540E_u9700_u8981_u8BBE_u7F6Econfig"><a href="#5_u3001_u5B8C_u6210_u4E4B_u540E_u9700_u8981_u8BBE_u7F6Econfig" class="headerlink" title="5、完成之后需要设置config"></a>5、完成之后需要设置config</h4><blockquote>
+<p>在自己git项目下，终端运行</p>
+</blockquote>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config <span class="comment">--list</span></div></pre></td></tr></table></figure>
+<p>查看自己config配置，路径在<strong>~/.gitconfig</strong>里，可以用文本打开</p>
+<blockquote>
+<p>这个地方强调一下</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user<span class="selector-class">.name</span> <span class="string">"xxx"</span></div><div class="line">git config --global user<span class="selector-class">.email</span> <span class="string">"xxx@qq.com"</span></div></pre></td></tr></table></figure>
+<p>这个如果你想全局都是这个你可以选择gloabl，反正我的<strong>~/.gitconfig</strong>里面是我公司的配置，可一个人选择配置</p>
+<blockquote>
+<p>又或者在自己项目里进行单独配置</p>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config user<span class="selector-class">.name</span> <span class="string">"xxx"</span></div><div class="line">git config user<span class="selector-class">.email</span> <span class="string">"xxx@qq.com"</span></div></pre></td></tr></table></figure>
+<p>这个设置会显示在你的提交信息里面，在自己项目的<strong>.git</strong>目录下，有个名为<strong>config</strong>的文件，如果找不到可以在终端输入<strong>l -list</strong></p>
 
       
 
@@ -845,15 +932,15 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">新年</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">新年</a>
               </li>
             
             <div class="clearfix"></div>
