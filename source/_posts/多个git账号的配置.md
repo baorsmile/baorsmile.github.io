@@ -29,6 +29,8 @@ Enter passphrase (empty for no passphrase):
 *这个时候会发现，在~/.ssh文件夹下会多出一个id_rsa_github和id_rsa_github.pub的文件*
 
 #### 2、打开config文件，如果没有就生成一个!
+>这里可以修改Host，Host只是一个标记而已，比如说我有两个github账号，这时候我就要生成不同的key，用Host起一个别名用来区分就好了
+
 ```
 Host git-oschina
     HostName git.oschina.net
@@ -50,3 +52,29 @@ ssh-add ~/.ssh/id_rsa_github
 ssh -T git@github.com
 Hi xxx! You've successfully authenticated,but GitHub does not provide shell access.
 ```
+
+#### 5、完成之后需要设置config
+> 在自己git项目下，终端运行
+
+```
+git config --list
+```
+查看自己config配置，路径在**~/.gitconfig**里，可以用文本打开
+
+> 这个地方强调一下
+
+```
+git config --global user.name "xxx"
+git config --global user.email "xxx@qq.com"
+```
+
+这个如果你想全局都是这个你可以选择gloabl，反正我的**~/.gitconfig**里面是我公司的配置，可一个人选择配置
+
+> 又或者在自己项目里进行单独配置
+
+```
+git config user.name "xxx"
+git config user.email "xxx@qq.com"
+
+```
+这个设置会显示在你的提交信息里面，在自己项目的**.git**目录下，有个名为**config**的文件，如果找不到可以在终端输入**l -list**

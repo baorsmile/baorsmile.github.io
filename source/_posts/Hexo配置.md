@@ -92,7 +92,7 @@ Aborting
 ```
 出现上面的问题，处理步骤删除本地.DS_Store，在进行pull或者push，由于.DS_Store文件存储有冲突，删掉会重新生成一分
 
-> 每次提交到github前记得hexo g 和 hexo d， 不然也页面显示不出来
+**每次提交到github前记得hexo g 和 hexo d， 不然也页面显示不出来**
 
 
 > 友情参考
