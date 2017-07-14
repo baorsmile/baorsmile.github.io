@@ -24,3 +24,65 @@ category:
 
 #### fileprivate
 顾名思义，只要在这个文件里面，所有的类、extension都可以访问，比如说类A和B都在同一个swift文件里面，A里面初始化B，调用B里面属性方法都可以
+
+### String格式化
+1，下面是一个浮点类型的数字转成String字符串的例子
+
+```
+var f = 123.32342342
+var s:String = "\(f)" //123.32342342
+```
+
+
+2，如果要保留两位小数
+```
+var f = 123.32342342
+var s = String(format: "%.2f", f) //123.32
+```
+3，转成十六进制格式字符串
+```
+let i = 255
+let s:String = String(format: "%x", i) //ff
+```
+4，不足六位前面补0
+```
+let i = 255
+let s:String = String(format: "%06x", i) //0000ff
+```
+
+### Array和Dictionary
+##### Array
+* 遍历
+
+```
+let count: Int = 10
+
+for i in 0..< count {
+    // 0 - 9
+}
+
+for i in 0...count {
+    // 0 - 10
+}
+
+```
+
+#### Dictionary
+* 遍历
+
+```
+let dict: Dictionary  = ["key":"value"]
+
+for (key, value) in dict {
+
+}
+
+dict.forEach { (key, value) in
+
+}
+
+(dict as NSDictionary).enumerateKeysAndObjects({ (key, value, stop) in
+
+})
+
+```
