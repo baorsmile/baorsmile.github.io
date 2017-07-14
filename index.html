@@ -172,6 +172,19 @@
 <h4 id="open"><a href="#open" class="headerlink" title="open"></a>open</h4><p>1.可以被任何人使用<br>2.也可以被override和继承,这是和public的区别</p>
 <h4 id="private"><a href="#private" class="headerlink" title="private"></a>private</h4><p>只在自己的类里面可以使用，在类外不能用，<strong>就是说,不管另外一个类是否在这个文件里，都不能访问，包括自己的extension里面</strong></p>
 <h4 id="fileprivate"><a href="#fileprivate" class="headerlink" title="fileprivate"></a>fileprivate</h4><p>顾名思义，只要在这个文件里面，所有的类、extension都可以访问，比如说类A和B都在同一个swift文件里面，A里面初始化B，调用B里面属性方法都可以</p>
+<h3 id="String_u683C_u5F0F_u5316"><a href="#String_u683C_u5F0F_u5316" class="headerlink" title="String格式化"></a>String格式化</h3><p>1，下面是一个浮点类型的数字转成String字符串的例子</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">var</span> f = <span class="number">123.32342342</span></div><div class="line"><span class="selector-tag">var</span> s:String = <span class="string">"\(f)"</span> <span class="comment">//123.32342342</span></div></pre></td></tr></table></figure>
+<p>2，如果要保留两位小数<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> f = 123.32342342</div><div class="line"><span class="keyword">var</span> s = <span class="built_in">String</span>(<span class="keyword">format</span>: <span class="string">"%.2f"</span>, f) <span class="comment">//123.32</span></div></pre></td></tr></table></figure></p>
+<p>3，转成十六进制格式字符串<br><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> i = <span class="number">255</span></div><div class="line"><span class="keyword">let</span> s:<span class="keyword">String</span> = <span class="keyword">String</span>(<span class="keyword">format</span>: <span class="string">"%x"</span>, i) <span class="comment">//ff</span></div></pre></td></tr></table></figure></p>
+<p>4，不足六位前面补0<br><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> i = <span class="number">255</span></div><div class="line"><span class="keyword">let</span> s:<span class="keyword">String</span> = <span class="keyword">String</span>(<span class="keyword">format</span>: <span class="string">"%06x"</span>, i) <span class="comment">//0000ff</span></div></pre></td></tr></table></figure></p>
+<h3 id="Array_u548CDictionary"><a href="#Array_u548CDictionary" class="headerlink" title="Array和Dictionary"></a>Array和Dictionary</h3><h5 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h5><ul>
+<li>遍历</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let count: Int = <span class="number">10</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="number">0</span>..&lt; count &#123;</div><div class="line">    <span class="comment">// 0 - 9</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="number">0</span>..<span class="selector-class">.count</span> &#123;</div><div class="line">    <span class="comment">// 0 - 10</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h4><ul>
+<li>遍历</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dict: Dictionary  = [<span class="string">"key"</span>:<span class="string">"value"</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> (key, <span class="keyword">value</span>) <span class="keyword">in</span> dict &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">dict.forEach &#123; (key, <span class="keyword">value</span>) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">(dict <span class="keyword">as</span> NSDictionary).enumerateKeysAndObjects(&#123; (key, <span class="keyword">value</span>, stop) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
       
 
@@ -932,6 +945,10 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">新年</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
@@ -940,7 +957,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">新年</a>
+                <a href="javascript:void(0)" class="js-tag color4">ios</a>
               </li>
             
             <div class="clearfix"></div>
