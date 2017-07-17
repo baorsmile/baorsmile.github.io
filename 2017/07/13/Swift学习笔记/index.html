@@ -18,7 +18,7 @@ module内和module外的区别 ： module内是指不需要使用import引用文
 <meta property="og:description" content="[open/public]和[private/fileprivate]public1.使用public修饰的类,属性或方法,可以被任何类访问2.但在其他的module中不可以被override和继承,而在本module可以
 
 module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才">
-<meta property="og:updated_time" content="2017-07-14T03:04:48.000Z">
+<meta property="og:updated_time" content="2017-07-14T15:44:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift学习笔记">
 <meta name="twitter:description" content="[open/public]和[private/fileprivate]public1.使用public修饰的类,属性或方法,可以被任何类访问2.但在其他的module中不可以被override和继承,而在本module可以
@@ -190,6 +190,7 @@ module内和module外的区别 ： module内是指不需要使用import引用文
 <li>遍历</li>
 </ul>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dict: Dictionary  = [<span class="string">"key"</span>:<span class="string">"value"</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> (key, <span class="keyword">value</span>) <span class="keyword">in</span> dict &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">dict.forEach &#123; (key, <span class="keyword">value</span>) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">(dict <span class="keyword">as</span> NSDictionary).enumerateKeysAndObjects(&#123; (key, <span class="keyword">value</span>, stop) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="Keyboard"><a href="#Keyboard" class="headerlink" title="Keyboard"></a>Keyboard</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willShow</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willHide</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleKeyboard</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> nInfo = (center <span class="keyword">as</span> <span class="type">NSNotification</span>).userInfo, <span class="keyword">let</span> value = nInfo[<span class="type">UIKeyboardFrameEndUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> frame = value.cgRectValue</div><div class="line"></div><div class="line">        <span class="keyword">let</span> duration: <span class="type">CGFloat</span> = nInfo[<span class="type">UIKeyboardAnimationDurationUserInfoKey</span>] <span class="keyword">as</span>! <span class="type">CGFloat</span></div><div class="line"></div><div class="line">        <span class="keyword">let</span> keyboardMoveY: <span class="type">CGFloat</span> = frame.origin.y - kMainScreen_Height()</div><div class="line"></div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="type">TimeInterval</span>(duration), animations: &#123;</div><div class="line">            <span class="keyword">self</span>.transform = <span class="type">CGAffineTransform</span>(translationX: <span class="number">0</span>, y: keyboardMoveY);</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
 
@@ -221,6 +222,15 @@ module内和module外的区别 ： module内是指不需要使用import引用文
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/07/17/iOS关键知识点整理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          iOS关键知识点整理
+        
+      </div>
+    </a>
   
   
     <a href="/2017/03/02/MyBaby/" id="article-nav-older" class="article-nav-link-wrap">
@@ -320,10 +330,6 @@ module内和module外的区别 ： module内是指不需要使用import引用文
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">新年</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
@@ -332,7 +338,7 @@ module内和module外的区别 ： module内是指不需要使用import引用文
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color3">新年</a>
               </li>
             
             <div class="clearfix"></div>
