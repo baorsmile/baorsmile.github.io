@@ -86,3 +86,32 @@ dict.forEach { (key, value) in
 })
 
 ```
+
+#### Keyboard
+```
+func willShow(_ center: Notification) {
+    self.handleKeyboard(center)
+}
+
+func willHide(_ center: Notification) {
+    self.handleKeyboard(center)
+}
+
+func handleKeyboard(_ center: Notification) {
+
+    if let nInfo = (center as NSNotification).userInfo, let value = nInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+
+        let frame = value.cgRectValue
+
+        let duration: CGFloat = nInfo[UIKeyboardAnimationDurationUserInfoKey] as! CGFloat
+
+        let keyboardMoveY: CGFloat = frame.origin.y - kMainScreen_Height()
+
+        UIView.animate(withDuration: TimeInterval(duration), animations: {
+            self.transform = CGAffineTransform(translationX: 0, y: keyboardMoveY);
+        })
+
+    }
+
+}
+```
