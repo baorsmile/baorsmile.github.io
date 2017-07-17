@@ -6,17 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: iOS | Dabao</title>
+  <title>iOS关键知识点整理 | Dabao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="只是一点点">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dabao">
-<meta property="og:url" content="http://yoursite.com/tags/iOS/index.html">
+  <meta name="description" content="Coy/MutableCopy(深浅拷贝)
+只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！
+
+这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针不复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间*">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS关键知识点整理">
+<meta property="og:url" content="http://yoursite.com/2017/07/17/iOS关键知识点整理/index.html">
 <meta property="og:site_name" content="Dabao">
-<meta property="og:description" content="只是一点点">
+<meta property="og:description" content="Coy/MutableCopy(深浅拷贝)
+只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！
+
+这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针不复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间*">
+<meta property="og:updated_time" content="2017-07-17T02:37:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dabao">
-<meta name="twitter:description" content="只是一点点">
+<meta name="twitter:title" content="iOS关键知识点整理">
+<meta name="twitter:description" content="Coy/MutableCopy(深浅拷贝)
+只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！
+
+这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针不复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间*">
   
     <link rel="alternative" href="/atom.xml" title="Dabao" type="application/atom+xml">
   
@@ -142,146 +152,69 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-iOS关键知识点整理" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/13/Swift学习笔记/" class="archive-article-date">
-  	<time datetime="2017-07-13T08:51:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      iOS关键知识点整理
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/02/06/常用的iOS开发库/" class="archive-article-date">
-  	<time datetime="2017-02-06T06:45:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-06</time>
+        
+        <a href="/2017/07/17/iOS关键知识点整理/" class="archive-article-date">
+  	<time datetime="2017-07-17T02:32:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-17</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/06/常用的iOS开发库/">常用的iOS开发库</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Coy/MutableCopy(深浅拷贝)"></a>Coy/MutableCopy(深浅拷贝)</h4><blockquote>
+<p>只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！</p>
+</blockquote>
+<p><strong>这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针不复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间*</strong></p>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/07/02/UITextView心得/" class="archive-article-date">
-  	<time datetime="2016-07-02T15:26:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-02</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/02/UITextView心得/">UITextView心得</a>
-    </h1>
+  
+    <a href="/2017/07/13/Swift学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Swift学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -304,9 +237,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

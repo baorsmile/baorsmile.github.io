@@ -4,7 +4,7 @@
   <subtitle><![CDATA[只是一点点]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-14T03:04:48.000Z</updated>
+  <updated>2017-07-17T02:37:30.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,11 +15,28 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[iOS关键知识点整理]]></title>
+    <link href="http://yoursite.com/2017/07/17/iOS%E5%85%B3%E9%94%AE%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/"/>
+    <id>http://yoursite.com/2017/07/17/iOS关键知识点整理/</id>
+    <published>2017-07-17T02:32:44.000Z</published>
+    <updated>2017-07-17T02:37:30.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Coy/MutableCopy(深浅拷贝)"></a>Coy/MutableCopy(深浅拷贝)</h4><blockquote>
+<p>只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！</p>
+</blockquote>
+<p><strong>这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针不复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间*</strong></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Co]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Swift学习笔记]]></title>
     <link href="http://yoursite.com/2017/07/13/Swift%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2017/07/13/Swift学习笔记/</id>
     <published>2017-07-13T08:51:12.000Z</published>
-    <updated>2017-07-14T03:04:48.000Z</updated>
+    <updated>2017-07-14T15:44:31.000Z</updated>
     <content type="html"><![CDATA[<h3 id="5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D"><a href="#5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D" class="headerlink" title="[open/public]和[private/fileprivate]"></a>[open/public]和[private/fileprivate]</h3><h4 id="public"><a href="#public" class="headerlink" title="public"></a>public</h4><p>1.使用public修饰的类,属性或方法,可以被任何类访问<br>2.但在其他的module中不可以被override和继承,而在本module可以</p>
 <blockquote>
 <p>module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才能创建对象才能使用</p>
@@ -41,6 +58,7 @@
 <li>遍历</li>
 </ul>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dict: Dictionary  = [<span class="string">"key"</span>:<span class="string">"value"</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> (key, <span class="keyword">value</span>) <span class="keyword">in</span> dict &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">dict.forEach &#123; (key, <span class="keyword">value</span>) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">(dict <span class="keyword">as</span> NSDictionary).enumerateKeysAndObjects(&#123; (key, <span class="keyword">value</span>, stop) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="Keyboard"><a href="#Keyboard" class="headerlink" title="Keyboard"></a>Keyboard</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willShow</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willHide</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleKeyboard</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> nInfo = (center <span class="keyword">as</span> <span class="type">NSNotification</span>).userInfo, <span class="keyword">let</span> value = nInfo[<span class="type">UIKeyboardFrameEndUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> frame = value.cgRectValue</div><div class="line"></div><div class="line">        <span class="keyword">let</span> duration: <span class="type">CGFloat</span> = nInfo[<span class="type">UIKeyboardAnimationDurationUserInfoKey</span>] <span class="keyword">as</span>! <span class="type">CGFloat</span></div><div class="line"></div><div class="line">        <span class="keyword">let</span> keyboardMoveY: <span class="type">CGFloat</span> = frame.origin.y - kMainScreen_Height()</div><div class="line"></div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="type">TimeInterval</span>(duration), animations: &#123;</div><div class="line">            <span class="keyword">self</span>.transform = <span class="type">CGAffineTransform</span>(translationX: <span class="number">0</span>, y: keyboardMoveY);</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
     <![CDATA[<h3 id="5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D"><a href="#5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D" class="headerlink" title]]>

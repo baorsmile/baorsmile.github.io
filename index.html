@@ -144,6 +144,60 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-iOS关键知识点整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/17/iOS关键知识点整理/">iOS关键知识点整理</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/17/iOS关键知识点整理/" class="archive-article-date">
+  	<time datetime="2017-07-17T02:32:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Coy/MutableCopy(深浅拷贝)"></a>Coy/MutableCopy(深浅拷贝)</h4><blockquote>
+<p>只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！</p>
+</blockquote>
+<p><strong>这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针不复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间*</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/17/iOS关键知识点整理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-Swift学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -185,6 +239,7 @@
 <li>遍历</li>
 </ul>
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dict: Dictionary  = [<span class="string">"key"</span>:<span class="string">"value"</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> (key, <span class="keyword">value</span>) <span class="keyword">in</span> dict &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">dict.forEach &#123; (key, <span class="keyword">value</span>) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">(dict <span class="keyword">as</span> NSDictionary).enumerateKeysAndObjects(&#123; (key, <span class="keyword">value</span>, stop) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h4 id="Keyboard"><a href="#Keyboard" class="headerlink" title="Keyboard"></a>Keyboard</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willShow</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willHide</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleKeyboard</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> nInfo = (center <span class="keyword">as</span> <span class="type">NSNotification</span>).userInfo, <span class="keyword">let</span> value = nInfo[<span class="type">UIKeyboardFrameEndUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> frame = value.cgRectValue</div><div class="line"></div><div class="line">        <span class="keyword">let</span> duration: <span class="type">CGFloat</span> = nInfo[<span class="type">UIKeyboardAnimationDurationUserInfoKey</span>] <span class="keyword">as</span>! <span class="type">CGFloat</span></div><div class="line"></div><div class="line">        <span class="keyword">let</span> keyboardMoveY: <span class="type">CGFloat</span> = frame.origin.y - kMainScreen_Height()</div><div class="line"></div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="type">TimeInterval</span>(duration), animations: &#123;</div><div class="line">            <span class="keyword">self</span>.transform = <span class="type">CGAffineTransform</span>(translationX: <span class="number">0</span>, y: keyboardMoveY);</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
 
@@ -814,56 +869,10 @@
 
 
   
-    <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/03/我的第一篇博客/">我的第一篇博客</a>
-    </h1>
-  
-
-        
-        <a href="/2016/02/03/我的第一篇博客/" class="archive-article-date">
-  	<time datetime="2016-02-03T09:31:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-02-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="u521D_u6765_u4E4D_u5230"><a href="#u521D_u6765_u4E4D_u5230" class="headerlink" title="初来乍到"></a>初来乍到</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/02/03/我的第一篇博客/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -945,10 +954,6 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">新年</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
@@ -957,7 +962,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ios</a>
+                <a href="javascript:void(0)" class="js-tag color3">新年</a>
               </li>
             
             <div class="clearfix"></div>
