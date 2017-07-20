@@ -144,6 +144,110 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Hexo配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/04/Hexo配置/">Hexo配置</a>
+    </h1>
+  
+
+        
+        <a href="/2016/02/04/Hexo配置/" class="archive-article-date">
+  	<time datetime="2016-02-04T03:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-02-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Hexo_u914D_u7F6EGitHub_u535A_u5BA2"><a href="#Hexo_u914D_u7F6EGitHub_u535A_u5BA2" class="headerlink" title="Hexo配置GitHub博客"></a>Hexo配置GitHub博客</h1><ul>
+<li><p>好久都想搞一下博客这个东西，每次都弄了好长时间又放弃了，感觉对于写前端的我，真是麻烦，最近快过年了，最后一个版本也上线了，闲了一段时间，想起来Github上的博客还闲置着，终于有时间搞搞了。</p>
+</li>
+<li><p>网上已经有很多对于hexo的配置安装，我这里只是写我自己安装步骤和遇到的问题。</p>
+</li>
+</ul>
+<h1 id="u5F00_u59CB_u90E8_u7F72"><a href="#u5F00_u59CB_u90E8_u7F72" class="headerlink" title="开始部署"></a>开始部署</h1><h2 id="u9996_u5148_u5728Github_u4E0A_u6709hexo_u7684_u6E90_u4EE3_u7801__u8FD9_u91CC_u662F_u8FDE_u63A5hexo"><a href="#u9996_u5148_u5728Github_u4E0A_u6709hexo_u7684_u6E90_u4EE3_u7801__u8FD9_u91CC_u662F_u8FDE_u63A5hexo" class="headerlink" title="首先在Github上有hexo的源代码 这里是连接hexo"></a>首先在Github上有hexo的源代码 这里是连接<a href="https://github.com/hexojs/hexo" target="_blank" rel="external">hexo</a></h2><ul>
+<li><p>安装hexo</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-<span class="keyword">cli</span> -g</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过终端cd 进入到自己的博客文件夹</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">hexo init</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>会有如下文件在你的博客目录<br>[~  tree -L 1 demo<br>demo<br>├── _config.yml<br>├── package.json<br>├── scaffolds<br>├── source<br>└── themes</p>
+<p>3 directories, 2 files]</p>
+<blockquote>
+<p>这样一个简单的博客初始化就完成了。不过还不能运行，下来我让它跑起来。</p>
+</blockquote>
+<h1 id="u672C_u5730_u8FD0_u884C"><a href="#u672C_u5730_u8FD0_u884C" class="headerlink" title="本地运行"></a>本地运行</h1><ul>
+<li>现在用<code>hexo generate</code>生成静态文件，然后用<code>hexo server</code>运行本地服务器，打开浏览器输入<a href="http://0.0.0.0:4000/" target="_blank" rel="external">http://0.0.0.0:4000/</a>查看效果。如果发现有问题，在md文件改了之后，刷新页面就可以看到更改的效果了</li>
+</ul>
+<h1 id="u914D_u7F6E"><a href="#u914D_u7F6E" class="headerlink" title="配置"></a>配置</h1><ul>
+<li>接下来我们要让代码运行到github上</li>
+</ul>
+<h2 id="config-yml_u6587_u4EF6_u914D_u7F6E"><a href="#config-yml_u6587_u4EF6_u914D_u7F6E" class="headerlink" title="_config.yml文件配置"></a>_config.yml文件配置</h2><ul>
+<li>主要是这一部分的设置，会影响到你在网页上的展示，<code>如果你出现404页面</code>，就是因为这里没有设置你自己的博客代码地址<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">deploy:</span></div><div class="line"><span class="symbol">  type:</span> git  <span class="meta">#最新版3.X把这个github缩写成git了，记得空格.</span></div><div class="line"><span class="symbol">  repository:</span> <span class="string">"https://github.com/tiandabao/tiandabao.github.io.git"</span></div><div class="line"><span class="symbol">  branch:</span> master</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>然后提交到github上就行了</p>
+<h2 id="u5176_u5B9E_u5728_u8FD9_u4E2A_u8FC7_u7A0B_u4E2D_u6709_u597D_u591A_u5751_uFF0C_u8FD9_u91CC_u662F_u6211_u9047_u5230_u7684_u548C_u89E3_u51B3_u529E_u6CD5"><a href="#u5176_u5B9E_u5728_u8FD9_u4E2A_u8FC7_u7A0B_u4E2D_u6709_u597D_u591A_u5751_uFF0C_u8FD9_u91CC_u662F_u6211_u9047_u5230_u7684_u548C_u89E3_u51B3_u529E_u6CD5" class="headerlink" title="其实在这个过程中有好多坑，这里是我遇到的和解决办法"></a>其实在这个过程中有好多坑，这里是我遇到的和解决办法</h2><ul>
+<li>在运行<code>hexo generate</code>时候会出现如下代码</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123; [Error: Cannot <span class="built_in">find</span> <span class="keyword">module</span> <span class="string">'./build/Release/DTraceProviderBindings'</span>] code: <span class="string">'MODULE_NOT_FOUND'</span> &#125;</div><div class="line">&#123; [Error: Cannot <span class="built_in">find</span> <span class="keyword">module</span> <span class="string">'./build/default/DTraceProviderBindings'</span>] code: <span class="string">'MODULE_NOT_FOUND'</span> &#125;</div><div class="line">&#123; [Error: Cannot <span class="built_in">find</span> <span class="keyword">module</span> <span class="string">'./build/Debug/DTraceProviderBindings'</span>] code: <span class="string">'MODULE_NOT_FOUND'</span> &#125;</div></pre></td></tr></table></figure>
+<p>解决办法。<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">npm</span> install hexo --<span class="literal">no</span>-optional</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意 这个地方运行上面的代码是要在自己博客的目录下，不然不能生效。</p>
+</blockquote>
+<ul>
+<li>在运行<code>hexo deploy</code>时候有时候会提示如下<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ERROR </span>Deployer not found : git</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>解决方法<br>在自己博客目录下运行<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></div></pre></td></tr></table></figure></p>
+<ul>
+<li>在提交github的时候会出现类似于这样的代码<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">modified:   <span class="selector-class">.DS_Store</span></div><div class="line">modified:   <span class="selector-class">.deploy_git</span> (modified <span class="attribute">content</span>, untracked content)</div><div class="line">modified:   themes/yilia (modified <span class="attribute">content</span>, untracked content)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这部分不用管，主题是从远端clone的， 主题设置可以看这篇博客<a href="http://litten.github.io/2014/08/31/hexo-theme-yilia/" target="_blank" rel="external">yilia</a><br><code>在设置主题的时候，有个头像问题，一直没解决，就是图片的地址，处理方法：我把图片放到public/images/avatar.jpg下，提交到github后我可以找到我图片的地址“https://github.com/tiandabao/tiandabao.github.io/blob/master/images/avatar.jpg“但是在主题里我设置了这个url显示不出来，后来我发现，在你要显示的图片网页上右键，复制图片网址，“https://github.com/tiandabao/tiandabao.github.io/blob/master/images/avatar.jpg?raw=true”这时图片的地址后面多了个?raw=true，这时候把这个地址赋值给你主题头像字段</code></p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">error: </span>Your local changes to the following files would be overwritten by merge:</div><div class="line">	.DS_Store</div><div class="line">Please, commit your changes or stash them before you can merge.</div><div class="line">Aborting</div></pre></td></tr></table></figure>
+<p>出现上面的问题，处理步骤删除本地.DS_Store，在进行pull或者push，由于.DS_Store文件存储有冲突，删掉会重新生成一分</p>
+<p><strong>每次提交到github前记得hexo g 和 hexo d， 不然也页面显示不出来</strong></p>
+<blockquote>
+<p>友情参考<br><a href="https://segmentfault.com/a/1190000002398039" target="_blank" rel="external">https://segmentfault.com/a/1190000002398039</a><br><a href="http://litten.github.io/2014/08/31/hexo-theme-yilia/" target="_blank" rel="external">http://litten.github.io/2014/08/31/hexo-theme-yilia/</a><br><a href="http://www.jianshu.com/p/b7886271e21a" target="_blank" rel="external">http://www.jianshu.com/p/b7886271e21a</a></p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/02/04/Hexo配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-我的第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -279,11 +383,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">新年</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color3">新年</a>
               </li>
              
               <li class="article-tag-list-item">
