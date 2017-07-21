@@ -4,6 +4,11 @@ tags: iOS
 category:
 ---
 
+** Swift学习笔记 ：** <Excerpt in index | 首页摘要\>
+主要是关于Swift学习笔记
+<!-- more -->
+<The rest of contents | 余下全文\>
+
 ### [open/public]和[private/fileprivate]
 
 #### public

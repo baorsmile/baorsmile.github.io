@@ -4,6 +4,11 @@ tags: Git
 category:
 ---
 
+** 多个git账号的配置 ：** <Excerpt in index | 首页摘要\>
+多个git帐号的处理，我们有时候需要配置很多git的ssh，那我们要如何实现呢？
+<!-- more -->
+<The rest of contents | 余下全文\>
+
 # 多个git账号的配置
 
 ## 有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：

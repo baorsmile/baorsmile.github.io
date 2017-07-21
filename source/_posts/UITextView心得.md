@@ -4,6 +4,11 @@ tags: iOS
 category:
 ---
 
+** UITextView心得 ：** <Excerpt in index | 首页摘要\>
+主要是关于UITextView一些测试和自己的一些见解，不喜勿喷哦！
+<!-- more -->
+<The rest of contents | 余下全文\>
+
 # UITextView
 
 ### 最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下

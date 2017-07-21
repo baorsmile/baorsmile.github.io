@@ -1,8 +1,14 @@
 title: Hexo配置
 date: 2016-02-04 11:02:35
-tags:
+tags: Hexo
 category:
 ---
+
+** Hexo配置 ：** <Excerpt in index | 首页摘要\>
+关于Hexo的一些配置，这是初来乍到的开始。
+<!-- more -->
+<The rest of contents | 余下全文\>
+
 # Hexo配置GitHub博客
 * 好久都想搞一下博客这个东西，每次都弄了好长时间又放弃了，感觉对于写前端的我，真是麻烦，最近快过年了，最后一个版本也上线了，闲了一段时间，想起来Github上的博客还闲置着，终于有时间搞搞了。
 
