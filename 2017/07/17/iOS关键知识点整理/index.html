@@ -9,17 +9,17 @@
   
   <title>iOS关键知识点整理 | Dabao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Coy/MutableCopy(深浅拷贝) 只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！  这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间* obejct = nil 真">
+  <meta name="description" content="iOS关键知识点整理 ： 主要是关于iOS开发关键知识点整理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS关键知识点整理">
 <meta property="og:url" content="http://yoursite.com/2017/07/17/iOS关键知识点整理/index.html">
 <meta property="og:site_name" content="Dabao">
-<meta property="og:description" content="Coy/MutableCopy(深浅拷贝) 只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！  这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间* obejct = nil 真">
+<meta property="og:description" content="iOS关键知识点整理 ： 主要是关于iOS开发关键知识点整理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-20T08:47:57.000Z">
+<meta property="og:updated_time" content="2017-07-21T10:26:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS关键知识点整理">
-<meta name="twitter:description" content="Coy/MutableCopy(深浅拷贝) 只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！  这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间* obejct = nil 真">
+<meta name="twitter:description" content="iOS关键知识点整理 ： 主要是关于iOS开发关键知识点整理">
   
     <link rel="alternative" href="/atom.xml" title="Dabao" type="application/atom+xml">
   
@@ -134,11 +134,6 @@
                             <div class="ribbon"></div>
                         </div>
                         
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
                         
                         <div class="icon-wrap icon-me hide" data-idx="3">
                             <div class="user"></div>
@@ -152,8 +147,6 @@
                     <ul class="tips-inner">
                         <li>菜单</li>
                         <li>标签</li>
-                        
-                        <li>友情链接</li>
                         
                         
                         <li>关于我</li>
@@ -189,28 +182,16 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/新年/" style="font-size: 15px;">新年</a>
+                        <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Sentiment/" style="font-size: 15px;">Sentiment</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a>
                     </div>
                 </section>
+                
+                
                 
                 
                 <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.csdn.net/baidu_21483933">csdn</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://segmentfault.com/blog/maocg_web">segmentfault</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/eb37ef89c746/latest_articles">简书</a>
-                    
-                    </div>
-                </section>
                 
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">爱动漫,爱游戏,爱编程,爱运动,爱的太多了!</div>
+                    <div id="js-aboutme">这个人太懒了什么都没留下！！！！！</div>
                 </section>
                 
             </div>
@@ -298,7 +279,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Coy/MutableCopy(深浅拷贝)"></a>Coy/MutableCopy(深浅拷贝)</h4><blockquote>
+        <p><strong> iOS关键知识点整理 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>主要是关于iOS开发关键知识点整理<br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文\="">
+
+<h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Coy/MutableCopy(深浅拷贝)"></a>Coy/MutableCopy(深浅拷贝)</h4><blockquote>
 <p>只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！</p>
 </blockquote>
 <p><strong>这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间*</strong></p>
@@ -323,7 +307,7 @@
 <li>位移转化成缩放比例</li>
 </ul>
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// offset 位移偏量</span></div><div class="line"><span class="comment">// scaleMargin 从小变大、从大变小偏量（不是比例） MAX(startSize, finalSize) - finalSize或者 MAX(startSize, finalSize) - startSize</span></div><div class="line"><span class="comment">// finalSize 最终size</span></div><div class="line"><span class="comment">// startSize 最大size MAX(startSize, finalSize)</span></div><div class="line"><span class="comment">// actualOffset 实际真实运行大小</span></div><div class="line"></div><div class="line">CGFloat <span class="built_in">scale</span> = (<span class="built_in">offset</span> * (scaleMargin/actualOffset) + finalSize)/startSize;</div></pre></td></tr></table></figure>
-
+</the>
       
     </div>
     
@@ -334,7 +318,7 @@
         <p><span>本文标题:</span><a  href="/2017/07/17/iOS关键知识点整理/">iOS关键知识点整理</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 田大宝 的个人博客">田大宝</a></p>
         <p><span>发布时间:</span>2017年07月17日 - 10时32分</p>
-        <p><span>最后更新:</span>2017年07月20日 - 16时47分</p>
+        <p><span>最后更新:</span>2017年07月21日 - 18时26分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/17/iOS关键知识点整理/" title="iOS关键知识点整理">http://yoursite.com/2017/07/17/iOS关键知识点整理/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/07/17/iOS关键知识点整理/　　作者: 田大宝" title=""></span>
@@ -453,7 +437,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/关于/">关于</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/知识总结/">知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/iOS关键知识点整理/">iOS关键知识点整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/02/MyBaby/">MyBaby</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/常用的iOS开发库/">常用的iOS开发库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/23/多个git账号的配置/">多个git账号的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/22/新年新的开端/">新年新的开端</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/UITextView心得/">UITextView心得</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/29/幻想该怎样处理/">幻想该怎样处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/19/2016年计划/">2016年计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/04/Hexo配置/">Hexo配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/03/我的第一篇博客/">我的第一篇博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/知识总结/">知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/iOS关键知识点整理/">iOS关键知识点整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/02/MyBaby/">MyBaby</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/常用的iOS开发库/">常用的iOS开发库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/23/多个git账号的配置/">多个git账号的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/22/新年新的开端/">新年新的开端</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/UITextView心得/">UITextView心得</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/29/幻想该怎样处理/">幻想该怎样处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/19/2016年计划/">2016年计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/04/Hexo配置/">Hexo配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/03/我的第一篇博客/">我的第一篇博客</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");

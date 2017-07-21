@@ -9,18 +9,18 @@
   
   <title>知识总结 | Dabao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="KVO坑 可以对同一个属性就行多次添加，在监听回掉里里面会接受到多个添加的kepath, 也就是说添加了几个回调几个；在rmove时候也是，添加了几个就remvoe几个，不管是否是同一个属性 如果你添加一个属性，但是你remove了两次，就会crash，这里强调一点，如果你对一个属性添加了多次，你就要remove多次，这是不会crash的 防止remove掉父类的你需要在add时候添加一个上下文c">
+  <meta name="description" content="iOS知识总结篇 ： 主要是一些关于遇到的知识点总结，目的相当于笔记。">
 <meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="知识总结">
 <meta property="og:url" content="http://yoursite.com/2017/07/17/知识总结/index.html">
 <meta property="og:site_name" content="Dabao">
-<meta property="og:description" content="KVO坑 可以对同一个属性就行多次添加，在监听回掉里里面会接受到多个添加的kepath, 也就是说添加了几个回调几个；在rmove时候也是，添加了几个就remvoe几个，不管是否是同一个属性 如果你添加一个属性，但是你remove了两次，就会crash，这里强调一点，如果你对一个属性添加了多次，你就要remove多次，这是不会crash的 防止remove掉父类的你需要在add时候添加一个上下文c">
+<meta property="og:description" content="iOS知识总结篇 ： 主要是一些关于遇到的知识点总结，目的相当于笔记。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-17T11:13:30.000Z">
+<meta property="og:updated_time" content="2017-07-21T10:19:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="知识总结">
-<meta name="twitter:description" content="KVO坑 可以对同一个属性就行多次添加，在监听回掉里里面会接受到多个添加的kepath, 也就是说添加了几个回调几个；在rmove时候也是，添加了几个就remvoe几个，不管是否是同一个属性 如果你添加一个属性，但是你remove了两次，就会crash，这里强调一点，如果你对一个属性添加了多次，你就要remove多次，这是不会crash的 防止remove掉父类的你需要在add时候添加一个上下文c">
+<meta name="twitter:description" content="iOS知识总结篇 ： 主要是一些关于遇到的知识点总结，目的相当于笔记。">
   
     <link rel="alternative" href="/atom.xml" title="Dabao" type="application/atom+xml">
   
@@ -135,11 +135,6 @@
                             <div class="ribbon"></div>
                         </div>
                         
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
                         
                         <div class="icon-wrap icon-me hide" data-idx="3">
                             <div class="user"></div>
@@ -153,8 +148,6 @@
                     <ul class="tips-inner">
                         <li>菜单</li>
                         <li>标签</li>
-                        
-                        <li>友情链接</li>
                         
                         
                         <li>关于我</li>
@@ -190,28 +183,16 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/新年/" style="font-size: 15px;">新年</a>
+                        <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Sentiment/" style="font-size: 15px;">Sentiment</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a>
                     </div>
                 </section>
+                
+                
                 
                 
                 <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.csdn.net/baidu_21483933">csdn</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://segmentfault.com/blog/maocg_web">segmentfault</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/eb37ef89c746/latest_articles">简书</a>
-                    
-                    </div>
-                </section>
                 
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">爱动漫,爱游戏,爱编程,爱运动,爱的太多了!</div>
+                    <div id="js-aboutme">这个人太懒了什么都没留下！！！！！</div>
                 </section>
                 
             </div>
@@ -303,7 +284,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><h2 id="u5751"><a href="#u5751" class="headerlink" title="坑"></a>坑</h2><ul>
+        <p><strong> iOS知识总结篇 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>主要是一些关于遇到的知识点总结，目的相当于笔记。<br><a id="more"></a><br><!-- <The rest of contents | 余下全文\> --></excerpt></p>
+<h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><h2 id="u5751"><a href="#u5751" class="headerlink" title="坑"></a>坑</h2><ul>
 <li>可以对同一个属性就行多次添加，在监听回掉里里面会接受到多个添加的kepath, 也就是说添加了几个回调几个；在rmove时候也是，添加了几个就remvoe几个，不管是否是同一个属性</li>
 <li>如果你添加一个属性，但是你remove了两次，就会crash，<strong>这里强调一点，如果你对一个属性添加了多次，你就要remove多次，这是不会crash的</strong></li>
 <li>防止remove掉父类的你需要在add时候添加一个上下文context，来进行标记是否是自己添加，再在remove的时候remove掉自己的就行了</li>
@@ -337,7 +319,7 @@
         <p><span>本文标题:</span><a  href="/2017/07/17/知识总结/">知识总结</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 田大宝 的个人博客">田大宝</a></p>
         <p><span>发布时间:</span>2017年07月17日 - 17时30分</p>
-        <p><span>最后更新:</span>2017年07月17日 - 19时13分</p>
+        <p><span>最后更新:</span>2017年07月21日 - 18时19分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/17/知识总结/" title="知识总结">http://yoursite.com/2017/07/17/知识总结/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/07/17/知识总结/　　作者: 田大宝" title=""></span>
@@ -350,15 +332,6 @@
 
 
 <nav id="article-nav">
-  
-    <a  href="/2017/07/21/关于/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          关于
-        
-      </div>
-    </a>
   
   
     <a  href="/2017/07/17/iOS关键知识点整理/" id="article-nav-older" class="article-nav-link-wrap">
@@ -445,9 +418,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2017/07/21/关于/" title="上一篇: 关于">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
@@ -456,7 +427,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/关于/">关于</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/知识总结/">知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/iOS关键知识点整理/">iOS关键知识点整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/02/MyBaby/">MyBaby</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/常用的iOS开发库/">常用的iOS开发库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/23/多个git账号的配置/">多个git账号的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/22/新年新的开端/">新年新的开端</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/UITextView心得/">UITextView心得</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/29/幻想该怎样处理/">幻想该怎样处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/19/2016年计划/">2016年计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/04/Hexo配置/">Hexo配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/03/我的第一篇博客/">我的第一篇博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/知识总结/">知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/iOS关键知识点整理/">iOS关键知识点整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/02/MyBaby/">MyBaby</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/常用的iOS开发库/">常用的iOS开发库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/23/多个git账号的配置/">多个git账号的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/22/新年新的开端/">新年新的开端</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/UITextView心得/">UITextView心得</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/29/幻想该怎样处理/">幻想该怎样处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/19/2016年计划/">2016年计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/04/Hexo配置/">Hexo配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/03/我的第一篇博客/">我的第一篇博客</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");

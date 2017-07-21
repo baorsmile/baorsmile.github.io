@@ -136,11 +136,6 @@
                             <div class="ribbon"></div>
                         </div>
                         
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
                         
                         <div class="icon-wrap icon-me hide" data-idx="3">
                             <div class="user"></div>
@@ -154,8 +149,6 @@
                     <ul class="tips-inner">
                         <li>菜单</li>
                         <li>标签</li>
-                        
-                        <li>友情链接</li>
                         
                         
                         <li>关于我</li>
@@ -191,28 +184,16 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/新年/" style="font-size: 15px;">新年</a>
+                        <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Sentiment/" style="font-size: 15px;">Sentiment</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a>
                     </div>
                 </section>
+                
+                
                 
                 
                 <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.csdn.net/baidu_21483933">csdn</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://segmentfault.com/blog/maocg_web">segmentfault</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/eb37ef89c746/latest_articles">简书</a>
-                    
-                    </div>
-                </section>
                 
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">爱动漫,爱游戏,爱编程,爱运动,爱的太多了!</div>
+                    <div id="js-aboutme">这个人太懒了什么都没留下！！！！！</div>
                 </section>
                 
             </div>
@@ -266,63 +247,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="about-关于" class="article article-type-about" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2017/07/21/关于/" class="article-date">
-      <time datetime="2017-07-21T09:50:20.000Z" itemprop="datePublished">2017-07-21</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2017/07/21/关于/">关于</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-知识总结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -352,30 +276,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><h2 id="u5751"><a href="#u5751" class="headerlink" title="坑"></a>坑</h2><ul>
-<li>可以对同一个属性就行多次添加，在监听回掉里里面会接受到多个添加的kepath, 也就是说添加了几个回调几个；在rmove时候也是，添加了几个就remvoe几个，不管是否是同一个属性</li>
-<li>如果你添加一个属性，但是你remove了两次，就会crash，<strong>这里强调一点，如果你对一个属性添加了多次，你就要remove多次，这是不会crash的</strong></li>
-<li>防止remove掉父类的你需要在add时候添加一个上下文context，来进行标记是否是自己添加，再在remove的时候remove掉自己的就行了</li>
-</ul>
-<h2 id="u5B9E_u73B0_u65B9_u5F0F"><a href="#u5B9E_u73B0_u65B9_u5F0F" class="headerlink" title="实现方式"></a>实现方式</h2><ul>
-<li>当你观察一个对象时，一个新的类会动态被创建。这个类继承自该对象的原本的类，并重写了被观察属性的 setter 方法。自然，重写的 setter 方法会负责在调用原 setter 方法之前和之后，通知所有观察对象值的更改。最后把这个对象的 isa 指针 ( isa 指针告诉 Runtime 系统这个对象的类是什么 ) 指向这个新创建的子类，对象就神奇的变成了新创建的子类的实例。</li>
-</ul>
-<h1 id="GCG"><a href="#GCG" class="headerlink" title="GCG"></a>GCG</h1><h2 id="dispatch_apply_uFF0C_u5FAA_u73AF_u591A_u5C11_u6B21"><a href="#dispatch_apply_uFF0C_u5FAA_u73AF_u591A_u5C11_u6B21" class="headerlink" title="dispatch_apply，循环多少次"></a>dispatch_apply，循环多少次</h2><h3 id="u5E94_u7528_u573A_u666F"><a href="#u5E94_u7528_u573A_u666F" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
-<li>要处理大数据时候使用apply会比多开线程来的好</li>
-<li>如果我们从服务器获取一个数组的数据，那么我们可以使用该方法从而快速的批量字典转模型。<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">NSArray *dictArray = <span class="literal">nil</span><span class="comment">;//存放从服务器返回的字典数组</span></div><div class="line"></div><div class="line">    dispatch_queue_t queue = dispatch_queue_create(<span class="string">"queue"</span>, DISPATCH_QUEUE_CONCURRENT)<span class="comment">;</span></div><div class="line">    dispatch_async(<span class="name">queue</span>, ^&#123;</div><div class="line"></div><div class="line">        dispatch_apply(<span class="name">dictArray</span>.count, queue,  ^(<span class="name">size_t</span> index)&#123;</div><div class="line">            //字典转模型</div><div class="line"></div><div class="line">        &#125;)<span class="comment">;</span></div><div class="line">        dispatch_async(<span class="name">dispatch_get_main_queue</span>(), ^&#123;</div><div class="line">            NSLog(@<span class="string">"主线程更新"</span>)<span class="comment">;</span></div><div class="line">        &#125;)<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>作者：lltree<br>转自：<a href="http://www.jianshu.com/p/3b12bb90bb15" target="_blank" rel="external">http://www.jianshu.com/p/3b12bb90bb15</a></p>
-</blockquote>
-<h3 id="dispatch_barrier_async/dispatch_barrier_sync_uFF0C_u5C4F_u969C"><a href="#dispatch_barrier_async/dispatch_barrier_sync_uFF0C_u5C4F_u969C" class="headerlink" title="dispatch_barrier_async/dispatch_barrier_sync，屏障"></a>dispatch_barrier_async/dispatch_barrier_sync，屏障</h3><ul>
-<li><p>DISPATCH_QUEUE_CONCURRENT 队列中才起作用,在全局并发队列 dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0) 中无效,也就是说起不到屏障的作用</p>
-</li>
-<li><p>放到子线程里面做dispatch_barrier_sync，发现不起作用，也不会打印block里面的内容，但是用dispatch_barrier_async是可以的</p>
-</li>
-</ul>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">dispatch_queue_t </span>concurrent_queue = <span class="keyword">dispatch_queue_create("concurrent_queue", </span><span class="keyword">DISPATCH_QUEUE_CONCURRENT);</span></div><div class="line"></div><div class="line"><span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">    NSLog(@<span class="string">"task-1--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div><div class="line"><span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">    NSLog(@<span class="string">"task-2--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div><div class="line"><span class="keyword">dispatch_sync(concurrent_queue, </span>^()&#123;</div><div class="line">    NSLog(@<span class="string">"task-3--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line"></div><div class="line">    <span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">        NSLog(@<span class="string">"task-5--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">    <span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">        NSLog(@<span class="string">"task-6--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line"></div><div class="line">    <span class="keyword">dispatch_barrier_async(concurrent_queue, </span>^()&#123;</div><div class="line">        NSLog(@<span class="string">"dispatch_barrier_async--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line"></div><div class="line">    <span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">        NSLog(@<span class="string">"task-4--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div><div class="line"></div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">998</span> <span class="keyword">BackBlock[32724:28690837] </span>task-3--&lt;NSThread: <span class="number">0x618000066040</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">998</span> <span class="keyword">BackBlock[32724:28691040] </span>task-2--&lt;NSThread: <span class="number">0x61000006bbc0</span>&gt;&#123;number = <span class="number">4</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">998</span> <span class="keyword">BackBlock[32724:28691038] </span>task-1--&lt;NSThread: <span class="number">0x618000068980</span>&gt;&#123;number = <span class="number">3</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">999</span> <span class="keyword">BackBlock[32724:28691042] </span>task-5--&lt;NSThread: <span class="number">0x6180000690c0</span>&gt;&#123;number = <span class="number">5</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">999</span> <span class="keyword">BackBlock[32724:28691057] </span>task-6--&lt;NSThread: <span class="number">0x60800006c340</span>&gt;&#123;number = <span class="number">6</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">999</span> <span class="keyword">BackBlock[32724:28691057] </span><span class="keyword">dispatch_barrier_async--&lt;NSThread: </span><span class="number">0x60800006c340</span>&gt;&#123;number = <span class="number">6</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">999</span> <span class="keyword">BackBlock[32724:28691057] </span>task-4--&lt;NSThread: <span class="number">0x60800006c340</span>&gt;&#123;number = <span class="number">6</span>, name = (null)&#125;</div></pre></td></tr></table></figure>
-
+              <p><strong> iOS知识总结篇 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>主要是一些关于遇到的知识点总结，目的相当于笔记。<br>
+          
       
     </div>
     
@@ -388,6 +290,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/2017/07/17/知识总结/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -436,32 +342,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Coy/MutableCopy(深浅拷贝)"></a>Coy/MutableCopy(深浅拷贝)</h4><blockquote>
-<p>只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！</p>
-</blockquote>
-<p><strong>这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间*</strong></p>
-<h4 id="obejct__3D_nil__u771F_u7684_u50CF_u4F60_u60F3_u50CF_u7684_u4E00_u6837_u5417"><a href="#obejct__3D_nil__u771F_u7684_u50CF_u4F60_u60F3_u50CF_u7684_u4E00_u6837_u5417" class="headerlink" title="obejct = nil 真的像你想像的一样吗"></a>obejct = nil 真的像你想像的一样吗</h4><p>整理copy时发现一个问题，比如：<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">NSMutableArray *ones = [[NSMutableArray alloc] initWithObjects:@<span class="string">"1"</span>, nil];</div><div class="line">NSMutableArray *twos = ones;</div><div class="line">NSLog(@<span class="string">"one: %@, twos: %@"</span>, ones, twos);</div><div class="line">NSLog(@<span class="string">"&amp;one:%x, &amp;tows:%x"</span>, &amp;ones, &amp;twos);</div><div class="line"></div><div class="line"><span class="function"><span class="title">log</span></span></div><div class="line"><span class="params">(lldb)</span> <span class="title">p</span> &amp;<span class="title">ones</span></div><div class="line"><span class="params">(NSMutableArray **)</span> $0 = 0<span class="title">x00007fff580809c8</span></div><div class="line"><span class="params">(lldb)</span> <span class="title">p</span> &amp;<span class="title">twos</span></div><div class="line"><span class="params">(NSMutableArray **)</span> $1 = 0<span class="title">x00007fff580809c0</span></div><div class="line"><span class="params">(lldb)</span> <span class="title">po</span> <span class="title">ones</span></div><div class="line">&lt;__NSA<span class="title">rrayM</span> 0<span class="title">x60800004a590</span>&gt;<span class="params">(</span></div><div class="line"><span class="number">1</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="params">(lldb)</span> <span class="title">po</span> <span class="title">twos</span></div><div class="line">&lt;__NSA<span class="title">rrayM</span> 0<span class="title">x60800004a590</span>&gt;<span class="params">(</span></div><div class="line"><span class="number">1</span></div><div class="line">)</div></pre></td></tr></table></figure></p>
-<p>这里面的这个<strong>twos = ones</strong>是copy呢还是strong，<strong>strong</strong>真像我们所说的只是简单的赋值吗？看样子这种简单的不复制也会产生一个新的指针地址</p>
-<p>我又做了一个例子来验证这一理论</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">NextViewController *next = [[NextViewController alloc] init];</div><div class="line"><span class="built_in">UIView</span> *view = [<span class="built_in">UIView</span> new];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"view %@, &amp;view %x"</span>, view, &amp;view);</div><div class="line">next.nameView = view;</div><div class="line">[<span class="keyword">self</span>.navigationController pushViewController:next animated:<span class="literal">YES</span>];</div><div class="line"></div><div class="line">log</div><div class="line">(lldb) po view</div><div class="line">&lt;<span class="built_in">UIView</span>: <span class="number">0x7fb1afd07240</span>; frame = (<span class="number">0</span> <span class="number">0</span>; <span class="number">0</span> <span class="number">0</span>); layer = &lt;<span class="built_in">CALayer</span>: <span class="number">0x61800023a860</span>&gt;&gt;</div><div class="line"></div><div class="line">(lldb) po &amp;view</div><div class="line"><span class="number">0x00007fff5d3f2608</span></div><div class="line"></div><div class="line">在NextViewCotroller.h</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NextViewController</span> : <span class="title">UIViewController</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIView</span> *nameView;</div><div class="line"><span class="keyword">@end</span></div><div class="line">在NextViewCotroller.viewDidLoad</div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"view %@, &amp;view %x"</span>, _nameView, &amp;_nameView);</div><div class="line">&#125;</div><div class="line"></div><div class="line">log</div><div class="line">(lldb) po _nameView</div><div class="line">&lt;<span class="built_in">UIView</span>: <span class="number">0x7fb1afd07240</span>; frame = (<span class="number">0</span> <span class="number">0</span>; <span class="number">0</span> <span class="number">0</span>); layer = &lt;<span class="built_in">CALayer</span>: <span class="number">0x61800023a860</span>&gt;&gt;</div><div class="line"></div><div class="line">(lldb) po &amp;_nameView</div><div class="line"><span class="number">0x00007fb1afd03bb8</span></div></pre></td></tr></table></figure>
-<p>对比前后两次赋值的指针的地址变了，但是所指向的内存地址没有变，这也说明strong不是简单的赋值</p>
-<p>下来我们传一个数据进来试试<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">NextViewController *next = [[NextViewController alloc] init];</div><div class="line"><span class="built_in">NSArray</span> *ones = @[<span class="string">@"name"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"ones %@, &amp;ones %x"</span>, ones, &amp;ones);</div><div class="line">next.names = ones;</div><div class="line">[<span class="keyword">self</span>.navigationController pushViewController:next animated:<span class="literal">YES</span>];</div><div class="line"></div><div class="line">log</div><div class="line">(lldb) po ones</div><div class="line">&lt;__NSSingleObjectArrayI <span class="number">0x6180000100a0</span>&gt;(</div><div class="line">name</div><div class="line">)</div><div class="line">(lldb) po &amp;ones</div><div class="line"><span class="number">0x00007fff5d7aa5f8</span></div><div class="line"></div><div class="line">在NextViewCotroller.h</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NextViewController</span> : <span class="title">UIViewController</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSArray</span> *names;</div><div class="line"><span class="keyword">@end</span></div><div class="line">在NextViewCotroller.viewDidLoad</div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"view %@, &amp;view %x"</span>, _names, &amp;_names);</div><div class="line">&#125;</div><div class="line"></div><div class="line">log</div><div class="line">(lldb) po _names</div><div class="line">&lt;__NSSingleObjectArrayI <span class="number">0x6180000100a0</span>&gt;(</div><div class="line">name</div><div class="line">)</div><div class="line">(lldb) po &amp;_names</div><div class="line"><span class="number">0x00007fec1a510dd0</span></div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>发现还是一样的， 下来我们把strong 改成copy试试会发生什么</p>
-</blockquote>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">(<span class="name">lldb</span>) po ones</div><div class="line">&lt;__NSSingleObjectArrayI <span class="number">0</span>x618000019330&gt;(</div><div class="line"><span class="name">name</span></div><div class="line">)</div><div class="line">(<span class="name">lldb</span>) po &amp;ones</div><div class="line"><span class="number">0</span>x00007fff51e3d5f8</div><div class="line"></div><div class="line">(<span class="name">lldb</span>) po _names</div><div class="line">&lt;__NSSingleObjectArrayI <span class="number">0</span>x618000019330&gt;(</div><div class="line"><span class="name">name</span></div><div class="line">)</div><div class="line">(<span class="name">lldb</span>) po &amp;_names</div><div class="line"><span class="number">0</span>x00007f92c710b958</div></pre></td></tr></table></figure>
-<blockquote>
-<p>最终发现也是一样的指针创建新的，指针指向的内存地址没变<br>苹果的做法是：我即使把一个初始化的好的变量赋值给其他变量时，都进行了一次指针拷贝，也就是我们所谓的浅拷贝，这样防止，一个指针值成nil，这个指针原来指向的内存还有其他指针指向，这部分内存也不会马上被释放掉，保证了内存数据安全。<br>copy在赋值上不同于strong，我们用的最多的就是给array copy，因为copy后的数组都是不可操作的，这样保证了我给一个对象传入的数据不被修改，如果想修改就出入一个NSMutable，并把属性改成strong，这样内外都可以修改。</p>
-</blockquote>
-<p><em>对于内存的处理，有一次我是在用realm里面遇到过一个bug</em></p>
-<blockquote>
-<p>当初是我把数据库里面的数据全部取出来，然后放到数组里面，然后把数据库里面这些数据删掉，然而我数组里的数据也变成了Invalid类型， 这不得不说realm关联的强大，realm应该是对从数据库取出来的数据进行了标记，当被释放掉后，我自己数组里面的存的其实就是一组野指针，没有任何指向。</p>
-</blockquote>
-<h4 id="UIScrollView_u6216_u8005_u5176_u4ED6Offset_u504F_u79FB_u91CF"><a href="#UIScrollView_u6216_u8005_u5176_u4ED6Offset_u504F_u79FB_u91CF" class="headerlink" title="UIScrollView或者其他Offset偏移量"></a>UIScrollView或者其他Offset偏移量</h4><ul>
-<li>位移转化成缩放比例</li>
-</ul>
-<figure class="highlight openscad"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// offset 位移偏量</span></div><div class="line"><span class="comment">// scaleMargin 从小变大、从大变小偏量（不是比例） MAX(startSize, finalSize) - finalSize或者 MAX(startSize, finalSize) - startSize</span></div><div class="line"><span class="comment">// finalSize 最终size</span></div><div class="line"><span class="comment">// startSize 最大size MAX(startSize, finalSize)</span></div><div class="line"><span class="comment">// actualOffset 实际真实运行大小</span></div><div class="line"></div><div class="line">CGFloat <span class="built_in">scale</span> = (<span class="built_in">offset</span> * (scaleMargin/actualOffset) + finalSize)/startSize;</div></pre></td></tr></table></figure>
-
+              <p><strong> iOS关键知识点整理 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>主要是关于iOS开发关键知识点整理<br>
+          
       
     </div>
     
@@ -470,6 +352,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a   href="/2017/07/17/iOS关键知识点整理/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -518,29 +404,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D"><a href="#5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D" class="headerlink" title="[open/public]和[private/fileprivate]"></a>[open/public]和[private/fileprivate]</h3><h4 id="public"><a href="#public" class="headerlink" title="public"></a>public</h4><p>1.使用public修饰的类,属性或方法,可以被任何类访问<br>2.但在其他的module中不可以被override和继承,而在本module可以</p>
-<blockquote>
-<p>module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才能创建对象才能使用</p>
-<p>这里有个很好的module例子，比如说你项目中用到了<strong>pods</strong>,你要继承里面一个类，这时候public和open就起到作用，但是<strong>如果你在工程里面，通俗的说就是基本上和open没有区别</strong></p>
-</blockquote>
-<h4 id="open"><a href="#open" class="headerlink" title="open"></a>open</h4><p>1.可以被任何人使用<br>2.也可以被override和继承,这是和public的区别</p>
-<h4 id="private"><a href="#private" class="headerlink" title="private"></a>private</h4><p>只在自己的类里面可以使用，在类外不能用，<strong>就是说,不管另外一个类是否在这个文件里，都不能访问，包括自己的extension里面</strong></p>
-<h4 id="fileprivate"><a href="#fileprivate" class="headerlink" title="fileprivate"></a>fileprivate</h4><p>顾名思义，只要在这个文件里面，所有的类、extension都可以访问，比如说类A和B都在同一个swift文件里面，A里面初始化B，调用B里面属性方法都可以</p>
-<h3 id="String_u683C_u5F0F_u5316"><a href="#String_u683C_u5F0F_u5316" class="headerlink" title="String格式化"></a>String格式化</h3><p>1，下面是一个浮点类型的数字转成String字符串的例子</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">var</span> f = <span class="number">123.32342342</span></div><div class="line"><span class="selector-tag">var</span> s:String = <span class="string">"\(f)"</span> <span class="comment">//123.32342342</span></div></pre></td></tr></table></figure>
-<p>2，如果要保留两位小数<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> f = 123.32342342</div><div class="line"><span class="keyword">var</span> s = <span class="built_in">String</span>(<span class="keyword">format</span>: <span class="string">"%.2f"</span>, f) <span class="comment">//123.32</span></div></pre></td></tr></table></figure></p>
-<p>3，转成十六进制格式字符串<br><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> i = <span class="number">255</span></div><div class="line"><span class="keyword">let</span> s:<span class="keyword">String</span> = <span class="keyword">String</span>(<span class="keyword">format</span>: <span class="string">"%x"</span>, i) <span class="comment">//ff</span></div></pre></td></tr></table></figure></p>
-<p>4，不足六位前面补0<br><figure class="highlight gauss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> i = <span class="number">255</span></div><div class="line"><span class="keyword">let</span> s:<span class="keyword">String</span> = <span class="keyword">String</span>(<span class="keyword">format</span>: <span class="string">"%06x"</span>, i) <span class="comment">//0000ff</span></div></pre></td></tr></table></figure></p>
-<h3 id="Array_u548CDictionary"><a href="#Array_u548CDictionary" class="headerlink" title="Array和Dictionary"></a>Array和Dictionary</h3><h5 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h5><ul>
-<li>遍历</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">let count: Int = <span class="number">10</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="number">0</span>..&lt; count &#123;</div><div class="line">    <span class="comment">// 0 - 9</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="number">0</span>..<span class="selector-class">.count</span> &#123;</div><div class="line">    <span class="comment">// 0 - 10</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h4><ul>
-<li>遍历</li>
-</ul>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dict: Dictionary  = [<span class="string">"key"</span>:<span class="string">"value"</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> (key, <span class="keyword">value</span>) <span class="keyword">in</span> dict &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">dict.forEach &#123; (key, <span class="keyword">value</span>) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">(dict <span class="keyword">as</span> NSDictionary).enumerateKeysAndObjects(&#123; (key, <span class="keyword">value</span>, stop) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h4 id="Keyboard"><a href="#Keyboard" class="headerlink" title="Keyboard"></a>Keyboard</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willShow</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willHide</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleKeyboard</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> nInfo = (center <span class="keyword">as</span> <span class="type">NSNotification</span>).userInfo, <span class="keyword">let</span> value = nInfo[<span class="type">UIKeyboardFrameEndUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> frame = value.cgRectValue</div><div class="line"></div><div class="line">        <span class="keyword">let</span> duration: <span class="type">CGFloat</span> = nInfo[<span class="type">UIKeyboardAnimationDurationUserInfoKey</span>] <span class="keyword">as</span>! <span class="type">CGFloat</span></div><div class="line"></div><div class="line">        <span class="keyword">let</span> keyboardMoveY: <span class="type">CGFloat</span> = frame.origin.y - kMainScreen_Height()</div><div class="line"></div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="type">TimeInterval</span>(duration), animations: &#123;</div><div class="line">            <span class="keyword">self</span>.transform = <span class="type">CGAffineTransform</span>(translationX: <span class="number">0</span>, y: keyboardMoveY);</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
+              <p><strong> Swift学习笔记 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>主要是关于Swift学习笔记<br>
+          
       
     </div>
     
@@ -553,6 +418,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/2017/07/13/Swift学习笔记/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -601,9 +470,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <pre><code>公元2017年2月10号，今天是个周五，我像往常一样下班回家，本来决定好了，去看看老表姑，都已经事先约定好了。
-</code></pre><p>晚上到家什么都没吃，不知道是中午吃多了，还是知道你要来了，没有食欲。自己懒散的坐在椅子上，一边看着电影，<br>一边玩着游戏，时间慢慢的走着，没有发现竟然已经九点半了，是时候该给你妈聊聊视频了。每天九点半必须上线，问问你妈妈身体怎么样啊，<br>今天可好？有什么动静没？你妈说没有，说要和她你二姨聊天了，就说了几句就挂断了！<br>    我收好东西，准备睡觉了，大约是10点半，你小姑给我打电话，说“哥，爸妈都去医院了，给你打电话了没？” 我说没有啊，没人告诉我啊，<br>我赶紧拨通了你奶奶的电话，奶奶说没事，没事，正在去医院的路上，等我第二次打电话时，奶奶说“医生在给她检查呢，你也准备回来吧！”。<br>我发自内心的感觉应该没有什么大的问题，听说是肚子没疼，羊水先破了，到了医院检查后还有八个水。<br>    这是我也着急的不行，我赶快收拾东西，在滴滴上叫顺风车，最终有个先生是县城的，愿意拉我，因为他也要回去，正好他过来接我，我把能带回家的东西收拾完毕，<br>自己匆匆洗了个澡，我知道可能回去要在医院呆着几天，洗完澡，我看着还有剩下的鸡蛋，自己还没有吃饭呢，煮了六个，煮裂了两个，被我扔掉了，司机师傅两天到我住的地方，<br>大约三点多钟我就到了县医院，看到你的妈妈，还好那几天生小孩的比较少，我们家占了三个床，相当于一个单间了，你妈妈躺在床上，后来疼的一阵一阵，看着她可难受了，<br>这一晚是无眠的，到了五点钟，医生过来说让数着疼痛的时间间隔，如果是五分钟一次就告诉医生，大约到了早上八点医生上班，中途吃了饭，查过一次胎心，医生说没事，后来和医生说，<br>已经差不多间隔了，医生就领着你妈妈去检查，后来说开了两指，上午九点钟就让你妈妈进了产房我们就在外面等着，中午吃了中午饭，是奶奶在外面买的，还被医生说了，吃饭也要在产房外面，后来到了下午两点中，才开到了四指，上午的时候爷爷就回家了，剩下我和奶奶，到了下午四点大约开到了五指，这时候妈妈说感觉疼痛没那么疼了，后来医生说给妈妈打催产针，如果还是生不了的话就只能剖了，我在文件上签了字，我就去拿药去了，回来只有感觉没那么快，叫奶奶去买牛奶了一些吃的，我在门外等着。<br>    你妈妈前一个孕妇，快生了，叫家人拿孩子的衣服，我包被来，中间过了半个小时，就听见新生宝宝哭泣了，大约五点钟，你奶奶正好出去买东西，医生让拿你的包被和衣服，我赶快拿<br>过来，给了医生我就赶紧给你奶奶打电话，说赶快回来，医生要了衣服了，我坐在外面等啊，等啊，你二姨发微信问，生了没有啊，那时我紧张的手都有些发抖了，后来奶奶回来了，大约等了半个小时，有医生出来了，我就问我家那个怎么样了，医生说看见你的头了，奶奶说快了，快了，大约在六点的时候，就听见你在里面哇哇的大哭着，然后我和奶奶却乐了，你出生了，后来一个医生出来了，说了一些要打免疫球蛋白，医院这边没有，我说这些我们都知道，但是就是没说你是男孩还是女孩，后来有个医生出来拿着一些材料说是个男孩子，七斤，当时我觉得男孩女都好，只要你和妈妈平安就好，在过了一会，医生就把你抱了出来，让奶奶斜着抱你，可能怕你嘴里有羊水之类的呛到。<br>    出来你软绵绵的我不敢抱，全程都是奶奶抱着的，奶奶看着你大约八点的时候我在们外等着你妈，看到你妈的第一眼，就感觉欠她的太多了，脸上好多小黑点，我说了句“老婆辛苦了”，我<br>我就推回来你妈，移到床上，看见你是我们最大的幸福！</p>
-
+              <p><strong> MyBaby ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>2017年不同寻常的一年，这一年你的到来，发现自己长大，记录你的出生！！<br>
+          
       
     </div>
     
@@ -612,6 +480,10 @@
       
 
       
+      
+        <p class="article-more-link">
+          <a   href="/2017/03/02/MyBaby/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -660,16 +532,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="u6301_u7EED_u66F4_u65B0ing"><a href="#u6301_u7EED_u66F4_u65B0ing" class="headerlink" title="持续更新ing"></a>持续更新ing</h1><h3 id="33__u4E2A_2017__u5E74_u5FC5_u987B_u4E86_u89E3_u7684_iOS__u5F00_u6E90_u5E93"><a href="#33__u4E2A_2017__u5E74_u5FC5_u987B_u4E86_u89E3_u7684_iOS__u5F00_u6E90_u5E93" class="headerlink" title="33 个 2017 年必须了解的 iOS 开源库"></a><a href="http://www.tuicool.com/articles/zi2UfaE" target="_blank" rel="external">33 个 2017 年必须了解的 iOS 开源库</a></h3><h4 id="u7F13_u5B58"><a href="#u7F13_u5B58" class="headerlink" title="缓存"></a>缓存</h4><ul>
-<li><a href="https://github.com/enormego/EGOCache" target="_blank" rel="external">EGOCache</a></li>
-</ul>
-<h4 id="u6EDA_u52A8_u89C6_u56FE"><a href="#u6EDA_u52A8_u89C6_u56FE" class="headerlink" title="滚动视图"></a>滚动视图</h4><ul>
-<li><a href="https://github.com/Cleveroad/CRPageViewController" target="_blank" rel="external">CRPageViewController</a></li>
-</ul>
-<h4 id="u652F_u4ED8"><a href="#u652F_u4ED8" class="headerlink" title="支付"></a>支付</h4><ul>
-<li><a href="https://github.com/robotmedia/RMStore" target="_blank" rel="external">RMStore</a></li>
-</ul>
-
+              <p><strong> 常用的iOS开发库 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>一些自己发现的实用的第三方库<br>
+          
       
     </div>
     
@@ -682,6 +546,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/2017/02/06/常用的iOS开发库/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -730,34 +598,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E"><a href="#u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E" class="headerlink" title="多个git账号的配置"></a>多个git账号的配置</h1><h2 id="u6709_u65F6_u5019_u6211_u4EEC_u9700_u8981_u5728_u540C_u4E00_u53F0Mac_u7535_u8111_u4E0B_u4E0A_u4F7F_u7528_u591A_u4E2Agit_u8D26_u53F7_uFF0C_u4E3A_u4E86_u907F_u514D_u51B2_u7A81_uFF0C_u6211_u4EEC_u9700_u8981_u914D_u7F6E_7E/-ssh/config_u6587_u4EF6_uFF0C_u4F5C_u4E3A_u7A0B_u5E8F_u5458_u4F1A_u6709_u591A_u4E2A_u4EE3_u7801_u7BA1_u7406_u7684_u5E93_uFF0C_u73B0_u5728_u7528SVN_u6BD4_u8F83_u5C11_u4E86_uFF0CGit_u6210_u4E3A_u4E3B_u6D41_uFF0C_u4F46_u662F_u5728_u7535_u8111_u4E0B_u5982_u4F55_u540C_u65F6_u4FDD_u5B58_u591A_u4E2Assh_u8D26_u53F7_u5462_uFF0C_u81EA_u5DF1_u603B_u7ED3_u4E86_u4E00_u4E0B_u6B65_u9AA4_uFF1A"><a href="#u6709_u65F6_u5019_u6211_u4EEC_u9700_u8981_u5728_u540C_u4E00_u53F0Mac_u7535_u8111_u4E0B_u4E0A_u4F7F_u7528_u591A_u4E2Agit_u8D26_u53F7_uFF0C_u4E3A_u4E86_u907F_u514D_u51B2_u7A81_uFF0C_u6211_u4EEC_u9700_u8981_u914D_u7F6E_7E/-ssh/config_u6587_u4EF6_uFF0C_u4F5C_u4E3A_u7A0B_u5E8F_u5458_u4F1A_u6709_u591A_u4E2A_u4EE3_u7801_u7BA1_u7406_u7684_u5E93_uFF0C_u73B0_u5728_u7528SVN_u6BD4_u8F83_u5C11_u4E86_uFF0CGit_u6210_u4E3A_u4E3B_u6D41_uFF0C_u4F46_u662F_u5728_u7535_u8111_u4E0B_u5982_u4F55_u540C_u65F6_u4FDD_u5B58_u591A_u4E2Assh_u8D26_u53F7_u5462_uFF0C_u81EA_u5DF1_u603B_u7ED3_u4E86_u4E00_u4E0B_u6B65_u9AA4_uFF1A" class="headerlink" title="有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤："></a>有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：</h2><p><em>注意：整个修改过程按照github的ssh-key为范例</em></p>
-<h4 id="1_u3001_u7528ssh-keygen_u547D_u4EE4_u751F_u6210_u4E00_u7EC4_u65B0_u7684id_rsa_github_u548Cid_rsa_github-pub"><a href="#1_u3001_u7528ssh-keygen_u547D_u4EE4_u751F_u6210_u4E00_u7EC4_u65B0_u7684id_rsa_github_u548Cid_rsa_github-pub" class="headerlink" title="1、用ssh-keygen命令生成一组新的id_rsa_github和id_rsa_github.pub"></a>1、用ssh-keygen命令生成一组新的id_rsa_github和id_rsa_github.pub</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/<span class="selector-class">.ssh</span></div><div class="line"></div><div class="line">ssh-keygen -t rsa -C <span class="string">"new email"</span></div></pre></td></tr></table></figure>
-<p>当我们在终端输入完上面的命令，回车后会提示：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Enter <span class="built_in">file</span> <span class="keyword">in</span> which <span class="built_in">to</span> save <span class="keyword">the</span> key (/Users/dabao/.ssh/id_rsa):</div></pre></td></tr></table></figure></p>
-<p>现在就是生成一个新的pub，在<strong>:</strong> 后输入你想生成文件的新名字，例如github的：id_rsa_github,名字可以随便起，然后回车。<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (<span class="built_in">empty</span> <span class="keyword">for</span> <span class="keyword">no</span> passphrase):</div></pre></td></tr></table></figure></p>
-<p>我感觉整个秘密可以不用输入，我一般就是github的密码，按回车，确认密码，然后就生成了新的key.</p>
-<p><em>这个时候会发现，在~/.ssh文件夹下会多出一个id_rsa_github和id_rsa_github.pub的文件</em></p>
-<h4 id="2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21"><a href="#2_u3001_u6253_u5F00config_u6587_u4EF6_uFF0C_u5982_u679C_u6CA1_u6709_u5C31_u751F_u6210_u4E00_u4E2A_21" class="headerlink" title="2、打开config文件，如果没有就生成一个!"></a>2、打开config文件，如果没有就生成一个!</h4><blockquote>
-<p>这里可以修改Host，Host只是一个标记而已，比如说我有两个github账号，这时候我就要生成不同的key，用Host起一个别名用来区分就好了</p>
-</blockquote>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Host git-oschina</div><div class="line">    HostName git.oschina.net</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_oschina</div><div class="line">Host git-github</div><div class="line">    HostName github.com</div><div class="line">    <span class="keyword">User</span> <span class="title">xxx</span>(名字随便写)</div><div class="line">    PreferredAuthentications publickey</div><div class="line">    IdentityFile ~/.ssh/id_rsa_github</div></pre></td></tr></table></figure>
-<h4 id="3_u3001_u7136_u540E_u6211_u4EEC_u8981_u628Assh_u6DFB_u52A0_u5230git_u91CC_u9762"><a href="#3_u3001_u7136_u540E_u6211_u4EEC_u8981_u628Assh_u6DFB_u52A0_u5230git_u91CC_u9762" class="headerlink" title="3、然后我们要把ssh添加到git里面"></a>3、然后我们要把ssh添加到git里面</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-<span class="keyword">add</span><span class="bash"> ~/.ssh/id_rsa_github</span></div></pre></td></tr></table></figure>
-<h4 id="4_u3001_u7136_u540E_u6D4B_u8BD5_u4E00_u4E0B_u662F_u5426OK"><a href="#4_u3001_u7136_u540E_u6D4B_u8BD5_u4E00_u4E0B_u662F_u5426OK" class="headerlink" title="4、然后测试一下是否OK"></a>4、然后测试一下是否OK</h4><figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div><div class="line">Hi xxx! You<span class="symbol">'ve</span> successfully authenticated,but GitHub does <span class="keyword">not</span> provide shell <span class="keyword">access</span>.</div></pre></td></tr></table></figure>
-<h4 id="5_u3001_u5B8C_u6210_u4E4B_u540E_u9700_u8981_u8BBE_u7F6Econfig"><a href="#5_u3001_u5B8C_u6210_u4E4B_u540E_u9700_u8981_u8BBE_u7F6Econfig" class="headerlink" title="5、完成之后需要设置config"></a>5、完成之后需要设置config</h4><blockquote>
-<p>在自己git项目下，终端运行</p>
-</blockquote>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config <span class="comment">--list</span></div></pre></td></tr></table></figure>
-<p>查看自己config配置，路径在<strong>~/.gitconfig</strong>里，可以用文本打开</p>
-<blockquote>
-<p>这个地方强调一下</p>
-</blockquote>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user<span class="selector-class">.name</span> <span class="string">"xxx"</span></div><div class="line">git config --global user<span class="selector-class">.email</span> <span class="string">"xxx@qq.com"</span></div></pre></td></tr></table></figure>
-<p>这个如果你想全局都是这个你可以选择gloabl，反正我的<strong>~/.gitconfig</strong>里面是我公司的配置，可一个人选择配置</p>
-<blockquote>
-<p>又或者在自己项目里进行单独配置</p>
-</blockquote>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config user<span class="selector-class">.name</span> <span class="string">"xxx"</span></div><div class="line">git config user<span class="selector-class">.email</span> <span class="string">"xxx@qq.com"</span></div></pre></td></tr></table></figure>
-<p>这个设置会显示在你的提交信息里面，在自己项目的<strong>.git</strong>目录下，有个名为<strong>config</strong>的文件，如果找不到可以在终端输入<strong>l -list</strong></p>
-
+              <p><strong> 多个git账号的配置 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>多个git帐号的处理，我们有时候需要配置很多git的ssh，那我们要如何实现呢？<br>
+          
       
     </div>
     
@@ -770,6 +612,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/2017/01/23/多个git账号的配置/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -818,15 +664,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="2016"><a href="#2016" class="headerlink" title="2016"></a>2016</h1><h2 id="u8FD9_u4E00_u5E74_uFF0C_u6CA1_u6709_u4EFB_u4F55_u5927_u7684_u63D0_u5347_uFF0C_u540E_u6765_u8F6C_u5C97_u65B0_u9879_u76EE_uFF0C_u6709_u4E86_u90E8_u5206_u591A_u4F59_u7684_u65F6_u95F4_uFF0C_u81EA_u5DF1_u5B66_u4E60_u7B97_u6CD5_uFF0C_u628A_u6700_u5E95_u5C42_u7684_u7B97_u6CD5_u8FC7_u4E00_u904D_uFF0C_u4E8C_u53C9_u6811_uFF0C_u6392_u5E8F_u8FD9_u4E9B_u8003_u7684_u6700_u591A_u7684_uFF1BRuby_u8BED_u8A00_u4E5F_u6309_u7167_u7CFB_u7EDF_u7684_u5B66_u4E60_u4E86_u4E00_u8FB9_uFF0C_u6700_u57FA_u672C_u7684_u8BED_u6CD5_uFF0C_u5B9E_u73B0_u4E00_u4E2A_u535A_u5BA2_u7684_uFF0C_u90FD_u53EF_u4EE5_u4E86_uFF0C_u4F46_u662F_u7531_u4E8E_u9879_u76EE_u540E_u671F_u5FD9_uFF0C_u57FA_u672C_u4E0A_u5C31_u653E_u4E0B_u4E86_u3002"><a href="#u8FD9_u4E00_u5E74_uFF0C_u6CA1_u6709_u4EFB_u4F55_u5927_u7684_u63D0_u5347_uFF0C_u540E_u6765_u8F6C_u5C97_u65B0_u9879_u76EE_uFF0C_u6709_u4E86_u90E8_u5206_u591A_u4F59_u7684_u65F6_u95F4_uFF0C_u81EA_u5DF1_u5B66_u4E60_u7B97_u6CD5_uFF0C_u628A_u6700_u5E95_u5C42_u7684_u7B97_u6CD5_u8FC7_u4E00_u904D_uFF0C_u4E8C_u53C9_u6811_uFF0C_u6392_u5E8F_u8FD9_u4E9B_u8003_u7684_u6700_u591A_u7684_uFF1BRuby_u8BED_u8A00_u4E5F_u6309_u7167_u7CFB_u7EDF_u7684_u5B66_u4E60_u4E86_u4E00_u8FB9_uFF0C_u6700_u57FA_u672C_u7684_u8BED_u6CD5_uFF0C_u5B9E_u73B0_u4E00_u4E2A_u535A_u5BA2_u7684_uFF0C_u90FD_u53EF_u4EE5_u4E86_uFF0C_u4F46_u662F_u7531_u4E8E_u9879_u76EE_u540E_u671F_u5FD9_uFF0C_u57FA_u672C_u4E0A_u5C31_u653E_u4E0B_u4E86_u3002" class="headerlink" title="这一年，没有任何大的提升，后来转岗新项目，有了部分多余的时间，自己学习算法，把最底层的算法过一遍，二叉树，排序这些考的最多的；Ruby语言也按照系统的学习了一边，最基本的语法，实现一个博客的，都可以了，但是由于项目后期忙，基本上就放下了。"></a>这一年，没有任何大的提升，后来转岗新项目，有了部分多余的时间，自己学习算法，把最底层的算法过一遍，二叉树，排序这些考的最多的；Ruby语言也按照系统的学习了一边，最基本的语法，实现一个博客的，都可以了，但是由于项目后期忙，基本上就放下了。</h2><h2 id="u8FD9_u4E00_u5E74_uFF0C_u4E66_u6CA1_u770B_u5B8C_u4E09_u672C_uFF0C_u4E24_u4E2A0-5_uFF0C_u4E0D_u7BA1_u6280_u672F_u7C7B_u578B_u8FD8_u662F_u5176_u4ED6_uFF0C_u57FA_u672C_u4E0A_u6CA1_u770B_u5B8C_uFF1B_u5BF9_u4E8E_u65B0_u8BED_u8A00ruby_uFF0C_u53EA_u80FD_u8BF4_u534A_u77E5_u534A_u89E3_uFF0C_u611F_u89C9_u8FD8_u5DEE_u597D_u591A_uFF0C_u51E0_u672C_u64AD_u5BA2_u662F_u53EF_u4EE5_u5B8C_u6210_uFF0C_u4F46_u662F_u5185_u90E8_u7ED3_u6784_u539F_u7406_uFF0C_u8FD8_u662F_u4E0D_u662F_u5F88_u6E05_u695A_uFF0C_u60F3_u7EE7_u7EED_u6DF1_u5165_uFF0C_u539F_u672C_u662F_u60F3_u7528ruby_u5199_u811A_u672C_u7684_uFF0C_u4F46_u662F_u601D_u8DEF_u548C_u601D_u60F3_u8FD8_u662F_u9762_u5411_u5BF9_u8C61_u7F16_u7A0B_uFF0C_u5BF9_u811A_u672C_u8BED_u8A00_u4E0D_u719F_u6089_u3001_u4E86_u89E3_u3002"><a href="#u8FD9_u4E00_u5E74_uFF0C_u4E66_u6CA1_u770B_u5B8C_u4E09_u672C_uFF0C_u4E24_u4E2A0-5_uFF0C_u4E0D_u7BA1_u6280_u672F_u7C7B_u578B_u8FD8_u662F_u5176_u4ED6_uFF0C_u57FA_u672C_u4E0A_u6CA1_u770B_u5B8C_uFF1B_u5BF9_u4E8E_u65B0_u8BED_u8A00ruby_uFF0C_u53EA_u80FD_u8BF4_u534A_u77E5_u534A_u89E3_uFF0C_u611F_u89C9_u8FD8_u5DEE_u597D_u591A_uFF0C_u51E0_u672C_u64AD_u5BA2_u662F_u53EF_u4EE5_u5B8C_u6210_uFF0C_u4F46_u662F_u5185_u90E8_u7ED3_u6784_u539F_u7406_uFF0C_u8FD8_u662F_u4E0D_u662F_u5F88_u6E05_u695A_uFF0C_u60F3_u7EE7_u7EED_u6DF1_u5165_uFF0C_u539F_u672C_u662F_u60F3_u7528ruby_u5199_u811A_u672C_u7684_uFF0C_u4F46_u662F_u601D_u8DEF_u548C_u601D_u60F3_u8FD8_u662F_u9762_u5411_u5BF9_u8C61_u7F16_u7A0B_uFF0C_u5BF9_u811A_u672C_u8BED_u8A00_u4E0D_u719F_u6089_u3001_u4E86_u89E3_u3002" class="headerlink" title="这一年，书没看完三本，两个0.5，不管技术类型还是其他，基本上没看完；对于新语言ruby，只能说半知半解，感觉还差好多，几本播客是可以完成，但是内部结构原理，还是不是很清楚，想继续深入，原本是想用ruby写脚本的，但是思路和思想还是面向对象编程，对脚本语言不熟悉、了解。"></a>这一年，书没看完三本，两个0.5，不管技术类型还是其他，基本上没看完；对于新语言ruby，只能说半知半解，感觉还差好多，几本播客是可以完成，但是内部结构原理，还是不是很清楚，想继续深入，原本是想用ruby写脚本的，但是思路和思想还是面向对象编程，对脚本语言不熟悉、了解。</h2><h2 id="u8FD9_u4E00_u5E74_uFF0C_u81EA_u5DF1_u7ED3_u4E86_u5A5A_uFF0C_u6709_u4E86_u5B9D_u5B9D_uFF0C_u6709_u4E86_u81EA_u5DF1_u5BB6_u5EAD_uFF0C_u81EA_u5DF1_u4E5F_u8D8A_u6709_u8D23_u4EFB_u611F_uFF01"><a href="#u8FD9_u4E00_u5E74_uFF0C_u81EA_u5DF1_u7ED3_u4E86_u5A5A_uFF0C_u6709_u4E86_u5B9D_u5B9D_uFF0C_u6709_u4E86_u81EA_u5DF1_u5BB6_u5EAD_uFF0C_u81EA_u5DF1_u4E5F_u8D8A_u6709_u8D23_u4EFB_u611F_uFF01" class="headerlink" title="这一年，自己结了婚，有了宝宝，有了自己家庭，自己也越有责任感！"></a>这一年，自己结了婚，有了宝宝，有了自己家庭，自己也越有责任感！</h2><h1 id="2017"><a href="#2017" class="headerlink" title="2017"></a>2017</h1><h2 id="u8FD9_u4E00_u5E74_uFF0C_u65B0_u7684_u4E00_u5E74_uFF0C_u76EE_u6807_u4E0D_u5927_u4E5F_u4E0D_u80FD_u5C0F_uFF0C_u8981_u5BF9_u81EA_u5DF1_u8D1F_u8D23_uFF0C_u5BF9_u5BB6_u5EAD_u8D1F_u8D23_uFF01"><a href="#u8FD9_u4E00_u5E74_uFF0C_u65B0_u7684_u4E00_u5E74_uFF0C_u76EE_u6807_u4E0D_u5927_u4E5F_u4E0D_u80FD_u5C0F_uFF0C_u8981_u5BF9_u81EA_u5DF1_u8D1F_u8D23_uFF0C_u5BF9_u5BB6_u5EAD_u8D1F_u8D23_uFF01" class="headerlink" title="这一年，新的一年，目标不大也不能小，要对自己负责，对家庭负责！"></a>这一年，新的一年，目标不大也不能小，要对自己负责，对家庭负责！</h2><ul>
-<li>读书，这个还得继续，读万卷书行万里路，就这一个道理，一本书，既然开始读了，就持之以恒的读完！</li>
-<li>新的专业知识，这个问题其实挺严峻的，随着开发的进行，各个新技术涌现，学的东西太多了，自己要抓住自己感兴趣的东西，去了解学习。</li>
-</ul>
-<h1 id="u672A_u6765"><a href="#u672A_u6765" class="headerlink" title="未来"></a>未来</h1><ul>
-<li>新技术瞻望，新技术学习，持之以恒</li>
-<li>对于iOS开发，Swift学习；对于其他语言Ruby持续深入</li>
-</ul>
-
+              <p><strong> 新年新的开端 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>2017年开始了，新年新气象。加油！<br>
+          
       
     </div>
     
@@ -836,9 +675,13 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/新年/">新年</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sentiment/">Sentiment</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/2017/01/22/新年新的开端/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -887,11 +730,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="UITextView"><a href="#UITextView" class="headerlink" title="UITextView"></a>UITextView</h1><h3 id="u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B"><a href="#u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B" class="headerlink" title="最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下"></a>最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// <span class="attr">font</span> = <span class="number">0</span>  <span class="attr">h</span> = <span class="number">16</span>  <span class="attr">selectionh</span> = <span class="number">1.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">0.5</span>  <span class="attr">h</span> = <span class="number">17</span>  <span class="attr">selectionh</span> = <span class="number">2.09668</span></div><div class="line">// <span class="attr">font</span> = <span class="number">1</span>  <span class="attr">h</span> = <span class="number">18</span>  <span class="attr">selectionh</span> = <span class="number">2.69336</span> // (<span class="attr">width</span> = <span class="number">6</span>, <span class="attr">height</span> = <span class="number">1.193359375</span>)</div><div class="line">// <span class="attr">font</span> = <span class="number">1.5</span>  <span class="attr">h</span> = <span class="number">18</span>  <span class="attr">selectionh</span> = <span class="number">3.29004</span></div><div class="line">// <span class="attr">font</span> = <span class="number">2</span>  <span class="attr">h</span> = <span class="number">19</span>  <span class="attr">selectionh</span> = <span class="number">3.88672</span>   <span class="number">2.386719</span></div><div class="line">// <span class="attr">font</span> = <span class="number">3</span>  <span class="attr">h</span> = <span class="number">20</span>  <span class="attr">selectionh</span> = <span class="number">5.08008</span></div><div class="line">// <span class="attr">font</span> = <span class="number">4</span>  <span class="attr">h</span> = <span class="number">21</span>  <span class="attr">selectionh</span> = <span class="number">6.27344</span></div><div class="line">// <span class="attr">font</span> = <span class="number">5</span>  <span class="attr">h</span> = <span class="number">22</span>  <span class="attr">selectionh</span> = <span class="number">7.4668</span></div><div class="line">// <span class="attr">font</span> = <span class="number">10</span>  <span class="attr">h</span> = <span class="number">28</span>  <span class="attr">selectionh</span> = <span class="number">13.4336</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">3</span> &#125; <span class="number">25</span></div><div class="line">// <span class="attr">font</span> = <span class="number">11</span>  <span class="attr">h</span> = <span class="number">30</span>  <span class="attr">selectionh</span> = <span class="number">14.627</span></div><div class="line">// <span class="attr">font</span> = <span class="number">100</span>  <span class="attr">h</span> = <span class="number">136</span>  <span class="attr">selectionh</span> = <span class="number">120.836</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">110.5</span> &#125;  <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">1000</span>  <span class="attr">h</span> = <span class="number">1210</span>  <span class="attr">selectionh</span> = <span class="number">1194.86</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">1184.5</span> &#125; <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">10000</span>  <span class="attr">h</span> = <span class="number">11950</span>  <span class="attr">selectionh</span> = <span class="number">11935.1</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">11924.5</span> &#125;  <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">100000</span>  <span class="attr">h</span> = <span class="number">119352</span>  <span class="attr">selectionh</span> = <span class="number">119337</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">119327</span> &#125;  <span class="number">25.5</span></div></pre></td></tr></table></figure>
-<p>  这是测试的一些font，就想知道到底textView是怎么计算contenSize的，一直从光标高度算起，最终没算出来，但是搞定了光标的高度  min：1.5，光标<strong>height=text.size.height+1.5</strong></p>
-<p>  光标的<strong>point = {4, 7}</strong>, 这是一开始没有文字输入的时候，如果设置<strong>placeholderLabel</strong>的坐标可以通过point来确定</p>
-<h2 id="u5B9E_u9645_u4E0AcontentSize_u7684_u9AD8_u5EA6_u662F_u8FD9_u6837_u6765_u7684"><a href="#u5B9E_u9645_u4E0AcontentSize_u7684_u9AD8_u5EA6_u662F_u8FD9_u6837_u6765_u7684" class="headerlink" title="实际上contentSize的高度是这样来的"></a>实际上contentSize的高度是这样来的</h2><p><strong>contentSizeHeight = round(text.size.height + 16)（四舍五入）</strong>这样能解释为什么当font=0时候，初始化高度为16了，其实和光标没有任何关系。</p>
-
+              <p><strong> UITextView心得 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>主要是关于UITextView一些测试和自己的一些见解，不喜勿喷哦！<br>
+          
       
     </div>
     
@@ -904,6 +744,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a   href="/2016/07/02/UITextView心得/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -952,17 +796,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="u6253_u5750_u65F6_u7ECF_u5E38_u770B_u5230_u201D_u5E7B_u60F3_u201D_u8BE5_u600E_u6837_u5904_u7406"><a href="#u6253_u5750_u65F6_u7ECF_u5E38_u770B_u5230_u201D_u5E7B_u60F3_u201D_u8BE5_u600E_u6837_u5904_u7406" class="headerlink" title="打坐时经常看到”幻想”该怎样处理"></a>打坐时经常看到”幻想”该怎样处理</h1><ul>
-<li>抄一篇小文，感觉挺有深意。</li>
-</ul>
-<p>问：师父，我在打坐的时候经常会看到一些“幻像”，有时候会很害怕，不知道该怎么处理，希望师父给指点迷津，阿弥陀佛。</p>
-<p>慧广法师：唯一的方法就是不执着。要知道，我们亲身经历的一切，都会慢慢地消失，慢慢被遗忘。何况是静坐中出现的幻觉？世界就是这样，你抓不住任何东西，所以，不要执著它。</p>
-<p>大家想一想，你们此刻觉得我说的话真好，有些人会感动，有些人会出现一种感悟，但这些东西明天还在不在，后天还在不在，说不清。什么意思呢？任何情绪，任何心情，任何经历，都会很快过去，不要跟着它，不要执著它，不要想抓住它。痛苦、幸福、仇恨都一样，只有傻瓜才想抓住它，智者知道它只是水里的月亮。</p>
-<p>什么是智者？就是明白我讲的这个真理，并且照着去做的人。</p>
-<p>什么是愚者？就是不明白这个道理，总被一些事情和情绪所控的人。比如说，三天前女朋友说了一句话，你到现在都气得要死；五天前朋友说了一句话，你到现在也气得要死；一年前某人说了一句话，你到今天还气得要死。结果你就气死了，气不死也气病了。那么，你就是愚者。被一些失去的东西压得喘不过气的时候，你也是愚者。明白一切都会过去，抓紧时间做事，喝茶的喝茶，演讲的演讲，聊天的聊天，吃饭的吃饭，做而无做，无做而做，就是智者。</p>
-<p>愚智之间，只有一线之差，执著就是愚，放下就是智。就这么简单，不要老是被过去的，或者不可能抓住的东西，把你的生命捆死，你要是真把它当成“幻像”的话，就不会有疑惑了。</p>
-<p>本文来源：网易佛学 作者：中国佛经网</p>
-
+              <p><strong> 幻想该怎样处理 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>摘自一篇佛经，幻想人人都有，你呢???<br>
+          
       
     </div>
     
@@ -971,6 +806,80 @@
       
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sentiment/">Sentiment</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a   href="/2016/02/29/幻想该怎样处理/#more">查看更多 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-2016年计划" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2016/02/19/2016年计划/" class="article-date">
+      <time datetime="2016-02-19T03:14:46.000Z" itemprop="datePublished">2016-02-19</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2016/02/19/2016年计划/">2016年计划</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><strong> 新年新的开端 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>2016年开始了，新年新气象。加油！<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sentiment/">Sentiment</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a   href="/2016/02/19/2016年计划/#more">查看更多 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>

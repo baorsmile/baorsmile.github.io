@@ -9,18 +9,18 @@
   
   <title>UITextView心得 | Dabao</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="UITextView最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下1234567891011121314// font = 0  h = 16  selectionh = 1.5// font = 0.5  h = 1">
+  <meta name="description" content="UITextView心得 ： 主要是关于UITextView一些测试和自己的一些见解，不喜勿喷哦！">
 <meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UITextView心得">
 <meta property="og:url" content="http://yoursite.com/2016/07/02/UITextView心得/index.html">
 <meta property="og:site_name" content="Dabao">
-<meta property="og:description" content="UITextView最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下1234567891011121314// font = 0  h = 16  selectionh = 1.5// font = 0.5  h = 1">
+<meta property="og:description" content="UITextView心得 ： 主要是关于UITextView一些测试和自己的一些见解，不喜勿喷哦！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-07-02T16:04:01.000Z">
+<meta property="og:updated_time" content="2017-07-21T10:29:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UITextView心得">
-<meta name="twitter:description" content="UITextView最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下1234567891011121314// font = 0  h = 16  selectionh = 1.5// font = 0.5  h = 1">
+<meta name="twitter:description" content="UITextView心得 ： 主要是关于UITextView一些测试和自己的一些见解，不喜勿喷哦！">
   
     <link rel="alternative" href="/atom.xml" title="Dabao" type="application/atom+xml">
   
@@ -135,11 +135,6 @@
                             <div class="ribbon"></div>
                         </div>
                         
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
                         
                         <div class="icon-wrap icon-me hide" data-idx="3">
                             <div class="user"></div>
@@ -153,8 +148,6 @@
                     <ul class="tips-inner">
                         <li>菜单</li>
                         <li>标签</li>
-                        
-                        <li>友情链接</li>
                         
                         
                         <li>关于我</li>
@@ -190,28 +183,16 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/新年/" style="font-size: 15px;">新年</a>
+                        <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Sentiment/" style="font-size: 15px;">Sentiment</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a>
                     </div>
                 </section>
+                
+                
                 
                 
                 <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://blog.csdn.net/baidu_21483933">csdn</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="https://segmentfault.com/blog/maocg_web">segmentfault</a>
-                    
-                      <a target="_blank"  class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/eb37ef89c746/latest_articles">简书</a>
-                    
-                    </div>
-                </section>
                 
-                
-                
-                <section class="switch-part switch-part4">
-                
-                    <div id="js-aboutme">爱动漫,爱游戏,爱编程,爱运动,爱的太多了!</div>
+                    <div id="js-aboutme">这个人太懒了什么都没留下！！！！！</div>
                 </section>
                 
             </div>
@@ -303,11 +284,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="UITextView"><a href="#UITextView" class="headerlink" title="UITextView"></a>UITextView</h1><h3 id="u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B"><a href="#u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B" class="headerlink" title="最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下"></a>最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// <span class="attr">font</span> = <span class="number">0</span>  <span class="attr">h</span> = <span class="number">16</span>  <span class="attr">selectionh</span> = <span class="number">1.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">0.5</span>  <span class="attr">h</span> = <span class="number">17</span>  <span class="attr">selectionh</span> = <span class="number">2.09668</span></div><div class="line">// <span class="attr">font</span> = <span class="number">1</span>  <span class="attr">h</span> = <span class="number">18</span>  <span class="attr">selectionh</span> = <span class="number">2.69336</span> // (<span class="attr">width</span> = <span class="number">6</span>, <span class="attr">height</span> = <span class="number">1.193359375</span>)</div><div class="line">// <span class="attr">font</span> = <span class="number">1.5</span>  <span class="attr">h</span> = <span class="number">18</span>  <span class="attr">selectionh</span> = <span class="number">3.29004</span></div><div class="line">// <span class="attr">font</span> = <span class="number">2</span>  <span class="attr">h</span> = <span class="number">19</span>  <span class="attr">selectionh</span> = <span class="number">3.88672</span>   <span class="number">2.386719</span></div><div class="line">// <span class="attr">font</span> = <span class="number">3</span>  <span class="attr">h</span> = <span class="number">20</span>  <span class="attr">selectionh</span> = <span class="number">5.08008</span></div><div class="line">// <span class="attr">font</span> = <span class="number">4</span>  <span class="attr">h</span> = <span class="number">21</span>  <span class="attr">selectionh</span> = <span class="number">6.27344</span></div><div class="line">// <span class="attr">font</span> = <span class="number">5</span>  <span class="attr">h</span> = <span class="number">22</span>  <span class="attr">selectionh</span> = <span class="number">7.4668</span></div><div class="line">// <span class="attr">font</span> = <span class="number">10</span>  <span class="attr">h</span> = <span class="number">28</span>  <span class="attr">selectionh</span> = <span class="number">13.4336</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">3</span> &#125; <span class="number">25</span></div><div class="line">// <span class="attr">font</span> = <span class="number">11</span>  <span class="attr">h</span> = <span class="number">30</span>  <span class="attr">selectionh</span> = <span class="number">14.627</span></div><div class="line">// <span class="attr">font</span> = <span class="number">100</span>  <span class="attr">h</span> = <span class="number">136</span>  <span class="attr">selectionh</span> = <span class="number">120.836</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">110.5</span> &#125;  <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">1000</span>  <span class="attr">h</span> = <span class="number">1210</span>  <span class="attr">selectionh</span> = <span class="number">1194.86</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">1184.5</span> &#125; <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">10000</span>  <span class="attr">h</span> = <span class="number">11950</span>  <span class="attr">selectionh</span> = <span class="number">11935.1</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">11924.5</span> &#125;  <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">100000</span>  <span class="attr">h</span> = <span class="number">119352</span>  <span class="attr">selectionh</span> = <span class="number">119337</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">119327</span> &#125;  <span class="number">25.5</span></div></pre></td></tr></table></figure>
+        <p><strong> UITextView心得 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>主要是关于UITextView一些测试和自己的一些见解，不喜勿喷哦！<br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文\="">
+
+<h1 id="UITextView"><a href="#UITextView" class="headerlink" title="UITextView"></a>UITextView</h1><h3 id="u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B"><a href="#u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B" class="headerlink" title="最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下"></a>最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// <span class="attr">font</span> = <span class="number">0</span>  <span class="attr">h</span> = <span class="number">16</span>  <span class="attr">selectionh</span> = <span class="number">1.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">0.5</span>  <span class="attr">h</span> = <span class="number">17</span>  <span class="attr">selectionh</span> = <span class="number">2.09668</span></div><div class="line">// <span class="attr">font</span> = <span class="number">1</span>  <span class="attr">h</span> = <span class="number">18</span>  <span class="attr">selectionh</span> = <span class="number">2.69336</span> // (<span class="attr">width</span> = <span class="number">6</span>, <span class="attr">height</span> = <span class="number">1.193359375</span>)</div><div class="line">// <span class="attr">font</span> = <span class="number">1.5</span>  <span class="attr">h</span> = <span class="number">18</span>  <span class="attr">selectionh</span> = <span class="number">3.29004</span></div><div class="line">// <span class="attr">font</span> = <span class="number">2</span>  <span class="attr">h</span> = <span class="number">19</span>  <span class="attr">selectionh</span> = <span class="number">3.88672</span>   <span class="number">2.386719</span></div><div class="line">// <span class="attr">font</span> = <span class="number">3</span>  <span class="attr">h</span> = <span class="number">20</span>  <span class="attr">selectionh</span> = <span class="number">5.08008</span></div><div class="line">// <span class="attr">font</span> = <span class="number">4</span>  <span class="attr">h</span> = <span class="number">21</span>  <span class="attr">selectionh</span> = <span class="number">6.27344</span></div><div class="line">// <span class="attr">font</span> = <span class="number">5</span>  <span class="attr">h</span> = <span class="number">22</span>  <span class="attr">selectionh</span> = <span class="number">7.4668</span></div><div class="line">// <span class="attr">font</span> = <span class="number">10</span>  <span class="attr">h</span> = <span class="number">28</span>  <span class="attr">selectionh</span> = <span class="number">13.4336</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">3</span> &#125; <span class="number">25</span></div><div class="line">// <span class="attr">font</span> = <span class="number">11</span>  <span class="attr">h</span> = <span class="number">30</span>  <span class="attr">selectionh</span> = <span class="number">14.627</span></div><div class="line">// <span class="attr">font</span> = <span class="number">100</span>  <span class="attr">h</span> = <span class="number">136</span>  <span class="attr">selectionh</span> = <span class="number">120.836</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">110.5</span> &#125;  <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">1000</span>  <span class="attr">h</span> = <span class="number">1210</span>  <span class="attr">selectionh</span> = <span class="number">1194.86</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">1184.5</span> &#125; <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">10000</span>  <span class="attr">h</span> = <span class="number">11950</span>  <span class="attr">selectionh</span> = <span class="number">11935.1</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">11924.5</span> &#125;  <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">100000</span>  <span class="attr">h</span> = <span class="number">119352</span>  <span class="attr">selectionh</span> = <span class="number">119337</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">119327</span> &#125;  <span class="number">25.5</span></div></pre></td></tr></table></figure>
 <p>  这是测试的一些font，就想知道到底textView是怎么计算contenSize的，一直从光标高度算起，最终没算出来，但是搞定了光标的高度  min：1.5，光标<strong>height=text.size.height+1.5</strong></p>
 <p>  光标的<strong>point = {4, 7}</strong>, 这是一开始没有文字输入的时候，如果设置<strong>placeholderLabel</strong>的坐标可以通过point来确定</p>
 <h2 id="u5B9E_u9645_u4E0AcontentSize_u7684_u9AD8_u5EA6_u662F_u8FD9_u6837_u6765_u7684"><a href="#u5B9E_u9645_u4E0AcontentSize_u7684_u9AD8_u5EA6_u662F_u8FD9_u6837_u6765_u7684" class="headerlink" title="实际上contentSize的高度是这样来的"></a>实际上contentSize的高度是这样来的</h2><p><strong>contentSizeHeight = round(text.size.height + 16)（四舍五入）</strong>这样能解释为什么当font=0时候，初始化高度为16了，其实和光标没有任何关系。</p>
-
+</the>
       
     </div>
     
@@ -318,7 +302,7 @@
         <p><span>本文标题:</span><a  href="/2016/07/02/UITextView心得/">UITextView心得</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问 田大宝 的个人博客">田大宝</a></p>
         <p><span>发布时间:</span>2016年07月02日 - 23时26分</p>
-        <p><span>最后更新:</span>2016年07月03日 - 00时04分</p>
+        <p><span>最后更新:</span>2017年07月21日 - 18时29分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/07/02/UITextView心得/" title="UITextView心得">http://yoursite.com/2016/07/02/UITextView心得/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/07/02/UITextView心得/　　作者: 田大宝" title=""></span>
@@ -437,7 +421,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/21/关于/">关于</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/知识总结/">知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/iOS关键知识点整理/">iOS关键知识点整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/02/MyBaby/">MyBaby</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/常用的iOS开发库/">常用的iOS开发库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/23/多个git账号的配置/">多个git账号的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/22/新年新的开端/">新年新的开端</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/UITextView心得/">UITextView心得</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/29/幻想该怎样处理/">幻想该怎样处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/19/2016年计划/">2016年计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/04/Hexo配置/">Hexo配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/03/我的第一篇博客/">我的第一篇博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/知识总结/">知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/iOS关键知识点整理/">iOS关键知识点整理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/13/Swift学习笔记/">Swift学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/02/MyBaby/">MyBaby</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/06/常用的iOS开发库/">常用的iOS开发库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/23/多个git账号的配置/">多个git账号的配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/22/新年新的开端/">新年新的开端</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/02/UITextView心得/">UITextView心得</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/29/幻想该怎样处理/">幻想该怎样处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/19/2016年计划/">2016年计划</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/04/Hexo配置/">Hexo配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/03/我的第一篇博客/">我的第一篇博客</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
