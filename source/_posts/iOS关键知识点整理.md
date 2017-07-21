@@ -7,7 +7,7 @@ category:
 #### Coy/MutableCopy(深浅拷贝)
 > 只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！
 
-**这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针不复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间***
+**这句话是说，只要是类似于NSArray/NSString这类不可变兑现的copy，都是指针复制，而对带有Mutable前缀的例如NSMutableArray这类的不管是copy还是MutableCopy都是深拷贝，要重新在内存开辟空间***
 
 
 #### obejct = nil 真的像你想像的一样吗
@@ -110,6 +110,7 @@ name
 0x00007fec1a510dd0
 ```
 > 发现还是一样的， 下来我们把strong 改成copy试试会发生什么
+
 ```
 (lldb) po ones
 <__NSSingleObjectArrayI 0x618000019330>(
@@ -134,3 +135,16 @@ copy在赋值上不同于strong，我们用的最多的就是给array copy，因
 *对于内存的处理，有一次我是在用realm里面遇到过一个bug*
 
 > 当初是我把数据库里面的数据全部取出来，然后放到数组里面，然后把数据库里面这些数据删掉，然而我数组里的数据也变成了Invalid类型， 这不得不说realm关联的强大，realm应该是对从数据库取出来的数据进行了标记，当被释放掉后，我自己数组里面的存的其实就是一组野指针，没有任何指向。
+
+#### UIScrollView或者其他Offset偏移量
+* 位移转化成缩放比例
+
+```
+// offset 位移偏量
+// scaleMargin 从小变大、从大变小偏量（不是比例） MAX(startSize, finalSize) - finalSize或者 MAX(startSize, finalSize) - startSize
+// finalSize 最终size
+// startSize 最大size MAX(startSize, finalSize)
+// actualOffset 实际真实运行大小
+
+CGFloat scale = (offset * (scaleMargin/actualOffset) + finalSize)/startSize;
+```
