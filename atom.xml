@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[Dabao]]></title>
-  <subtitle><![CDATA[只是一点点]]></subtitle>
+  <title>Dabao</title>
+  <subtitle>只是一点点</subtitle>
   <link href="/atom.xml" rel="self"/>
+  
   <link href="http://yoursite.com/"/>
   <updated>2017-07-17T11:13:30.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
-    <name><![CDATA[田大宝]]></name>
+    <name>田大宝</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[知识总结]]></title>
+    <title>知识总结</title>
     <link href="http://yoursite.com/2017/07/17/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
     <id>http://yoursite.com/2017/07/17/知识总结/</id>
     <published>2017-07-17T09:30:31.000Z</published>
     <updated>2017-07-17T11:13:30.000Z</updated>
+    
     <content type="html"><![CDATA[<h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><h2 id="u5751"><a href="#u5751" class="headerlink" title="坑"></a>坑</h2><ul>
 <li>可以对同一个属性就行多次添加，在监听回掉里里面会接受到多个添加的kepath, 也就是说添加了几个回调几个；在rmove时候也是，添加了几个就remvoe几个，不管是否是同一个属性</li>
 <li>如果你添加一个属性，但是你remove了两次，就会crash，<strong>这里强调一点，如果你对一个属性添加了多次，你就要remove多次，这是不会crash的</strong></li>
@@ -44,20 +46,25 @@
 </ul>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">dispatch_queue_t </span>concurrent_queue = <span class="keyword">dispatch_queue_create("concurrent_queue", </span><span class="keyword">DISPATCH_QUEUE_CONCURRENT);</span></div><div class="line"></div><div class="line"><span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">    NSLog(@<span class="string">"task-1--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div><div class="line"><span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">    NSLog(@<span class="string">"task-2--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div><div class="line"><span class="keyword">dispatch_sync(concurrent_queue, </span>^()&#123;</div><div class="line">    NSLog(@<span class="string">"task-3--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line"></div><div class="line">    <span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">        NSLog(@<span class="string">"task-5--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">    <span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">        NSLog(@<span class="string">"task-6--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line"></div><div class="line">    <span class="keyword">dispatch_barrier_async(concurrent_queue, </span>^()&#123;</div><div class="line">        NSLog(@<span class="string">"dispatch_barrier_async--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line"></div><div class="line">    <span class="keyword">dispatch_async(concurrent_queue, </span>^()&#123;</div><div class="line">        NSLog(@<span class="string">"task-4--%@"</span>,[NSThread currentThread])<span class="comment">;</span></div><div class="line">    &#125;)<span class="comment">;</span></div><div class="line">&#125;)<span class="comment">;</span></div><div class="line"></div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">998</span> <span class="keyword">BackBlock[32724:28690837] </span>task-3--&lt;NSThread: <span class="number">0x618000066040</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">998</span> <span class="keyword">BackBlock[32724:28691040] </span>task-2--&lt;NSThread: <span class="number">0x61000006bbc0</span>&gt;&#123;number = <span class="number">4</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">998</span> <span class="keyword">BackBlock[32724:28691038] </span>task-1--&lt;NSThread: <span class="number">0x618000068980</span>&gt;&#123;number = <span class="number">3</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">999</span> <span class="keyword">BackBlock[32724:28691042] </span>task-5--&lt;NSThread: <span class="number">0x6180000690c0</span>&gt;&#123;number = <span class="number">5</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">999</span> <span class="keyword">BackBlock[32724:28691057] </span>task-6--&lt;NSThread: <span class="number">0x60800006c340</span>&gt;&#123;number = <span class="number">6</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">999</span> <span class="keyword">BackBlock[32724:28691057] </span><span class="keyword">dispatch_barrier_async--&lt;NSThread: </span><span class="number">0x60800006c340</span>&gt;&#123;number = <span class="number">6</span>, name = (null)&#125;</div><div class="line"><span class="number">2017</span>-07-17 <span class="number">19</span>:<span class="number">08</span>:<span class="number">17</span>.<span class="number">999</span> <span class="keyword">BackBlock[32724:28691057] </span>task-4--&lt;NSThread: <span class="number">0x60800006c340</span>&gt;&#123;number = <span class="number">6</span>, name = (null)&#125;</div></pre></td></tr></table></figure>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h1 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h1><h2 id="u5751"><a href="#u5751" class="headerlink" title="坑"></a>坑</h]]>
+    
+      &lt;h1 id=&quot;KVO&quot;&gt;&lt;a href=&quot;#KVO&quot; class=&quot;headerlink&quot; title=&quot;KVO&quot;&gt;&lt;/a&gt;KVO&lt;/h1&gt;&lt;h2 id=&quot;u5751&quot;&gt;&lt;a href=&quot;#u5751&quot; class=&quot;headerlink&quot; title=&quot;坑&quot;&gt;&lt;/a&gt;坑&lt;/h
+    
     </summary>
+    
     
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[iOS关键知识点整理]]></title>
+    <title>iOS关键知识点整理</title>
     <link href="http://yoursite.com/2017/07/17/iOS%E5%85%B3%E9%94%AE%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2017/07/17/iOS关键知识点整理/</id>
     <published>2017-07-17T02:32:44.000Z</published>
     <updated>2017-07-20T08:47:57.000Z</updated>
+    
     <content type="html"><![CDATA[<h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Coy/MutableCopy(深浅拷贝)"></a>Coy/MutableCopy(深浅拷贝)</h4><blockquote>
 <p>只有对不可变对象进行copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！</p>
 </blockquote>
@@ -84,18 +91,23 @@
 </ul>
 <figure class="highlight openscad"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// offset 位移偏量</span></div><div class="line"><span class="comment">// scaleMargin 从小变大、从大变小偏量（不是比例） MAX(startSize, finalSize) - finalSize或者 MAX(startSize, finalSize) - startSize</span></div><div class="line"><span class="comment">// finalSize 最终size</span></div><div class="line"><span class="comment">// startSize 最大size MAX(startSize, finalSize)</span></div><div class="line"><span class="comment">// actualOffset 实际真实运行大小</span></div><div class="line"></div><div class="line">CGFloat <span class="built_in">scale</span> = (<span class="built_in">offset</span> * (scaleMargin/actualOffset) + finalSize)/startSize;</div></pre></td></tr></table></figure>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h4 id="Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29"><a href="#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29" class="headerlink" title="Co]]>
+    
+      &lt;h4 id=&quot;Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29&quot;&gt;&lt;a href=&quot;#Coy/MutableCopy_28_u6DF1_u6D45_u62F7_u8D1D_29&quot; class=&quot;headerlink&quot; title=&quot;Co
+    
     </summary>
+    
     
   </entry>
   
   <entry>
-    <title><![CDATA[Swift学习笔记]]></title>
+    <title>Swift学习笔记</title>
     <link href="http://yoursite.com/2017/07/13/Swift%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2017/07/13/Swift学习笔记/</id>
     <published>2017-07-13T08:51:12.000Z</published>
     <updated>2017-07-14T15:44:31.000Z</updated>
+    
     <content type="html"><![CDATA[<h3 id="5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D"><a href="#5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D" class="headerlink" title="[open/public]和[private/fileprivate]"></a>[open/public]和[private/fileprivate]</h3><h4 id="public"><a href="#public" class="headerlink" title="public"></a>public</h4><p>1.使用public修饰的类,属性或方法,可以被任何类访问<br>2.但在其他的module中不可以被override和继承,而在本module可以</p>
 <blockquote>
 <p>module内和module外的区别 ： module内是指不需要使用import引用文件，就可以创建对象，表示module内，而module外是指需要使用import文件才能创建对象才能使用</p>
@@ -119,36 +131,46 @@
 <figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dict: Dictionary  = [<span class="string">"key"</span>:<span class="string">"value"</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> (key, <span class="keyword">value</span>) <span class="keyword">in</span> dict &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">dict.forEach &#123; (key, <span class="keyword">value</span>) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">(dict <span class="keyword">as</span> NSDictionary).enumerateKeysAndObjects(&#123; (key, <span class="keyword">value</span>, stop) <span class="keyword">in</span></div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h4 id="Keyboard"><a href="#Keyboard" class="headerlink" title="Keyboard"></a>Keyboard</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willShow</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">willHide</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.handleKeyboard(center)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handleKeyboard</span><span class="params">(<span class="number">_</span> center: Notification)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="keyword">let</span> nInfo = (center <span class="keyword">as</span> <span class="type">NSNotification</span>).userInfo, <span class="keyword">let</span> value = nInfo[<span class="type">UIKeyboardFrameEndUserInfoKey</span>] <span class="keyword">as</span>? <span class="type">NSValue</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> frame = value.cgRectValue</div><div class="line"></div><div class="line">        <span class="keyword">let</span> duration: <span class="type">CGFloat</span> = nInfo[<span class="type">UIKeyboardAnimationDurationUserInfoKey</span>] <span class="keyword">as</span>! <span class="type">CGFloat</span></div><div class="line"></div><div class="line">        <span class="keyword">let</span> keyboardMoveY: <span class="type">CGFloat</span> = frame.origin.y - kMainScreen_Height()</div><div class="line"></div><div class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="type">TimeInterval</span>(duration), animations: &#123;</div><div class="line">            <span class="keyword">self</span>.transform = <span class="type">CGAffineTransform</span>(translationX: <span class="number">0</span>, y: keyboardMoveY);</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h3 id="5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D"><a href="#5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D" class="headerlink" title]]>
+    
+      &lt;h3 id=&quot;5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D&quot;&gt;&lt;a href=&quot;#5Bopen/public_5D_u548C_5Bprivate/fileprivate_5D&quot; class=&quot;headerlink&quot; title
+    
     </summary>
+    
     
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[MyBaby]]></title>
+    <title>MyBaby</title>
     <link href="http://yoursite.com/2017/03/02/MyBaby/"/>
     <id>http://yoursite.com/2017/03/02/MyBaby/</id>
     <published>2017-03-02T01:30:41.000Z</published>
     <updated>2017-07-13T08:46:22.000Z</updated>
+    
     <content type="html"><![CDATA[<pre><code>公元2017年2月10号，今天是个周五，我像往常一样下班回家，本来决定好了，去看看老表姑，都已经事先约定好了。
 </code></pre><p>晚上到家什么都没吃，不知道是中午吃多了，还是知道你要来了，没有食欲。自己懒散的坐在椅子上，一边看着电影，<br>一边玩着游戏，时间慢慢的走着，没有发现竟然已经九点半了，是时候该给你妈聊聊视频了。每天九点半必须上线，问问你妈妈身体怎么样啊，<br>今天可好？有什么动静没？你妈说没有，说要和她你二姨聊天了，就说了几句就挂断了！<br>    我收好东西，准备睡觉了，大约是10点半，你小姑给我打电话，说“哥，爸妈都去医院了，给你打电话了没？” 我说没有啊，没人告诉我啊，<br>我赶紧拨通了你奶奶的电话，奶奶说没事，没事，正在去医院的路上，等我第二次打电话时，奶奶说“医生在给她检查呢，你也准备回来吧！”。<br>我发自内心的感觉应该没有什么大的问题，听说是肚子没疼，羊水先破了，到了医院检查后还有八个水。<br>    这是我也着急的不行，我赶快收拾东西，在滴滴上叫顺风车，最终有个先生是县城的，愿意拉我，因为他也要回去，正好他过来接我，我把能带回家的东西收拾完毕，<br>自己匆匆洗了个澡，我知道可能回去要在医院呆着几天，洗完澡，我看着还有剩下的鸡蛋，自己还没有吃饭呢，煮了六个，煮裂了两个，被我扔掉了，司机师傅两天到我住的地方，<br>大约三点多钟我就到了县医院，看到你的妈妈，还好那几天生小孩的比较少，我们家占了三个床，相当于一个单间了，你妈妈躺在床上，后来疼的一阵一阵，看着她可难受了，<br>这一晚是无眠的，到了五点钟，医生过来说让数着疼痛的时间间隔，如果是五分钟一次就告诉医生，大约到了早上八点医生上班，中途吃了饭，查过一次胎心，医生说没事，后来和医生说，<br>已经差不多间隔了，医生就领着你妈妈去检查，后来说开了两指，上午九点钟就让你妈妈进了产房我们就在外面等着，中午吃了中午饭，是奶奶在外面买的，还被医生说了，吃饭也要在产房外面，后来到了下午两点中，才开到了四指，上午的时候爷爷就回家了，剩下我和奶奶，到了下午四点大约开到了五指，这时候妈妈说感觉疼痛没那么疼了，后来医生说给妈妈打催产针，如果还是生不了的话就只能剖了，我在文件上签了字，我就去拿药去了，回来只有感觉没那么快，叫奶奶去买牛奶了一些吃的，我在门外等着。<br>    你妈妈前一个孕妇，快生了，叫家人拿孩子的衣服，我包被来，中间过了半个小时，就听见新生宝宝哭泣了，大约五点钟，你奶奶正好出去买东西，医生让拿你的包被和衣服，我赶快拿<br>过来，给了医生我就赶紧给你奶奶打电话，说赶快回来，医生要了衣服了，我坐在外面等啊，等啊，你二姨发微信问，生了没有啊，那时我紧张的手都有些发抖了，后来奶奶回来了，大约等了半个小时，有医生出来了，我就问我家那个怎么样了，医生说看见你的头了，奶奶说快了，快了，大约在六点的时候，就听见你在里面哇哇的大哭着，然后我和奶奶却乐了，你出生了，后来一个医生出来了，说了一些要打免疫球蛋白，医院这边没有，我说这些我们都知道，但是就是没说你是男孩还是女孩，后来有个医生出来拿着一些材料说是个男孩子，七斤，当时我觉得男孩女都好，只要你和妈妈平安就好，在过了一会，医生就把你抱了出来，让奶奶斜着抱你，可能怕你嘴里有羊水之类的呛到。<br>    出来你软绵绵的我不敢抱，全程都是奶奶抱着的，奶奶看着你大约八点的时候我在们外等着你妈，看到你妈的第一眼，就感觉欠她的太多了，脸上好多小黑点，我说了句“老婆辛苦了”，我<br>我就推回来你妈，移到床上，看见你是我们最大的幸福！</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<pre><code>公元2017年2月10号，今天是个周五，我像往常一样下班回家，本来决定好了，去看看老表姑，都已经事先约定好了。
-</code></pre><p>晚上到家什么都没吃，不知道是中午吃多了，还是知道你要来了，没有食欲。自己懒散的坐在椅子上，一边看着电影，<br>一]]>
+    
+      &lt;pre&gt;&lt;code&gt;公元2017年2月10号，今天是个周五，我像往常一样下班回家，本来决定好了，去看看老表姑，都已经事先约定好了。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;晚上到家什么都没吃，不知道是中午吃多了，还是知道你要来了，没有食欲。自己懒散的坐在椅子上，一边看着电影，&lt;br&gt;一
+    
     </summary>
+    
     
   </entry>
   
   <entry>
-    <title><![CDATA[常用的iOS开发库]]></title>
+    <title>常用的iOS开发库</title>
     <link href="http://yoursite.com/2017/02/06/%E5%B8%B8%E7%94%A8%E7%9A%84iOS%E5%BC%80%E5%8F%91%E5%BA%93/"/>
     <id>http://yoursite.com/2017/02/06/常用的iOS开发库/</id>
     <published>2017-02-06T06:45:32.000Z</published>
     <updated>2017-03-02T01:24:57.000Z</updated>
+    
     <content type="html"><![CDATA[<h1 id="u6301_u7EED_u66F4_u65B0ing"><a href="#u6301_u7EED_u66F4_u65B0ing" class="headerlink" title="持续更新ing"></a>持续更新ing</h1><h3 id="33__u4E2A_2017__u5E74_u5FC5_u987B_u4E86_u89E3_u7684_iOS__u5F00_u6E90_u5E93"><a href="#33__u4E2A_2017__u5E74_u5FC5_u987B_u4E86_u89E3_u7684_iOS__u5F00_u6E90_u5E93" class="headerlink" title="33 个 2017 年必须了解的 iOS 开源库"></a><a href="http://www.tuicool.com/articles/zi2UfaE" target="_blank" rel="external">33 个 2017 年必须了解的 iOS 开源库</a></h3><h4 id="u7F13_u5B58"><a href="#u7F13_u5B58" class="headerlink" title="缓存"></a>缓存</h4><ul>
 <li><a href="https://github.com/enormego/EGOCache" target="_blank" rel="external">EGOCache</a></li>
 </ul>
@@ -159,20 +181,25 @@
 <li><a href="https://github.com/robotmedia/RMStore" target="_blank" rel="external">RMStore</a></li>
 </ul>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h1 id="u6301_u7EED_u66F4_u65B0ing"><a href="#u6301_u7EED_u66F4_u65B0ing" class="headerlink" title="持续更新ing"></a>持续更新ing</h1><h3 id="33__u4E]]>
+    
+      &lt;h1 id=&quot;u6301_u7EED_u66F4_u65B0ing&quot;&gt;&lt;a href=&quot;#u6301_u7EED_u66F4_u65B0ing&quot; class=&quot;headerlink&quot; title=&quot;持续更新ing&quot;&gt;&lt;/a&gt;持续更新ing&lt;/h1&gt;&lt;h3 id=&quot;33__u4E
+    
     </summary>
+    
     
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[多个git账号的配置]]></title>
+    <title>多个git账号的配置</title>
     <link href="http://yoursite.com/2017/01/23/%E5%A4%9A%E4%B8%AAgit%E8%B4%A6%E5%8F%B7%E7%9A%84%E9%85%8D%E7%BD%AE/"/>
     <id>http://yoursite.com/2017/01/23/多个git账号的配置/</id>
     <published>2017-01-23T03:17:08.000Z</published>
     <updated>2017-07-13T09:13:07.000Z</updated>
+    
     <content type="html"><![CDATA[<h1 id="u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E"><a href="#u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E" class="headerlink" title="多个git账号的配置"></a>多个git账号的配置</h1><h2 id="u6709_u65F6_u5019_u6211_u4EEC_u9700_u8981_u5728_u540C_u4E00_u53F0Mac_u7535_u8111_u4E0B_u4E0A_u4F7F_u7528_u591A_u4E2Agit_u8D26_u53F7_uFF0C_u4E3A_u4E86_u907F_u514D_u51B2_u7A81_uFF0C_u6211_u4EEC_u9700_u8981_u914D_u7F6E_7E/-ssh/config_u6587_u4EF6_uFF0C_u4F5C_u4E3A_u7A0B_u5E8F_u5458_u4F1A_u6709_u591A_u4E2A_u4EE3_u7801_u7BA1_u7406_u7684_u5E93_uFF0C_u73B0_u5728_u7528SVN_u6BD4_u8F83_u5C11_u4E86_uFF0CGit_u6210_u4E3A_u4E3B_u6D41_uFF0C_u4F46_u662F_u5728_u7535_u8111_u4E0B_u5982_u4F55_u540C_u65F6_u4FDD_u5B58_u591A_u4E2Assh_u8D26_u53F7_u5462_uFF0C_u81EA_u5DF1_u603B_u7ED3_u4E86_u4E00_u4E0B_u6B65_u9AA4_uFF1A"><a href="#u6709_u65F6_u5019_u6211_u4EEC_u9700_u8981_u5728_u540C_u4E00_u53F0Mac_u7535_u8111_u4E0B_u4E0A_u4F7F_u7528_u591A_u4E2Agit_u8D26_u53F7_uFF0C_u4E3A_u4E86_u907F_u514D_u51B2_u7A81_uFF0C_u6211_u4EEC_u9700_u8981_u914D_u7F6E_7E/-ssh/config_u6587_u4EF6_uFF0C_u4F5C_u4E3A_u7A0B_u5E8F_u5458_u4F1A_u6709_u591A_u4E2A_u4EE3_u7801_u7BA1_u7406_u7684_u5E93_uFF0C_u73B0_u5728_u7528SVN_u6BD4_u8F83_u5C11_u4E86_uFF0CGit_u6210_u4E3A_u4E3B_u6D41_uFF0C_u4F46_u662F_u5728_u7535_u8111_u4E0B_u5982_u4F55_u540C_u65F6_u4FDD_u5B58_u591A_u4E2Assh_u8D26_u53F7_u5462_uFF0C_u81EA_u5DF1_u603B_u7ED3_u4E86_u4E00_u4E0B_u6B65_u9AA4_uFF1A" class="headerlink" title="有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤："></a>有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：</h2><p><em>注意：整个修改过程按照github的ssh-key为范例</em></p>
 <h4 id="1_u3001_u7528ssh-keygen_u547D_u4EE4_u751F_u6210_u4E00_u7EC4_u65B0_u7684id_rsa_github_u548Cid_rsa_github-pub"><a href="#1_u3001_u7528ssh-keygen_u547D_u4EE4_u751F_u6210_u4E00_u7EC4_u65B0_u7684id_rsa_github_u548Cid_rsa_github-pub" class="headerlink" title="1、用ssh-keygen命令生成一组新的id_rsa_github和id_rsa_github.pub"></a>1、用ssh-keygen命令生成一组新的id_rsa_github和id_rsa_github.pub</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/<span class="selector-class">.ssh</span></div><div class="line"></div><div class="line">ssh-keygen -t rsa -C <span class="string">"new email"</span></div></pre></td></tr></table></figure>
 <p>当我们在终端输入完上面的命令，回车后会提示：<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Enter <span class="built_in">file</span> <span class="keyword">in</span> which <span class="built_in">to</span> save <span class="keyword">the</span> key (/Users/dabao/.ssh/id_rsa):</div></pre></td></tr></table></figure></p>
@@ -201,20 +228,25 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config user<span class="selector-class">.name</span> <span class="string">"xxx"</span></div><div class="line">git config user<span class="selector-class">.email</span> <span class="string">"xxx@qq.com"</span></div></pre></td></tr></table></figure>
 <p>这个设置会显示在你的提交信息里面，在自己项目的<strong>.git</strong>目录下，有个名为<strong>config</strong>的文件，如果找不到可以在终端输入<strong>l -list</strong></p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h1 id="u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E"><a href="#u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E" class="headerlink" title="多个gi]]>
+    
+      &lt;h1 id=&quot;u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E&quot;&gt;&lt;a href=&quot;#u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E&quot; class=&quot;headerlink&quot; title=&quot;多个gi
+    
     </summary>
+    
     
       <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[新年新的开端]]></title>
+    <title>新年新的开端</title>
     <link href="http://yoursite.com/2017/01/22/%E6%96%B0%E5%B9%B4%E6%96%B0%E7%9A%84%E5%BC%80%E7%AB%AF/"/>
     <id>http://yoursite.com/2017/01/22/新年新的开端/</id>
     <published>2017-01-22T03:37:14.000Z</published>
     <updated>2017-01-23T06:44:44.000Z</updated>
+    
     <content type="html"><![CDATA[<h1 id="2016"><a href="#2016" class="headerlink" title="2016"></a>2016</h1><h2 id="u8FD9_u4E00_u5E74_uFF0C_u6CA1_u6709_u4EFB_u4F55_u5927_u7684_u63D0_u5347_uFF0C_u540E_u6765_u8F6C_u5C97_u65B0_u9879_u76EE_uFF0C_u6709_u4E86_u90E8_u5206_u591A_u4F59_u7684_u65F6_u95F4_uFF0C_u81EA_u5DF1_u5B66_u4E60_u7B97_u6CD5_uFF0C_u628A_u6700_u5E95_u5C42_u7684_u7B97_u6CD5_u8FC7_u4E00_u904D_uFF0C_u4E8C_u53C9_u6811_uFF0C_u6392_u5E8F_u8FD9_u4E9B_u8003_u7684_u6700_u591A_u7684_uFF1BRuby_u8BED_u8A00_u4E5F_u6309_u7167_u7CFB_u7EDF_u7684_u5B66_u4E60_u4E86_u4E00_u8FB9_uFF0C_u6700_u57FA_u672C_u7684_u8BED_u6CD5_uFF0C_u5B9E_u73B0_u4E00_u4E2A_u535A_u5BA2_u7684_uFF0C_u90FD_u53EF_u4EE5_u4E86_uFF0C_u4F46_u662F_u7531_u4E8E_u9879_u76EE_u540E_u671F_u5FD9_uFF0C_u57FA_u672C_u4E0A_u5C31_u653E_u4E0B_u4E86_u3002"><a href="#u8FD9_u4E00_u5E74_uFF0C_u6CA1_u6709_u4EFB_u4F55_u5927_u7684_u63D0_u5347_uFF0C_u540E_u6765_u8F6C_u5C97_u65B0_u9879_u76EE_uFF0C_u6709_u4E86_u90E8_u5206_u591A_u4F59_u7684_u65F6_u95F4_uFF0C_u81EA_u5DF1_u5B66_u4E60_u7B97_u6CD5_uFF0C_u628A_u6700_u5E95_u5C42_u7684_u7B97_u6CD5_u8FC7_u4E00_u904D_uFF0C_u4E8C_u53C9_u6811_uFF0C_u6392_u5E8F_u8FD9_u4E9B_u8003_u7684_u6700_u591A_u7684_uFF1BRuby_u8BED_u8A00_u4E5F_u6309_u7167_u7CFB_u7EDF_u7684_u5B66_u4E60_u4E86_u4E00_u8FB9_uFF0C_u6700_u57FA_u672C_u7684_u8BED_u6CD5_uFF0C_u5B9E_u73B0_u4E00_u4E2A_u535A_u5BA2_u7684_uFF0C_u90FD_u53EF_u4EE5_u4E86_uFF0C_u4F46_u662F_u7531_u4E8E_u9879_u76EE_u540E_u671F_u5FD9_uFF0C_u57FA_u672C_u4E0A_u5C31_u653E_u4E0B_u4E86_u3002" class="headerlink" title="这一年，没有任何大的提升，后来转岗新项目，有了部分多余的时间，自己学习算法，把最底层的算法过一遍，二叉树，排序这些考的最多的；Ruby语言也按照系统的学习了一边，最基本的语法，实现一个博客的，都可以了，但是由于项目后期忙，基本上就放下了。"></a>这一年，没有任何大的提升，后来转岗新项目，有了部分多余的时间，自己学习算法，把最底层的算法过一遍，二叉树，排序这些考的最多的；Ruby语言也按照系统的学习了一边，最基本的语法，实现一个博客的，都可以了，但是由于项目后期忙，基本上就放下了。</h2><h2 id="u8FD9_u4E00_u5E74_uFF0C_u4E66_u6CA1_u770B_u5B8C_u4E09_u672C_uFF0C_u4E24_u4E2A0-5_uFF0C_u4E0D_u7BA1_u6280_u672F_u7C7B_u578B_u8FD8_u662F_u5176_u4ED6_uFF0C_u57FA_u672C_u4E0A_u6CA1_u770B_u5B8C_uFF1B_u5BF9_u4E8E_u65B0_u8BED_u8A00ruby_uFF0C_u53EA_u80FD_u8BF4_u534A_u77E5_u534A_u89E3_uFF0C_u611F_u89C9_u8FD8_u5DEE_u597D_u591A_uFF0C_u51E0_u672C_u64AD_u5BA2_u662F_u53EF_u4EE5_u5B8C_u6210_uFF0C_u4F46_u662F_u5185_u90E8_u7ED3_u6784_u539F_u7406_uFF0C_u8FD8_u662F_u4E0D_u662F_u5F88_u6E05_u695A_uFF0C_u60F3_u7EE7_u7EED_u6DF1_u5165_uFF0C_u539F_u672C_u662F_u60F3_u7528ruby_u5199_u811A_u672C_u7684_uFF0C_u4F46_u662F_u601D_u8DEF_u548C_u601D_u60F3_u8FD8_u662F_u9762_u5411_u5BF9_u8C61_u7F16_u7A0B_uFF0C_u5BF9_u811A_u672C_u8BED_u8A00_u4E0D_u719F_u6089_u3001_u4E86_u89E3_u3002"><a href="#u8FD9_u4E00_u5E74_uFF0C_u4E66_u6CA1_u770B_u5B8C_u4E09_u672C_uFF0C_u4E24_u4E2A0-5_uFF0C_u4E0D_u7BA1_u6280_u672F_u7C7B_u578B_u8FD8_u662F_u5176_u4ED6_uFF0C_u57FA_u672C_u4E0A_u6CA1_u770B_u5B8C_uFF1B_u5BF9_u4E8E_u65B0_u8BED_u8A00ruby_uFF0C_u53EA_u80FD_u8BF4_u534A_u77E5_u534A_u89E3_uFF0C_u611F_u89C9_u8FD8_u5DEE_u597D_u591A_uFF0C_u51E0_u672C_u64AD_u5BA2_u662F_u53EF_u4EE5_u5B8C_u6210_uFF0C_u4F46_u662F_u5185_u90E8_u7ED3_u6784_u539F_u7406_uFF0C_u8FD8_u662F_u4E0D_u662F_u5F88_u6E05_u695A_uFF0C_u60F3_u7EE7_u7EED_u6DF1_u5165_uFF0C_u539F_u672C_u662F_u60F3_u7528ruby_u5199_u811A_u672C_u7684_uFF0C_u4F46_u662F_u601D_u8DEF_u548C_u601D_u60F3_u8FD8_u662F_u9762_u5411_u5BF9_u8C61_u7F16_u7A0B_uFF0C_u5BF9_u811A_u672C_u8BED_u8A00_u4E0D_u719F_u6089_u3001_u4E86_u89E3_u3002" class="headerlink" title="这一年，书没看完三本，两个0.5，不管技术类型还是其他，基本上没看完；对于新语言ruby，只能说半知半解，感觉还差好多，几本播客是可以完成，但是内部结构原理，还是不是很清楚，想继续深入，原本是想用ruby写脚本的，但是思路和思想还是面向对象编程，对脚本语言不熟悉、了解。"></a>这一年，书没看完三本，两个0.5，不管技术类型还是其他，基本上没看完；对于新语言ruby，只能说半知半解，感觉还差好多，几本播客是可以完成，但是内部结构原理，还是不是很清楚，想继续深入，原本是想用ruby写脚本的，但是思路和思想还是面向对象编程，对脚本语言不熟悉、了解。</h2><h2 id="u8FD9_u4E00_u5E74_uFF0C_u81EA_u5DF1_u7ED3_u4E86_u5A5A_uFF0C_u6709_u4E86_u5B9D_u5B9D_uFF0C_u6709_u4E86_u81EA_u5DF1_u5BB6_u5EAD_uFF0C_u81EA_u5DF1_u4E5F_u8D8A_u6709_u8D23_u4EFB_u611F_uFF01"><a href="#u8FD9_u4E00_u5E74_uFF0C_u81EA_u5DF1_u7ED3_u4E86_u5A5A_uFF0C_u6709_u4E86_u5B9D_u5B9D_uFF0C_u6709_u4E86_u81EA_u5DF1_u5BB6_u5EAD_uFF0C_u81EA_u5DF1_u4E5F_u8D8A_u6709_u8D23_u4EFB_u611F_uFF01" class="headerlink" title="这一年，自己结了婚，有了宝宝，有了自己家庭，自己也越有责任感！"></a>这一年，自己结了婚，有了宝宝，有了自己家庭，自己也越有责任感！</h2><h1 id="2017"><a href="#2017" class="headerlink" title="2017"></a>2017</h1><h2 id="u8FD9_u4E00_u5E74_uFF0C_u65B0_u7684_u4E00_u5E74_uFF0C_u76EE_u6807_u4E0D_u5927_u4E5F_u4E0D_u80FD_u5C0F_uFF0C_u8981_u5BF9_u81EA_u5DF1_u8D1F_u8D23_uFF0C_u5BF9_u5BB6_u5EAD_u8D1F_u8D23_uFF01"><a href="#u8FD9_u4E00_u5E74_uFF0C_u65B0_u7684_u4E00_u5E74_uFF0C_u76EE_u6807_u4E0D_u5927_u4E5F_u4E0D_u80FD_u5C0F_uFF0C_u8981_u5BF9_u81EA_u5DF1_u8D1F_u8D23_uFF0C_u5BF9_u5BB6_u5EAD_u8D1F_u8D23_uFF01" class="headerlink" title="这一年，新的一年，目标不大也不能小，要对自己负责，对家庭负责！"></a>这一年，新的一年，目标不大也不能小，要对自己负责，对家庭负责！</h2><ul>
 <li>读书，这个还得继续，读万卷书行万里路，就这一个道理，一本书，既然开始读了，就持之以恒的读完！</li>
 <li>新的专业知识，这个问题其实挺严峻的，随着开发的进行，各个新技术涌现，学的东西太多了，自己要抓住自己感兴趣的东西，去了解学习。</li>
@@ -224,39 +256,49 @@
 <li>对于iOS开发，Swift学习；对于其他语言Ruby持续深入</li>
 </ul>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h1 id="2016"><a href="#2016" class="headerlink" title="2016"></a>2016</h1><h2 id="u8FD9_u4E00_u5E74_uFF0C_u6CA1_u6709_u4EFB_u4F55_u5927_u76]]>
+    
+      &lt;h1 id=&quot;2016&quot;&gt;&lt;a href=&quot;#2016&quot; class=&quot;headerlink&quot; title=&quot;2016&quot;&gt;&lt;/a&gt;2016&lt;/h1&gt;&lt;h2 id=&quot;u8FD9_u4E00_u5E74_uFF0C_u6CA1_u6709_u4EFB_u4F55_u5927_u76
+    
     </summary>
+    
     
       <category term="新年" scheme="http://yoursite.com/tags/%E6%96%B0%E5%B9%B4/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[UITextView心得]]></title>
+    <title>UITextView心得</title>
     <link href="http://yoursite.com/2016/07/02/UITextView%E5%BF%83%E5%BE%97/"/>
     <id>http://yoursite.com/2016/07/02/UITextView心得/</id>
     <published>2016-07-02T15:26:43.000Z</published>
     <updated>2016-07-02T16:04:01.000Z</updated>
+    
     <content type="html"><![CDATA[<h1 id="UITextView"><a href="#UITextView" class="headerlink" title="UITextView"></a>UITextView</h1><h3 id="u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B"><a href="#u6700_u8FD1_u5F00_u53D1_u8F93_u5165_u6846_u8FD9_u4E2A_u9B3C_u4E1C_u897F_uFF0C_u8F93_u5165_u81EA_u52A8_u8C03_u6574_u9AD8_u5EA6_uFF0C_u7F51_u4E0A_u4E5F_u6709_u5404_u79CD_u6DFB_u52A0placeholder_u7684_uFF0C_u611F_u89C9_u90FD_u4E0D_u592A_u597D_u7528_uFF0C_u81EA_u5DF1_u7740_u624B_u53BB_u641E_u4E00_u4E0B_uFF0C_u6700_u8FD1_u5F88_u56F0_u6270_u6211_u4E00_u4E2A_u95EE_u9898_uFF0C_u7531_u4E8E_u8981_u6DFB_u52A0placeholder_u6709_u65F6_u5019_u548C_u5149_u6807_u5BF9_u4E0D_u9F50_uFF0C_u6700_u540E_u7528reveal_u67E5_u770B_u4E86_u4E00_u4E0B_uFF0C_u5982_u4E0B" class="headerlink" title="最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下"></a>最近开发输入框这个鬼东西，输入自动调整高度，网上也有各种添加placeholder的，感觉都不太好用，自己着手去搞一下，最近很困扰我一个问题，由于要添加placeholder有时候和光标对不齐，最后用reveal查看了一下，如下</h3><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// <span class="attr">font</span> = <span class="number">0</span>  <span class="attr">h</span> = <span class="number">16</span>  <span class="attr">selectionh</span> = <span class="number">1.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">0.5</span>  <span class="attr">h</span> = <span class="number">17</span>  <span class="attr">selectionh</span> = <span class="number">2.09668</span></div><div class="line">// <span class="attr">font</span> = <span class="number">1</span>  <span class="attr">h</span> = <span class="number">18</span>  <span class="attr">selectionh</span> = <span class="number">2.69336</span> // (<span class="attr">width</span> = <span class="number">6</span>, <span class="attr">height</span> = <span class="number">1.193359375</span>)</div><div class="line">// <span class="attr">font</span> = <span class="number">1.5</span>  <span class="attr">h</span> = <span class="number">18</span>  <span class="attr">selectionh</span> = <span class="number">3.29004</span></div><div class="line">// <span class="attr">font</span> = <span class="number">2</span>  <span class="attr">h</span> = <span class="number">19</span>  <span class="attr">selectionh</span> = <span class="number">3.88672</span>   <span class="number">2.386719</span></div><div class="line">// <span class="attr">font</span> = <span class="number">3</span>  <span class="attr">h</span> = <span class="number">20</span>  <span class="attr">selectionh</span> = <span class="number">5.08008</span></div><div class="line">// <span class="attr">font</span> = <span class="number">4</span>  <span class="attr">h</span> = <span class="number">21</span>  <span class="attr">selectionh</span> = <span class="number">6.27344</span></div><div class="line">// <span class="attr">font</span> = <span class="number">5</span>  <span class="attr">h</span> = <span class="number">22</span>  <span class="attr">selectionh</span> = <span class="number">7.4668</span></div><div class="line">// <span class="attr">font</span> = <span class="number">10</span>  <span class="attr">h</span> = <span class="number">28</span>  <span class="attr">selectionh</span> = <span class="number">13.4336</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">3</span> &#125; <span class="number">25</span></div><div class="line">// <span class="attr">font</span> = <span class="number">11</span>  <span class="attr">h</span> = <span class="number">30</span>  <span class="attr">selectionh</span> = <span class="number">14.627</span></div><div class="line">// <span class="attr">font</span> = <span class="number">100</span>  <span class="attr">h</span> = <span class="number">136</span>  <span class="attr">selectionh</span> = <span class="number">120.836</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">110.5</span> &#125;  <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">1000</span>  <span class="attr">h</span> = <span class="number">1210</span>  <span class="attr">selectionh</span> = <span class="number">1194.86</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">1184.5</span> &#125; <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">10000</span>  <span class="attr">h</span> = <span class="number">11950</span>  <span class="attr">selectionh</span> = <span class="number">11935.1</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">11924.5</span> &#125;  <span class="number">25.5</span></div><div class="line">// <span class="attr">font</span> = <span class="number">100000</span>  <span class="attr">h</span> = <span class="number">119352</span>  <span class="attr">selectionh</span> = <span class="number">119337</span>  <span class="attr">contentOffset</span> = &#123; <span class="number">0</span>, <span class="number">119327</span> &#125;  <span class="number">25.5</span></div></pre></td></tr></table></figure>
 <p>  这是测试的一些font，就想知道到底textView是怎么计算contenSize的，一直从光标高度算起，最终没算出来，但是搞定了光标的高度  min：1.5，光标<strong>height=text.size.height+1.5</strong></p>
 <p>  光标的<strong>point = {4, 7}</strong>, 这是一开始没有文字输入的时候，如果设置<strong>placeholderLabel</strong>的坐标可以通过point来确定</p>
 <h2 id="u5B9E_u9645_u4E0AcontentSize_u7684_u9AD8_u5EA6_u662F_u8FD9_u6837_u6765_u7684"><a href="#u5B9E_u9645_u4E0AcontentSize_u7684_u9AD8_u5EA6_u662F_u8FD9_u6837_u6765_u7684" class="headerlink" title="实际上contentSize的高度是这样来的"></a>实际上contentSize的高度是这样来的</h2><p><strong>contentSizeHeight = round(text.size.height + 16)（四舍五入）</strong>这样能解释为什么当font=0时候，初始化高度为16了，其实和光标没有任何关系。</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h1 id="UITextView"><a href="#UITextView" class="headerlink" title="UITextView"></a>UITextView</h1><h3 id="u6700_u8FD1_u5F00_u53D1_u8F93_u51]]>
+    
+      &lt;h1 id=&quot;UITextView&quot;&gt;&lt;a href=&quot;#UITextView&quot; class=&quot;headerlink&quot; title=&quot;UITextView&quot;&gt;&lt;/a&gt;UITextView&lt;/h1&gt;&lt;h3 id=&quot;u6700_u8FD1_u5F00_u53D1_u8F93_u51
+    
     </summary>
+    
     
       <category term="iOS" scheme="http://yoursite.com/tags/iOS/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[幻想该怎样处理]]></title>
+    <title>幻想该怎样处理</title>
     <link href="http://yoursite.com/2016/02/29/%E5%B9%BB%E6%83%B3%E8%AF%A5%E6%80%8E%E6%A0%B7%E5%A4%84%E7%90%86/"/>
     <id>http://yoursite.com/2016/02/29/幻想该怎样处理/</id>
     <published>2016-02-29T03:08:34.000Z</published>
     <updated>2016-02-29T03:20:42.000Z</updated>
+    
     <content type="html"><![CDATA[<h1 id="u6253_u5750_u65F6_u7ECF_u5E38_u770B_u5230_u201D_u5E7B_u60F3_u201D_u8BE5_u600E_u6837_u5904_u7406"><a href="#u6253_u5750_u65F6_u7ECF_u5E38_u770B_u5230_u201D_u5E7B_u60F3_u201D_u8BE5_u600E_u6837_u5904_u7406" class="headerlink" title="打坐时经常看到”幻想”该怎样处理"></a>打坐时经常看到”幻想”该怎样处理</h1><ul>
 <li>抄一篇小文，感觉挺有深意。</li>
 </ul>
@@ -268,18 +310,23 @@
 <p>愚智之间，只有一线之差，执著就是愚，放下就是智。就这么简单，不要老是被过去的，或者不可能抓住的东西，把你的生命捆死，你要是真把它当成“幻像”的话，就不会有疑惑了。</p>
 <p>本文来源：网易佛学 作者：中国佛经网</p>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h1 id="u6253_u5750_u65F6_u7ECF_u5E38_u770B_u5230_u201D_u5E7B_u60F3_u201D_u8BE5_u600E_u6837_u5904_u7406"><a href="#u6253_u5750_u65F6_u7ECF_u]]>
+    
+      &lt;h1 id=&quot;u6253_u5750_u65F6_u7ECF_u5E38_u770B_u5230_u201D_u5E7B_u60F3_u201D_u8BE5_u600E_u6837_u5904_u7406&quot;&gt;&lt;a href=&quot;#u6253_u5750_u65F6_u7ECF_u
+    
     </summary>
+    
     
   </entry>
   
   <entry>
-    <title><![CDATA[2016年计划]]></title>
+    <title>2016年计划</title>
     <link href="http://yoursite.com/2016/02/19/2016%E5%B9%B4%E8%AE%A1%E5%88%92/"/>
     <id>http://yoursite.com/2016/02/19/2016年计划/</id>
     <published>2016-02-19T03:14:46.000Z</published>
     <updated>2017-02-06T10:30:13.000Z</updated>
+    
     <content type="html"><![CDATA[<h2 id="u65B0_u5E74_u65B0_u6C14_u8C61"><a href="#u65B0_u5E74_u65B0_u6C14_u8C61" class="headerlink" title="新年新气象"></a>新年新气象</h2><ul>
 <li><p>自己规划<br>总结2015年这一年，感觉浑浑噩噩，本来想多学一门语言，但后来还是没有进行到，那个谁说过，完事开头难<br>我感觉能把一件事坚持下来更难，三分钟热度这事长有，贵在坚持，现在看来坚持一件事得多难。</p>
 </li>
@@ -300,21 +347,26 @@
 <li>科技公司和互联网公司。</li>
 </ul>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h2 id="u65B0_u5E74_u65B0_u6C14_u8C61"><a href="#u65B0_u5E74_u65B0_u6C14_u8C61" class="headerlink" title="新年新气象"></a>新年新气象</h2><ul>
-<li><p>自]]>
+    
+      &lt;h2 id=&quot;u65B0_u5E74_u65B0_u6C14_u8C61&quot;&gt;&lt;a href=&quot;#u65B0_u5E74_u65B0_u6C14_u8C61&quot; class=&quot;headerlink&quot; title=&quot;新年新气象&quot;&gt;&lt;/a&gt;新年新气象&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;自
+    
     </summary>
+    
     
       <category term="新年" scheme="http://yoursite.com/tags/%E6%96%B0%E5%B9%B4/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[Hexo配置]]></title>
+    <title>Hexo配置</title>
     <link href="http://yoursite.com/2016/02/04/Hexo%E9%85%8D%E7%BD%AE/"/>
     <id>http://yoursite.com/2016/02/04/Hexo配置/</id>
     <published>2016-02-04T03:02:35.000Z</published>
     <updated>2017-07-13T08:49:58.000Z</updated>
+    
     <content type="html"><![CDATA[<h1 id="Hexo_u914D_u7F6EGitHub_u535A_u5BA2"><a href="#Hexo_u914D_u7F6EGitHub_u535A_u5BA2" class="headerlink" title="Hexo配置GitHub博客"></a>Hexo配置GitHub博客</h1><ul>
 <li><p>好久都想搞一下博客这个东西，每次都弄了好长时间又放弃了，感觉对于写前端的我，真是麻烦，最近快过年了，最后一个版本也上线了，闲了一段时间，想起来Github上的博客还闲置着，终于有时间搞搞了。</p>
 </li>
@@ -370,22 +422,31 @@
 <p>友情参考<br><a href="https://segmentfault.com/a/1190000002398039" target="_blank" rel="external">https://segmentfault.com/a/1190000002398039</a><br><a href="http://litten.github.io/2014/08/31/hexo-theme-yilia/" target="_blank" rel="external">http://litten.github.io/2014/08/31/hexo-theme-yilia/</a><br><a href="http://www.jianshu.com/p/b7886271e21a" target="_blank" rel="external">http://www.jianshu.com/p/b7886271e21a</a></p>
 </blockquote>
 ]]></content>
+    
     <summary type="html">
-    <![CDATA[<h1 id="Hexo_u914D_u7F6EGitHub_u535A_u5BA2"><a href="#Hexo_u914D_u7F6EGitHub_u535A_u5BA2" class="headerlink" title="Hexo配置GitHub博客"></a>Hexo]]>
+    
+      &lt;h1 id=&quot;Hexo_u914D_u7F6EGitHub_u535A_u5BA2&quot;&gt;&lt;a href=&quot;#Hexo_u914D_u7F6EGitHub_u535A_u5BA2&quot; class=&quot;headerlink&quot; title=&quot;Hexo配置GitHub博客&quot;&gt;&lt;/a&gt;Hexo
+    
     </summary>
+    
     
   </entry>
   
   <entry>
-    <title><![CDATA[我的第一篇博客]]></title>
+    <title>我的第一篇博客</title>
     <link href="http://yoursite.com/2016/02/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
     <id>http://yoursite.com/2016/02/03/我的第一篇博客/</id>
     <published>2016-02-03T09:31:50.000Z</published>
     <updated>2016-02-04T05:25:54.000Z</updated>
+    
     <content type="html"><![CDATA[<h1 id="u521D_u6765_u4E4D_u5230"><a href="#u521D_u6765_u4E4D_u5230" class="headerlink" title="初来乍到"></a>初来乍到</h1>]]></content>
+    
     <summary type="html">
-    <![CDATA[<h1 id="u521D_u6765_u4E4D_u5230"><a href="#u521D_u6765_u4E4D_u5230" class="headerlink" title="初来乍到"></a>初来乍到</h1>]]>
+    
+      &lt;h1 id=&quot;u521D_u6765_u4E4D_u5230&quot;&gt;&lt;a href=&quot;#u521D_u6765_u4E4D_u5230&quot; class=&quot;headerlink&quot; title=&quot;初来乍到&quot;&gt;&lt;/a&gt;初来乍到&lt;/h1&gt;
+    
     </summary>
+    
     
   </entry>
   
