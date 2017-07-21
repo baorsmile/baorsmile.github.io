@@ -92,6 +92,10 @@ deploy:
   branch: master
 
 
+widgets:
+  - cyHotnews
+
+
 # Feed
 feed:
   type: atom
