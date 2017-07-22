@@ -4,12 +4,29 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/07/22/Photo/</loc>
-    <lastmod>2017-07-22T14:24:43.000Z</lastmod>
+    <loc>http://yoursite.com/2017/07/22/Hexo-Sum/</loc>
+    <lastmod>2017-07-22T14:55:11.000Z</lastmod>
     <data>
         <display>
-        <title>Photo</title>
-        <pubTime>2017-07-22T14:19:30.000Z</pubTime>
+        <title>Hexo_Sum</title>
+        <pubTime>2017-07-22T14:34:35.000Z</pubTime>
+        
+        <tag>Hexo</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/03/02/MyBaby/</loc>
+    <lastmod>2017-07-22T14:32:49.000Z</lastmod>
+    <data>
+        <display>
+        <title>MyBaby</title>
+        <pubTime>2017-03-02T01:30:41.000Z</pubTime>
         
          
            
@@ -128,21 +145,6 @@
         
         <tag>iOS</tag>
          
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/03/02/MyBaby/</loc>
-    <lastmod>2017-07-21T10:28:16.000Z</lastmod>
-    <data>
-        <display>
-        <title>MyBaby</title>
-        <pubTime>2017-03-02T01:30:41.000Z</pubTime>
-        
          
            
         </display>

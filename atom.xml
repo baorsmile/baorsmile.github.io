@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-22T14:24:43.000Z</updated>
+  <updated>2017-07-22T14:55:11.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,22 +16,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Photo</title>
-    <link href="http://yoursite.com/2017/07/22/Photo/"/>
-    <id>http://yoursite.com/2017/07/22/Photo/</id>
-    <published>2017-07-22T14:19:30.000Z</published>
-    <updated>2017-07-22T14:24:43.000Z</updated>
+    <title>Hexo_Sum</title>
+    <link href="http://yoursite.com/2017/07/22/Hexo-Sum/"/>
+    <id>http://yoursite.com/2017/07/22/Hexo-Sum/</id>
+    <published>2017-07-22T14:34:35.000Z</published>
+    <updated>2017-07-22T14:55:11.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2017/07/22/Photo/faceu_20170716131949.jpg" alt="你想输入的替代文字"></p>
+    <content type="html"><![CDATA[<h1 id="u535A_u6587_u63D2_u5165_u56FE_u7247"><a href="#u535A_u6587_u63D2_u5165_u56FE_u7247" class="headerlink" title="博文插入图片"></a>博文插入图片</h1><ul>
+<li>修改<code>_config.yml</code>里面的<code>post_asset_folder:true</code></li>
+<li>在根目录下执行<code>npm install hexo-asset-image --save</code>安装插件</li>
+<li><code>hexo n &quot;new&quot;</code>生成一个新的博文，在<code>source/_posts/new</code>会生一个<code>new</code>文件夹,用来存放图片</li>
+<li><code>![你想输入的替代文字](new/xxx.jpg)</code></li>
+</ul>
+<h1 id="u6DFB_u52A0_u641C_u72D0_u7545_u8A00_u8BC4_u8BBA"><a href="#u6DFB_u52A0_u641C_u72D0_u7545_u8A00_u8BC4_u8BBA" class="headerlink" title="添加搜狐畅言评论"></a>添加搜狐畅言评论</h1><ul>
+<li><p>举例我用的主题是<code>smackdown</code>在<code>themes/smackdown/layout/_partial/article.ejs</code>里面最后添加如下代码</p>
+<figure class="highlight mojolicious"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="perl"> <span class="keyword">if</span> (!<span class="keyword">index</span> &amp;&amp; post.comments)&#123; </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">"comments"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--高速版，加载速度快，使用前需测试页面的兼容性--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"SOHUCS"</span> <span class="attr">sid</span>=<span class="string">"&lt;%=</span></span><span class="perl"> page.title </span><span class="xml"><span class="tag"><span class="string">%&gt;"</span> <span class="attr">style</span>=<span class="string">"padding: 0px 30px 0px 46px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">         (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">               <span class="keyword">var</span> appid = <span class="string">'你的 AppID'</span>,</div><div class="line">               conf = <span class="string">'你的 Appkey'</span>;</div><div class="line">               <span class="keyword">var</span> doc = <span class="built_in">document</span>,</div><div class="line">               s = doc.createElement(<span class="string">'script'</span>),</div><div class="line">               h = doc.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>] || doc.head || doc.documentElement;</div><div class="line">               s.type = <span class="string">'text/javascript'</span>;</div><div class="line">               s.charset = <span class="string">'utf-8'</span>;</div><div class="line">               s.src =  <span class="string">'http://assets.changyan.sohu.com/upload/changyan.js?conf='</span>+ conf +<span class="string">'&amp;appid='</span> + appid;</div><div class="line">               h.insertBefore(s,h.firstChild);</div><div class="line">               <span class="built_in">window</span>.SCS_NO_IFRAME = <span class="literal">true</span>;</div><div class="line">         &#125;)()</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span><span class="perl"> &#125; </span><span class="xml"><span class="tag">%&gt;</span></span></div></pre></td></tr></table></figure>
+</li>
+<li><p>畅言目前需要自己的域名网站备案才可以使用，具体的创建可以按照这篇博文实现<a href="http://blog.csdn.net/tzs_1041218129/article/details/70163194" target="_blank" rel="external">Github pages + Hexo 博客 yilia 主题使用畅言评论系统</a></p>
+</li>
+</ul>
+<h1 id="u6DFB_u52A0_u9605_u8BFB_u91CF"><a href="#u6DFB_u52A0_u9605_u8BFB_u91CF" class="headerlink" title="添加阅读量"></a>添加阅读量</h1><ul>
+<li>可以参考<a href="http://blog.smackdown.gebilaowu.cn/2016/10/31/hexo%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BB%E6%95%B0/" target="_blank" rel="external">为hexo-theme-smackdown主题添加阅读数</a></li>
+</ul>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2017/07/22/Photo/faceu_20170716131949.jpg&quot; alt=&quot;你想输入的替代文字&quot;&gt;&lt;/p&gt;
-
+      &lt;h1 id=&quot;u535A_u6587_u63D2_u5165_u56FE_u7247&quot;&gt;&lt;a href=&quot;#u535A_u6587_u63D2_u5165_u56FE_u7247&quot; class=&quot;headerlink&quot; title=&quot;博文插入图片&quot;&gt;&lt;/a&gt;博文插入图片&lt;/h1
     
     </summary>
     
+    
+      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
     
   </entry>
   
@@ -176,18 +192,18 @@
     <link href="http://yoursite.com/2017/03/02/MyBaby/"/>
     <id>http://yoursite.com/2017/03/02/MyBaby/</id>
     <published>2017-03-02T01:30:41.000Z</published>
-    <updated>2017-07-21T10:28:16.000Z</updated>
+    <updated>2017-07-22T14:32:49.000Z</updated>
     
-    <content type="html"><![CDATA[<p><strong> MyBaby ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>2017年不同寻常的一年，这一年你的到来，发现自己长大，记录你的出生！！<br><a id="more"></a></excerpt></p>
+    <content type="html"><![CDATA[<p><strong> MyBaby ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>My Little Baby, My Love!<br><a id="more"></a></excerpt></p>
 <the rest="" of="" contents="" |="" 余下全文\="">
 
-<pre><code>公元2017年2月10号，今天是个周五，我像往常一样下班回家，本来决定好了，去看看老表姑，都已经事先约定好了。
-</code></pre><p>晚上到家什么都没吃，不知道是中午吃多了，还是知道你要来了，没有食欲。自己懒散的坐在椅子上，一边看着电影，<br>一边玩着游戏，时间慢慢的走着，没有发现竟然已经九点半了，是时候该给你妈聊聊视频了。每天九点半必须上线，问问你妈妈身体怎么样啊，<br>今天可好？有什么动静没？你妈说没有，说要和她你二姨聊天了，就说了几句就挂断了！<br>    我收好东西，准备睡觉了，大约是10点半，你小姑给我打电话，说“哥，爸妈都去医院了，给你打电话了没？” 我说没有啊，没人告诉我啊，<br>我赶紧拨通了你奶奶的电话，奶奶说没事，没事，正在去医院的路上，等我第二次打电话时，奶奶说“医生在给她检查呢，你也准备回来吧！”。<br>我发自内心的感觉应该没有什么大的问题，听说是肚子没疼，羊水先破了，到了医院检查后还有八个水。<br>    这是我也着急的不行，我赶快收拾东西，在滴滴上叫顺风车，最终有个先生是县城的，愿意拉我，因为他也要回去，正好他过来接我，我把能带回家的东西收拾完毕，<br>自己匆匆洗了个澡，我知道可能回去要在医院呆着几天，洗完澡，我看着还有剩下的鸡蛋，自己还没有吃饭呢，煮了六个，煮裂了两个，被我扔掉了，司机师傅两天到我住的地方，<br>大约三点多钟我就到了县医院，看到你的妈妈，还好那几天生小孩的比较少，我们家占了三个床，相当于一个单间了，你妈妈躺在床上，后来疼的一阵一阵，看着她可难受了，<br>这一晚是无眠的，到了五点钟，医生过来说让数着疼痛的时间间隔，如果是五分钟一次就告诉医生，大约到了早上八点医生上班，中途吃了饭，查过一次胎心，医生说没事，后来和医生说，<br>已经差不多间隔了，医生就领着你妈妈去检查，后来说开了两指，上午九点钟就让你妈妈进了产房我们就在外面等着，中午吃了中午饭，是奶奶在外面买的，还被医生说了，吃饭也要在产房外面，后来到了下午两点中，才开到了四指，上午的时候爷爷就回家了，剩下我和奶奶，到了下午四点大约开到了五指，这时候妈妈说感觉疼痛没那么疼了，后来医生说给妈妈打催产针，如果还是生不了的话就只能剖了，我在文件上签了字，我就去拿药去了，回来只有感觉没那么快，叫奶奶去买牛奶了一些吃的，我在门外等着。<br>    你妈妈前一个孕妇，快生了，叫家人拿孩子的衣服，我包被来，中间过了半个小时，就听见新生宝宝哭泣了，大约五点钟，你奶奶正好出去买东西，医生让拿你的包被和衣服，我赶快拿<br>过来，给了医生我就赶紧给你奶奶打电话，说赶快回来，医生要了衣服了，我坐在外面等啊，等啊，你二姨发微信问，生了没有啊，那时我紧张的手都有些发抖了，后来奶奶回来了，大约等了半个小时，有医生出来了，我就问我家那个怎么样了，医生说看见你的头了，奶奶说快了，快了，大约在六点的时候，就听见你在里面哇哇的大哭着，然后我和奶奶却乐了，你出生了，后来一个医生出来了，说了一些要打免疫球蛋白，医院这边没有，我说这些我们都知道，但是就是没说你是男孩还是女孩，后来有个医生出来拿着一些材料说是个男孩子，七斤，当时我觉得男孩女都好，只要你和妈妈平安就好，在过了一会，医生就把你抱了出来，让奶奶斜着抱你，可能怕你嘴里有羊水之类的呛到。<br>    出来你软绵绵的我不敢抱，全程都是奶奶抱着的，奶奶看着你大约八点的时候我在们外等着你妈，看到你妈的第一眼，就感觉欠她的太多了，脸上好多小黑点，我说了句“老婆辛苦了”，我<br>我就推回来你妈，移到床上，看见你是我们最大的幸福！</p>
+<p>公元2017年2月10号，今天是个周五，我像往常一样下班回家，本来决定好了，去看看老表姑，都已经事先约定好了。<br>晚上到家什么都没吃，不知道是中午吃多了，还是知道你要来了，没有食欲。自己懒散的坐在椅子上，一边看着电影，<br>一边玩着游戏，时间慢慢的走着，没有发现竟然已经九点半了，是时候该给你妈聊聊视频了。每天九点半必须上线，问问你妈妈身体怎么样啊，<br>今天可好？有什么动静没？你妈说没有，说要和她你二姨聊天了，就说了几句就挂断了！<br>我收好东西，准备睡觉了，大约是10点半，你小姑给我打电话，说“哥，爸妈都去医院了，给你打电话了没？” 我说没有啊，没人告诉我啊，<br>我赶紧拨通了你奶奶的电话，奶奶说没事，没事，正在去医院的路上，等我第二次打电话时，奶奶说“医生在给她检查呢，你也准备回来吧！”。<br>我发自内心的感觉应该没有什么大的问题，听说是肚子没疼，羊水先破了，到了医院检查后还有八个水。<br>这是我也着急的不行，我赶快收拾东西，在滴滴上叫顺风车，最终有个先生是县城的，愿意拉我，因为他也要回去，正好他过来接我，我把能带回家的东西收拾完毕，<br>自己匆匆洗了个澡，我知道可能回去要在医院呆着几天，洗完澡，我看着还有剩下的鸡蛋，自己还没有吃饭呢，煮了六个，煮裂了两个，被我扔掉了，司机师傅两天到我住的地方，<br>大约三点多钟我就到了县医院，看到你的妈妈，还好那几天生小孩的比较少，我们家占了三个床，相当于一个单间了，你妈妈躺在床上，后来疼的一阵一阵，看着她可难受了，<br>这一晚是无眠的，到了五点钟，医生过来说让数着疼痛的时间间隔，如果是五分钟一次就告诉医生，大约到了早上八点医生上班，中途吃了饭，查过一次胎心，医生说没事，后来和医生说，<br>已经差不多间隔了，医生就领着你妈妈去检查，后来说开了两指，上午九点钟就让你妈妈进了产房我们就在外面等着，中午吃了中午饭，是奶奶在外面买的，还被医生说了，吃饭也要在产房外面，后来到了下午两点中，才开到了四指，上午的时候爷爷就回家了，剩下我和奶奶，到了下午四点大约开到了五指，这时候妈妈说感觉疼痛没那么疼了，后来医生说给妈妈打催产针，如果还是生不了的话就只能剖了，我在文件上签了字，我就去拿药去了，回来只有感觉没那么快，叫奶奶去买牛奶了一些吃的，我在门外等着。<br>你妈妈前一个孕妇，快生了，叫家人拿孩子的衣服，我包被来，中间过了半个小时，就听见新生宝宝哭泣了，大约五点钟，你奶奶正好出去买东西，医生让拿你的包被和衣服，我赶快拿<br>过来，给了医生我就赶紧给你奶奶打电话，说赶快回来，医生要了衣服了，我坐在外面等啊，等啊，你二姨发微信问，生了没有啊，那时我紧张的手都有些发抖了，后来奶奶回来了，大约等了半个小时，有医生出来了，我就问我家那个怎么样了，医生说看见你的头了，奶奶说快了，快了，大约在六点的时候，就听见你在里面哇哇的大哭着，然后我和奶奶却乐了，你出生了，后来一个医生出来了，说了一些要打免疫球蛋白，医院这边没有，我说这些我们都知道，但是就是没说你是男孩还是女孩，后来有个医生出来拿着一些材料说是个男孩子，七斤，当时我觉得男孩女都好，只要你和妈妈平安就好，在过了一会，医生就把你抱了出来，让奶奶斜着抱你，可能怕你嘴里有羊水之类的呛到。<br>出来你软绵绵的我不敢抱，全程都是奶奶抱着的，奶奶看着你大约八点的时候我在们外等着你妈，看到你妈的第一眼，就感觉欠她的太多了，脸上好多小黑点，我说了句“老婆辛苦了”，我<br>我就推回来你妈，移到床上，看见你是我们最大的幸福！</p>
+<p><img src="/2017/03/02/MyBaby/faceu_20170716131949.jpg" alt="MyLove"></p>
 </the>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;strong&gt; MyBaby ：&lt;/strong&gt; &lt;excerpt in=&quot;&quot; index=&quot;&quot; |=&quot;&quot; 首页摘要\=&quot;&quot;&gt;&lt;br&gt;2017年不同寻常的一年，这一年你的到来，发现自己长大，记录你的出生！！&lt;br&gt;&lt;/excerpt&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt; MyBaby ：&lt;/strong&gt; &lt;excerpt in=&quot;&quot; index=&quot;&quot; |=&quot;&quot; 首页摘要\=&quot;&quot;&gt;&lt;br&gt;My Little Baby, My Love!&lt;br&gt;&lt;/excerpt&gt;&lt;/p&gt;
     
     </summary>
     
