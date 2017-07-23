@@ -5,7 +5,10 @@
     <entry>
       <title><![CDATA[Hexo_Sum]]></title>
       <url>/2017/07/22/Hexo-Sum/</url>
-      <content type="html"><![CDATA[<h1 id="u535A_u6587_u63D2_u5165_u56FE_u7247"><a href="#u535A_u6587_u63D2_u5165_u56FE_u7247" class="headerlink" title="博文插入图片"></a>博文插入图片</h1><ul>
+      <content type="html"><![CDATA[<p><strong> Hexo_Sum ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>Hexo主题，博文插入图片，添加评论，添加浏览数<br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文\="">
+
+<h1 id="u535A_u6587_u63D2_u5165_u56FE_u7247"><a href="#u535A_u6587_u63D2_u5165_u56FE_u7247" class="headerlink" title="博文插入图片"></a>博文插入图片</h1><ul>
 <li>修改<code>_config.yml</code>里面的<code>post_asset_folder:true</code></li>
 <li>在根目录下执行<code>npm install hexo-asset-image --save</code>安装插件</li>
 <li><code>hexo n &quot;new&quot;</code>生成一个新的博文，在<code>source/_posts/new</code>会生一个<code>new</code>文件夹,用来存放图片</li>
@@ -21,7 +24,7 @@
 <h1 id="u6DFB_u52A0_u9605_u8BFB_u91CF"><a href="#u6DFB_u52A0_u9605_u8BFB_u91CF" class="headerlink" title="添加阅读量"></a>添加阅读量</h1><ul>
 <li>可以参考<a href="http://blog.smackdown.gebilaowu.cn/2016/10/31/hexo%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BB%E6%95%B0/" target="_blank" rel="external">为hexo-theme-smackdown主题添加阅读数</a></li>
 </ul>
-]]></content>
+</the>]]></content>
       
         
         <tags>
