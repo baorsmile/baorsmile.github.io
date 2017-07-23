@@ -3,23 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>实用技巧 | Dabao</title>
+  <title>Hexo_Sum | Dabao</title>
 
   <!-- keywords -->
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="实用技巧 ： 主要是一些关于实用技巧">
+  <meta name="description" content="Hexo_Sum ： Hexo主题，博文插入图片，添加评论，添加浏览数">
+<meta name="keywords" content="Hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="实用技巧">
-<meta property="og:url" content="http://yoursite.com/2017/07/17/知识总结/index.html">
+<meta property="og:title" content="Hexo_Sum">
+<meta property="og:url" content="http://yoursite.com/2017/07/22/Hexo-Sum/index.html">
 <meta property="og:site_name" content="Dabao">
-<meta property="og:description" content="实用技巧 ： 主要是一些关于实用技巧">
+<meta property="og:description" content="Hexo_Sum ： Hexo主题，博文插入图片，添加评论，添加浏览数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-07-21T17:25:59.000Z">
+<meta property="og:updated_time" content="2017-07-22T14:58:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实用技巧">
-<meta name="twitter:description" content="实用技巧 ： 主要是一些关于实用技巧">
+<meta name="twitter:title" content="Hexo_Sum">
+<meta name="twitter:description" content="Hexo_Sum ： Hexo主题，博文插入图片，添加评论，添加浏览数">
   
     <link rel="alternative" href="/atom.xml" title="Dabao" type="application/atom+xml">
   
@@ -188,11 +189,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-知识总结" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Hexo-Sum" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/17/知识总结/" class="article-date">
-  	<time datetime="2017-07-17T09:30:31.000Z" itemprop="datePublished">2017-07-17</time>
+      <a href="/2017/07/22/Hexo-Sum/" class="article-date">
+  	<time datetime="2017-07-22T14:34:35.000Z" itemprop="datePublished">2017-07-22</time>
 </a>
     </div>
   
@@ -205,7 +206,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      实用技巧
+      Hexo_Sum
       
     </h1>
   
@@ -214,13 +215,17 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+	</div>
+
         
 
         
           
 <div class="counter-tag counter">
-    <span id="/2017/07/17/知识总结/" class="leancloud_visitors post-title-link"
-          style="font-size: 12px" data-flag-title="实用技巧">
+    <span id="/2017/07/22/Hexo-Sum/" class="leancloud_visitors post-title-link"
+          style="font-size: 12px" data-flag-title="Hexo_Sum">
          &nbsp;
         view
     </span>
@@ -234,8 +239,25 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-          <p><strong> 实用技巧 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>主要是一些关于实用技巧<br><a id="more"></a></excerpt></p>
+          <p><strong> Hexo_Sum ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>Hexo主题，博文插入图片，添加评论，添加浏览数<br><a id="more"></a></excerpt></p>
 <the rest="" of="" contents="" |="" 余下全文\="">
+
+<h1 id="u535A_u6587_u63D2_u5165_u56FE_u7247"><a href="#u535A_u6587_u63D2_u5165_u56FE_u7247" class="headerlink" title="博文插入图片"></a>博文插入图片</h1><ul>
+<li>修改<code>_config.yml</code>里面的<code>post_asset_folder:true</code></li>
+<li>在根目录下执行<code>npm install hexo-asset-image --save</code>安装插件</li>
+<li><code>hexo n &quot;new&quot;</code>生成一个新的博文，在<code>source/_posts/new</code>会生一个<code>new</code>文件夹,用来存放图片</li>
+<li><code>![你想输入的替代文字](new/xxx.jpg)</code></li>
+</ul>
+<h1 id="u6DFB_u52A0_u641C_u72D0_u7545_u8A00_u8BC4_u8BBA"><a href="#u6DFB_u52A0_u641C_u72D0_u7545_u8A00_u8BC4_u8BBA" class="headerlink" title="添加搜狐畅言评论"></a>添加搜狐畅言评论</h1><ul>
+<li><p>举例我用的主题是<code>smackdown</code>在<code>themes/smackdown/layout/_partial/article.ejs</code>里面最后添加如下代码</p>
+<figure class="highlight mojolicious"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">%</span></span></span><span class="perl"> <span class="keyword">if</span> (!<span class="keyword">index</span> &amp;&amp; post.comments)&#123; </span><span class="xml"><span class="tag">%&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">"comments"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--高速版，加载速度快，使用前需测试页面的兼容性--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"SOHUCS"</span> <span class="attr">sid</span>=<span class="string">"&lt;%=</span></span><span class="perl"> page.title </span><span class="xml"><span class="tag"><span class="string">%&gt;"</span> <span class="attr">style</span>=<span class="string">"padding: 0px 30px 0px 46px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">         (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">               <span class="keyword">var</span> appid = <span class="string">'你的 AppID'</span>,</div><div class="line">               conf = <span class="string">'你的 Appkey'</span>;</div><div class="line">               <span class="keyword">var</span> doc = <span class="built_in">document</span>,</div><div class="line">               s = doc.createElement(<span class="string">'script'</span>),</div><div class="line">               h = doc.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>] || doc.head || doc.documentElement;</div><div class="line">               s.type = <span class="string">'text/javascript'</span>;</div><div class="line">               s.charset = <span class="string">'utf-8'</span>;</div><div class="line">               s.src =  <span class="string">'http://assets.changyan.sohu.com/upload/changyan.js?conf='</span>+ conf +<span class="string">'&amp;appid='</span> + appid;</div><div class="line">               h.insertBefore(s,h.firstChild);</div><div class="line">               <span class="built_in">window</span>.SCS_NO_IFRAME = <span class="literal">true</span>;</div><div class="line">         &#125;)()</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span><span class="perl"> &#125; </span><span class="xml"><span class="tag">%&gt;</span></span></div></pre></td></tr></table></figure>
+</li>
+<li><p>畅言目前需要自己的域名网站备案才可以使用，具体的创建可以按照这篇博文实现<a href="http://blog.csdn.net/tzs_1041218129/article/details/70163194" target="_blank" rel="external">Github pages + Hexo 博客 yilia 主题使用畅言评论系统</a></p>
+</li>
+</ul>
+<h1 id="u6DFB_u52A0_u9605_u8BFB_u91CF"><a href="#u6DFB_u52A0_u9605_u8BFB_u91CF" class="headerlink" title="添加阅读量"></a>添加阅读量</h1><ul>
+<li>可以参考<a href="http://blog.smackdown.gebilaowu.cn/2016/10/31/hexo%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BB%E6%95%B0/" target="_blank" rel="external">为hexo-theme-smackdown主题添加阅读数</a></li>
+</ul>
 </the>
       
     </div>
@@ -245,18 +267,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/07/22/Hexo-Sum/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">&lt;</strong>
-      <div class="article-nav-title">
-        
-          Hexo_Sum
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/17/iOS关键知识点整理/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">iOS关键知识点整理</div>
+    <a href="/2017/07/17/知识总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">实用技巧</div>
       <strong class="article-nav-caption">&gt;</strong>
     </a>
   
@@ -266,7 +279,7 @@
 </article>
 
 
-<div class="ds-share share" data-thread-key="知识总结" data-title="实用技巧" data-url="http://yoursite.com/2017/07/17/知识总结/"  data-images="https://github.com/tiandabao/tiandabao.github.io/blob/master/images/avatar.jpg?raw=true" data-content="实用技巧">
+<div class="ds-share share" data-thread-key="Hexo-Sum" data-title="Hexo_Sum" data-url="http://yoursite.com/2017/07/22/Hexo-Sum/"  data-images="https://github.com/tiandabao/tiandabao.github.io/blob/master/images/avatar.jpg?raw=true" data-content="Hexo_Sum">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
@@ -288,7 +301,7 @@
 
 <section id="comments">
 <!--高速版，加载速度快，使用前需测试页面的兼容性-->
-    <div id="SOHUCS" sid="实用技巧" style="padding: 0px 30px 0px 46px;"></div>
+    <div id="SOHUCS" sid="Hexo_Sum" style="padding: 0px 30px 0px 46px;"></div>
     <script>
          (function(){
                var appid = 'cyt7Ldtdo',

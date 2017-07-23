@@ -73,6 +73,7 @@
 <script src="/js/Counter.js"></script>
   
 </head>
+
 <body>
 <<<<<<< HEAD
   <div id="container" q-class="show:isCtnShow">
@@ -202,7 +203,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Sentiment/" style="font-size: 15px;">Sentiment</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a>
+						<a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a> <a href="/tags/Sentiment/" style="font-size: 16.67px;">Sentiment</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a>
 					</div>
 				</section>
 				
@@ -373,7 +374,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong> 多个git账号的配置 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>多个git帐号的处理，我们有时候需要配置很多git的ssh，那我们要如何实现呢？<br><a id="more"></a></excerpt></p>
+          
+          <p><strong> 多个git账号的配置 ：</strong> <excerpt in="" index="" |="" 首页摘要\=""><br>多个git帐号的处理，我们有时候需要配置很多git的ssh，那我们要如何实现呢？<br><a id="more"></a></excerpt></p>
 <the rest="" of="" contents="" |="" 余下全文\="">
 
 <h1 id="u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E"><a href="#u591A_u4E2Agit_u8D26_u53F7_u7684_u914D_u7F6E" class="headerlink" title="多个git账号的配置"></a>多个git账号的配置</h1><h2 id="u6709_u65F6_u5019_u6211_u4EEC_u9700_u8981_u5728_u540C_u4E00_u53F0Mac_u7535_u8111_u4E0B_u4E0A_u4F7F_u7528_u591A_u4E2Agit_u8D26_u53F7_uFF0C_u4E3A_u4E86_u907F_u514D_u51B2_u7A81_uFF0C_u6211_u4EEC_u9700_u8981_u914D_u7F6E_7E/-ssh/config_u6587_u4EF6_uFF0C_u4F5C_u4E3A_u7A0B_u5E8F_u5458_u4F1A_u6709_u591A_u4E2A_u4EE3_u7801_u7BA1_u7406_u7684_u5E93_uFF0C_u73B0_u5728_u7528SVN_u6BD4_u8F83_u5C11_u4E86_uFF0CGit_u6210_u4E3A_u4E3B_u6D41_uFF0C_u4F46_u662F_u5728_u7535_u8111_u4E0B_u5982_u4F55_u540C_u65F6_u4FDD_u5B58_u591A_u4E2Assh_u8D26_u53F7_u5462_uFF0C_u81EA_u5DF1_u603B_u7ED3_u4E86_u4E00_u4E0B_u6B65_u9AA4_uFF1A"><a href="#u6709_u65F6_u5019_u6211_u4EEC_u9700_u8981_u5728_u540C_u4E00_u53F0Mac_u7535_u8111_u4E0B_u4E0A_u4F7F_u7528_u591A_u4E2Agit_u8D26_u53F7_uFF0C_u4E3A_u4E86_u907F_u514D_u51B2_u7A81_uFF0C_u6211_u4EEC_u9700_u8981_u914D_u7F6E_7E/-ssh/config_u6587_u4EF6_uFF0C_u4F5C_u4E3A_u7A0B_u5E8F_u5458_u4F1A_u6709_u591A_u4E2A_u4EE3_u7801_u7BA1_u7406_u7684_u5E93_uFF0C_u73B0_u5728_u7528SVN_u6BD4_u8F83_u5C11_u4E86_uFF0CGit_u6210_u4E3A_u4E3B_u6D41_uFF0C_u4F46_u662F_u5728_u7535_u8111_u4E0B_u5982_u4F55_u540C_u65F6_u4FDD_u5B58_u591A_u4E2Assh_u8D26_u53F7_u5462_uFF0C_u81EA_u5DF1_u603B_u7ED3_u4E86_u4E00_u4E0B_u6B65_u9AA4_uFF1A" class="headerlink" title="有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤："></a>有时候我们需要在同一台Mac电脑下上使用多个git账号，为了避免冲突，我们需要配置~/.ssh/config文件，作为程序员会有多个代码管理的库，现在用SVN比较少了，Git成为主流，但是在电脑下如何同时保存多个ssh账号呢，自己总结了一下步骤：</h2><p><em>注意：整个修改过程按照github的ssh-key为范例</em></p>
