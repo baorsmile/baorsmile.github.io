@@ -44,3 +44,6 @@ Hexo主题，博文插入图片，添加评论，添加浏览数
 
 # 添加阅读量
 * 可以参考[为hexo-theme-smackdown主题添加阅读数](http://blog.smackdown.gebilaowu.cn/2016/10/31/hexo%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E9%98%85%E8%AF%BB%E6%95%B0/)
+
+# 文章加密
+* 可参考：[hexo-blog-encrypt](https://github.com/MikeCoder/hexo-blog-encrypt/blob/master/ReadMe.zh.md)
