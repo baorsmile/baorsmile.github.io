@@ -5,10 +5,10 @@
     
   <url>
     <loc>http://yoursite.com/2017/07/22/Hexo-Sum/</loc>
-    <lastmod>2017-07-23T13:58:25.000Z</lastmod>
+    <lastmod>2017-07-24T08:41:05.000Z</lastmod>
     <data>
         <display>
-        <title>Hexo_Sum</title>
+        <title>Hexo Sum</title>
         <pubTime>2017-07-22T14:34:35.000Z</pubTime>
         
         <tag>Hexo</tag>
@@ -22,12 +22,29 @@
     
   <url>
     <loc>http://yoursite.com/2017/03/02/MyBaby/</loc>
-    <lastmod>2017-07-23T13:51:25.000Z</lastmod>
+    <lastmod>2017-07-24T08:15:53.000Z</lastmod>
     <data>
         <display>
         <title>MyBaby</title>
         <pubTime>2017-03-02T01:30:41.000Z</pubTime>
         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2017/01/23/%E5%A4%9A%E4%B8%AAgit%E8%B4%A6%E5%8F%B7%E7%9A%84%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2017-07-24T07:01:22.000Z</lastmod>
+    <data>
+        <display>
+        <title>多个git账号的配置</title>
+        <pubTime>2017-01-23T03:17:08.000Z</pubTime>
+        
+        <tag>Git</tag>
+         
          
            
         </display>
@@ -161,23 +178,6 @@
         <pubTime>2017-02-06T06:45:32.000Z</pubTime>
         
         <tag>iOS</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2017/01/23/%E5%A4%9A%E4%B8%AAgit%E8%B4%A6%E5%8F%B7%E7%9A%84%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2017-07-21T10:23:39.000Z</lastmod>
-    <data>
-        <display>
-        <title>多个git账号的配置</title>
-        <pubTime>2017-01-23T03:17:08.000Z</pubTime>
-        
-        <tag>Git</tag>
          
          
            
