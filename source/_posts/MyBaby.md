@@ -5,6 +5,7 @@ category:
 password: 211
 abstract: 加密文件，请使用密码。
 message: 密码!!!!你懂的!
+comments: true
 ---
 
 ** MyBaby ：** <Excerpt in index | 首页摘要\>

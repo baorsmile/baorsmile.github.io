@@ -2,6 +2,7 @@ title: Hexo配置
 date: 2016-02-04 11:02:35
 tags: Hexo
 category:
+comments: true
 ---
 
 ** Hexo配置 ：** <Excerpt in index | 首页摘要\>

@@ -2,6 +2,7 @@ title: Hexo Sum
 date: 2017-07-22 22:34:35
 tags: Hexo
 category:
+comments: true
 ---
 
 ** Hexo Sum ：** <Excerpt in index | 首页摘要\>
