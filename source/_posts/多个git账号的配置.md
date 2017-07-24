@@ -73,7 +73,7 @@ git config --global user.name "xxx"
 git config --global user.email "xxx@qq.com"
 ```
 
-这个如果你想全局都是这个你可以选择gloabl，反正我的**~/.gitconfig**里面是我公司的配置，可一个人选择配置
+这个如果你想全局都是这个你可以选择`gloabal`，反正我的**~/.gitconfig**里面是我公司的配置，可一个人选择配置
 
 > 又或者在自己项目里进行单独配置
 
@@ -83,3 +83,7 @@ git config user.email "xxx@qq.com"
 
 ```
 这个设置会显示在你的提交信息里面，在自己项目的**.git**目录下，有个名为**config**的文件，如果找不到可以在终端输入**l -list**
+
+#### 6、如果遇到如图下面这种情况
+* 就把`known_hosts`里面相应的地址删掉，在执行`ssh -T`重新请求就好了
+![ssh -T](多个git账号的配置/ssh_error.png)
