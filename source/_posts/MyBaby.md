@@ -3,8 +3,8 @@ date: 2017-03-02 09:30:41
 tags:
 category:
 password: 211
-abstract: Welcome to my blog, enter password to read.
-message: Welcome to my blog, enter password to read.
+abstract: 加密文件，请使用密码。
+message: 密码!!!!你懂的!
 ---
 
 ** MyBaby ：** <Excerpt in index | 首页摘要\>
@@ -29,4 +29,4 @@ My Little Baby, My Love!
 出来你软绵绵的我不敢抱，全程都是奶奶抱着的，奶奶看着你大约八点的时候我在们外等着你妈，看到你妈的第一眼，就感觉欠她的太多了，脸上好多小黑点，我说了句“老婆辛苦了”，我
 我就推回来你妈，移到床上，看见你是我们最大的幸福！
 
-<!-- ![MyLove](MyBaby/faceu_20170716131949.jpg) -->
+![MyLove](MyBaby/IMG_20170530_141952-1.jpg)

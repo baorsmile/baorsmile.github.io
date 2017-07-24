@@ -1,11 +1,11 @@
-title: Hexo_Sum
+title: Hexo Sum
 date: 2017-07-22 22:34:35
 tags: Hexo
 category:
 ---
 
-** Hexo_Sum ：** <Excerpt in index | 首页摘要\>
-Hexo主题，博文插入图片，添加评论，添加浏览数
+** Hexo Sum ：** <Excerpt in index | 首页摘要\>
+Hexo主题，博文插入图片，添加评论，添加浏览数，加密博文
 <!-- more -->
 <The rest of contents | 余下全文\>
 
@@ -47,3 +47,4 @@ Hexo主题，博文插入图片，添加评论，添加浏览数
 
 # 文章加密
 * 可参考：[hexo-blog-encrypt](https://github.com/MikeCoder/hexo-blog-encrypt/blob/master/ReadMe.zh.md)
+* 这个插件目前只适合[`Next`](https://github.com/iissnan/hexo-theme-next)主题

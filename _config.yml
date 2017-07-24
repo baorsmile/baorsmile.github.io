@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Dabao
+title: DABAO
 subtitle: 只是一点点
 description: 只是一点点
-author: 田大宝
+author: 大宝
 language: zh-Hans
 timezone:
 
@@ -68,8 +68,9 @@ pagination_dir: page
 #   - hexo-generator-baidu-sitemap
 
 ## Themes: http://hexo.io/themes/
-theme: smackdown
-#black-blue
+theme: next
+# black-blue
+# smackdown
 # next
 # yilia
 
