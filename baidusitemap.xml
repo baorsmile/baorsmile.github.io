@@ -4,13 +4,15 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/03/02/MyBaby/</loc>
-    <lastmod>2017-07-23T13:51:25.000Z</lastmod>
+    <loc>http://yoursite.com/2017/07/22/Hexo-Sum/</loc>
+    <lastmod>2017-07-23T13:58:25.000Z</lastmod>
     <data>
         <display>
-        <title>MyBaby</title>
-        <pubTime>2017-03-02T01:30:41.000Z</pubTime>
+        <title>Hexo_Sum</title>
+        <pubTime>2017-07-22T14:34:35.000Z</pubTime>
         
+        <tag>Hexo</tag>
+         
          
            
         </display>
@@ -19,15 +21,13 @@
 
     
   <url>
-    <loc>http://yoursite.com/2017/07/22/Hexo-Sum/</loc>
-    <lastmod>2017-07-22T14:58:32.000Z</lastmod>
+    <loc>http://yoursite.com/2017/03/02/MyBaby/</loc>
+    <lastmod>2017-07-23T13:51:25.000Z</lastmod>
     <data>
         <display>
-        <title>Hexo_Sum</title>
-        <pubTime>2017-07-22T14:34:35.000Z</pubTime>
+        <title>MyBaby</title>
+        <pubTime>2017-03-02T01:30:41.000Z</pubTime>
         
-        <tag>Hexo</tag>
-         
          
            
         </display>
