@@ -10,7 +10,7 @@ Jenkins相关集成
 # 安装
 ```
 brew install jenkins
-```
+```   
 > 到这一步都说安装成功了，但是我在**Users/dabao/Shared/**
 压根没找到jenkins目录，所以还是老老实实在官网下载[Jenkins](https://jenkins.io/)安装吧，你就会发现在shared下面已经有了jenkins的文件。
 
