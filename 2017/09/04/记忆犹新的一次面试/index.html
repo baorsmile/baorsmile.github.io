@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Sentiment," />
 
 
 
@@ -95,17 +95,18 @@
 
 
 
-<meta name="description" content="只是一点点">
+<meta name="description" content="面试就是想对象">
+<meta name="keywords" content="Sentiment">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记忆犹新的一次面试">
 <meta property="og:url" content="http://www.tiandabao.com/2017/09/04/记忆犹新的一次面试/index.html">
 <meta property="og:site_name" content="黑客与画家">
-<meta property="og:description" content="只是一点点">
+<meta property="og:description" content="面试就是想对象">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-04T08:45:05.000Z">
+<meta property="og:updated_time" content="2017-10-09T10:58:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记忆犹新的一次面试">
-<meta name="twitter:description" content="只是一点点">
+<meta name="twitter:description" content="面试就是想对象">
 
 
 
@@ -344,7 +345,36 @@
       
 
       
-        
+        <p>面试就是想对象<br><a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文\="">
+
+<p>2017年8月10号，从一个待了三年的公司离职了，说实话还真有些不舍，公司情况大家有目共睹，走也不好，不走也不好！<br>面试的时候都会问你为啥要离开啊？说实话我只想找一个稳定的，让自己有个归属感的地方。可是这些真话没有哪个hr或者leader认可，<br>其实这是每个人的初心，他们更喜欢被骗，说一些不切实际的幻想，人都喜欢好话而已。一些牢骚而已，下面是我面试遇到一些问题</p>
+<h1 id="block"><a href="#block" class="headerlink" title="block"></a>block</h1><ul>
+<li>问：MRC和ARC下一般声明block用什么</li>
+<li>答：MRC用copy，因为初始化实在栈上；ARC声明也用copy</li>
+<li>问：ARC用strong行吗？</li>
+<li>答：当然可以，ARC用strong系统会自动拷贝到堆上</li>
+</ul>
+<h1 id="NSString"><a href="#NSString" class="headerlink" title="NSString"></a>NSString</h1><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">NSString *str1 = @<span class="string">"stringtest"</span>;</div><div class="line"></div><div class="line">[<span class="function"><span class="title">str1</span> retain];          // str1引用计数是多少？-&gt;</span> -<span class="number">1</span></div><div class="line"></div><div class="line">[<span class="function"><span class="title">str1</span> copy];            // str1引用计数是多少？-&gt;</span> -<span class="number">1</span></div><div class="line"></div><div class="line">NSS<span class="function"><span class="title">tring</span> *str2 = str1;          // str2引用计数是多少？-&gt;</span> -<span class="number">1</span>   <span class="function"><span class="title">str1</span>引用计数是多少？-&gt;</span> -<span class="number">1</span></div><div class="line"></div><div class="line">NSS<span class="function"><span class="title">tring</span> *str3 = [str1 copy];   // str3引用计数是多少？-&gt;</span> -<span class="number">1</span>   <span class="function"><span class="title">str1</span>引用计数是多少？-&gt;</span> -<span class="number">1</span></div><div class="line"></div><div class="line">NSS<span class="function"><span class="title">tring</span> *str4 = [str1 mutableCopy];  // str4引用计数是多少? -&gt;</span> <span class="number">1</span>   <span class="function"><span class="title">str1</span>引用计数是多少? -&gt;</span> -<span class="number">1</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>NSString有自己的存储空间，有点类似static，而且如果字符串相同，只会有一个内存地址</p>
+</blockquote>
+<p>在iOS开发中我们存储分为</p>
+<ul>
+<li>栈</li>
+<li>堆</li>
+<li>全局区(静态区) （static）</li>
+<li>文字常量区 存放常量字符串，程序结束后由系统释放</li>
+<li>程序代码区 存放函数的二进制代码</li>
+</ul>
+<p>#@synchronized ()</p>
+<ul>
+<li><p>这个后面到底接什么，接self，还是相应的属性，这个锁的原理是把括号里面的放到一个hash表里面，<br>等取值或者赋值会取hash表里面的key值，如果有就等待，具体相应</p>
+</li>
+<li><p>如果是<strong>self</strong>相应的类多不能更改，如果是相应的属性，其他<strong>属性</strong>是不受影响的。</p>
+</li>
+</ul>
+<h1 id="dispatch_asyc"><a href="#dispatch_asyc" class="headerlink" title="dispatch_asyc"></a>dispatch_asyc</h1></the>
       
     </div>
 
@@ -386,6 +416,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Sentiment/" rel="tag"># Sentiment</a>
+          
+        </div>
+      
 
       
       
@@ -404,6 +440,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/07/Command-Not-Found/" rel="prev" title="Command Not Found">
+                Command Not Found <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -453,8 +493,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -469,7 +518,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -579,6 +628,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#block"><span class="nav-number">1.</span> <span class="nav-text">block</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NSString"><span class="nav-number">2.</span> <span class="nav-text">NSString</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dispatch_asyc"><span class="nav-number">3.</span> <span class="nav-text">dispatch_asyc</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
