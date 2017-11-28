@@ -229,3 +229,25 @@ dispatch_sync(concurrent_queue, ^(){
 2017-07-17 19:08:17.999 BackBlock[32724:28691057] dispatch_barrier_async--<NSThread: 0x60800006c340>{number = 6, name = (null)}
 2017-07-17 19:08:17.999 BackBlock[32724:28691057] task-4--<NSThread: 0x60800006c340>{number = 6, name = (null)}
 ```
+### 关于NSArray取数据安全性整理
+大家都知道，如果取的index大于数组个数会产生crash，这时候我们需要判断
+
+* OC
+```
+NSArray *array = @[@"1"];
+NSInteger number = 1;
+if (number < array.count) {
+    NSLog(@"here is real value");
+}
+```
+>> 这个地方有一个问题就是如果 number = -1时候，是否<array.count,答案是： 否，因为array.count是NSUInteger，比较的时候会转换成NSUInteger就行比较，-1是多少呢，其实变了一个很大的数
+
+* Swift
+```
+let array = [AnyObject]()
+let number = -1
+if number > 0 && number < array.count {
+    print("real data")
+}
+```
+>> 在swift当中，就不会number和array.count 都是int类型，有正负之分，所以要添加一个判断，number是否小于零，换成NSArray也是一样，count都变成了int型
