@@ -49,17 +49,23 @@ Host git-github
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/id_rsa_github
 ```
-#### 3、然后我们要把ssh添加到git里面
+#### 3、将SSH Key添加到ssh-agent，执行命令：
+```
+　　　eval $(ssh-agent -s)
+```
+返回agent的Pid：
+
+#### 4、然后我们要把ssh添加到git里面
 ```
 ssh-add ~/.ssh/id_rsa_github
 ```
-#### 4、然后测试一下是否OK
+#### 5、然后测试一下是否OK
 ```
 ssh -T git@github.com
 Hi xxx! You've successfully authenticated,but GitHub does not provide shell access.
 ```
 
-#### 5、完成之后需要设置config
+#### 6、完成之后需要设置config
 > 在自己git项目下，终端运行
 
 ```
@@ -85,6 +91,6 @@ git config user.email "xxx@qq.com"
 ```
 这个设置会显示在你的提交信息里面，在自己项目的**.git**目录下，有个名为**config**的文件，如果找不到可以在终端输入**l -list**
 
-#### 6、如果遇到如图下面这种情况
+#### 7、如果遇到如图下面这种情况
 * 就把`known_hosts`里面相应的地址删掉，在执行`ssh -T`重新请求就好了
 ![ssh -T](多个git账号的配置/ssh_error.png)
