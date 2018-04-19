@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="黑客与画家">
 <meta property="og:description" content="工欲善其事必先利其器">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-19T04:54:05.656Z">
+<meta property="og:updated_time" content="2018-04-19T05:09:33.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向工程_环境配置">
 <meta name="twitter:description" content="工欲善其事必先利其器">
@@ -354,7 +354,9 @@
 <li>PP助手</li>
 <li>MachOView</li>
 <li>idapro</li>
-<li>ios-app-signer-master<h1 id="Cycript"><a href="#Cycript" class="headerlink" title="Cycript"></a><a href="http://www.cycript.org/" target="_blank" rel="external">Cycript</a></h1></li>
+<li>ios-app-signer-master</li>
+</ul>
+<h1 id="Cycript"><a href="#Cycript" class="headerlink" title="Cycript"></a><a href="http://www.cycript.org/" target="_blank" rel="external">Cycript</a></h1><ul>
 <li>从<a href="http://www.cycript.org/" target="_blank" rel="external">官网</a>下载最新的 SDK，解压，然后把解压的文件夹复制到<strong>/opt/</strong> 下</li>
 <li>配置环境变量，让我们可以在任何地方使用这个 <strong>cycript</strong> 命令,三个地方，可任选其一，<strong>.profile、.bash_profie、.zshrc</strong>,不过我选择放在 <strong>.profile</strong> 里面，<strong>.bash_profie</strong> 和 <strong>.zshrc</strong> 文件里都分别添加了<strong>source ~/.profile</strong>，下面要配置了<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> CYCRIPT=/opt/cycript_0.9.594</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$CYCRIPT</span></div></pre></td></tr></table></figure>
 </li>
