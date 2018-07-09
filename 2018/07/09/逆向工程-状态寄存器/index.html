@@ -105,7 +105,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.tiandabao.com/2018/07/09/逆向工程-状态寄存器/15201620403651/15201620642085.jpg">
 <meta property="og:image" content="http://www.tiandabao.com/2018/07/09/逆向工程-状态寄存器/15201620403651/15201651736312.jpg">
-<meta property="og:updated_time" content="2018-07-09T14:17:29.018Z">
+<meta property="og:updated_time" content="2018-07-09T14:52:41.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向工程_状态寄存器">
 <meta name="twitter:description" content="状态寄存器以及循环&amp;amp;选择介绍">
@@ -351,7 +351,8 @@
         <p>状态寄存器以及循环&amp;选择介绍<br><a id="more"></a></p>
 <the rest="" of="" contents="" |="" 余下全文\="">
 
-<p>#状态寄存器<br>&emsp;&emsp;&ensp;CPU内部的寄存器中,有一种特殊的寄存器(对于不同的处理器,个数和结构都可能不同).这种寄存器在ARM中,被称为状态寄存器就是CPSR(current program status register)寄存器<br>CPSR和其他寄存器不一样,其他寄存器是用来存放数据的,都是整个寄存器具有一个含义.而CPSR寄存器是按位起作用的,也就是说,它的每一位都有专门的含义,记录特定的信息.</p>
+
+<h1 id="u72B6_u6001_u5BC4_u5B58_u5668"><a href="#u72B6_u6001_u5BC4_u5B58_u5668" class="headerlink" title="状态寄存器"></a>状态寄存器</h1><p>&emsp;&emsp;&ensp;CPU内部的寄存器中,有一种特殊的寄存器(对于不同的处理器,个数和结构都可能不同).这种寄存器在ARM中,被称为状态寄存器就是CPSR(current program status register)寄存器<br>CPSR和其他寄存器不一样,其他寄存器是用来存放数据的,都是整个寄存器具有一个含义.而CPSR寄存器是按位起作用的,也就是说,它的每一位都有专门的含义,记录特定的信息.</p>
 <blockquote>
 <p>注:CPSR寄存器是32位的</p>
 </blockquote>
@@ -360,28 +361,24 @@
 <li>N、Z、C、V均为条件码标志位。它们的内容可被算术或逻辑运算的结果所改变，并且可以决定某条指令是否被执行!意义重大!</li>
 </ul>
 <p><img src="/2018/07/09/逆向工程-状态寄存器/15201620403651/15201620642085.jpg" alt=""></p>
-<p>###N（Negative）标志</p>
-<blockquote>
+<h3 id="N_uFF08Negative_uFF09_u6807_u5FD7"><a href="#N_uFF08Negative_uFF09_u6807_u5FD7" class="headerlink" title="N（Negative）标志"></a>N（Negative）标志</h3><blockquote>
 <p>CPSR的第31位是 N，符号标志位。它记录相关指令执行后,其结果是否为负.如果为负 N = 1,如果是非负数 N = 0.</p>
 </blockquote>
 <p>&emsp;&emsp;&ensp;<strong>注意</strong>,在ARM64的指令集中,有的指令的执行时影响状态寄存器的,比如add\sub\or等,他们大都是运算指令(进行逻辑或算数运算)；</p>
-<p>###Z(Zero)标志</p>
-<blockquote>
+<h3 id="Z_28Zero_29_u6807_u5FD7"><a href="#Z_28Zero_29_u6807_u5FD7" class="headerlink" title="Z(Zero)标志"></a>Z(Zero)标志</h3><blockquote>
 <p>CPSR的第30位是Z，0标志位。它记录相关指令执行后,其结果是否为0.如果结果为0.那么Z = 1.如果结果不为0,那么Z = 0.</p>
 </blockquote>
 <p>&emsp;&emsp;&ensp;对于Z的值,我们可以这样来看,Z标记相关指令的计算结果是否为0,如果为0,则N要记录下”是0”这样的肯定信息.在计算机中1表示逻辑真,表示肯定.所以当结果为0的时候Z = 1,表示”结果是0”.如果结果不为0,则Z要记录下”不是0”这样的否定信息.在计算机中0表示逻辑假,表示否定,所以当结果不为0的时候Z = 0,表示”结果不为0”。</p>
-<p>###C(Carry)标志</p>
-<blockquote>
+<h3 id="C_28Carry_29_u6807_u5FD7"><a href="#C_28Carry_29_u6807_u5FD7" class="headerlink" title="C(Carry)标志"></a>C(Carry)标志</h3><blockquote>
 <p>CPSR的第29位是C，进位标志位。一般情况下,进行<strong>无符号数</strong>的运算。<br>加法运算：当运算结果产生了进位时（无符号数溢出），C=1，否则C=0。<br>减法运算（包括CMP）：当运算时产生了借位时（无符号数溢出），C=0，否则C=1。</p>
 </blockquote>
 <p>&emsp;&emsp;&ensp;对于位数为N的无符号数来说，其对应的二进制信息的最高位，即第N - 1位，就是它的最高有效位，而假想存在的第N位，就是相对于最高有效位的更高位。如下图所示：</p>
 <p><img src="/2018/07/09/逆向工程-状态寄存器/15201620403651/15201651736312.jpg" alt=""></p>
-<p>###进位<br>&emsp;&emsp;&ensp;我们知道，当两个数据相加的时候，有可能产生从最高有效位向更高位的进位。比如两个32位数据：0xaaaaaaaa + 0xaaaaaaaa,将产生进位。由于这个进位值在32位中无法保存，我们就只是简单的说这个进位值丢失了。其实CPU在运算的时候，并不丢弃这个进位制，而是记录在一个特殊的寄存器的某一位上。ARM下就用C位来记录这个进位值。比如，下面的指令</p>
+<h3 id="u8FDB_u4F4D"><a href="#u8FDB_u4F4D" class="headerlink" title="进位"></a>进位</h3><p>&emsp;&emsp;&ensp;我们知道，当两个数据相加的时候，有可能产生从最高有效位向更高位的进位。比如两个32位数据：0xaaaaaaaa + 0xaaaaaaaa,将产生进位。由于这个进位值在32位中无法保存，我们就只是简单的说这个进位值丢失了。其实CPU在运算的时候，并不丢弃这个进位制，而是记录在一个特殊的寄存器的某一位上。ARM下就用C位来记录这个进位值。比如，下面的指令</p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mov w0,#<span class="number">0xaaaaaaaa</span>；<span class="number">0xa</span> 的二进制是 <span class="number">1010</span></div><div class="line">adds w0,w0,w0； 执行后 相当于 <span class="number">1010</span> &lt;&lt; <span class="number">1</span> 进位<span class="number">1</span>（无符号溢出） 所以C标记 为 <span class="number">1</span></div><div class="line">adds w0,w0,w0； 执行后 相当于 <span class="number">0101</span> &lt;&lt; <span class="number">1</span> 进位<span class="number">0</span>（无符号没溢出） 所以C标记 为 <span class="number">0</span></div><div class="line">adds w0,w0,w0； 重复上面操作</div><div class="line">adds w0,w0,w0</div></pre></td></tr></table></figure>
-<p>###借位<br>&emsp;&emsp;&ensp;当两个数据做减法的时候，有可能向更高位借位。再比如，两个32位数据：0x00000000 - 0x000000ff,将产生借位，借位后，相当于计算0x100000000 - 0x000000ff。得到0xffffff01 这个值。由于借了一位，所以C位 用来标记借位。C = 0.比如下面指令：</p>
+<h3 id="u501F_u4F4D"><a href="#u501F_u4F4D" class="headerlink" title="借位"></a>借位</h3><p>&emsp;&emsp;&ensp;当两个数据做减法的时候，有可能向更高位借位。再比如，两个32位数据：0x00000000 - 0x000000ff,将产生借位，借位后，相当于计算0x100000000 - 0x000000ff。得到0xffffff01 这个值。由于借了一位，所以C位 用来标记借位。C = 0.比如下面指令：</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mov w0,<span class="comment">#0x0</span></div><div class="line"><span class="keyword">subs </span>w0,w0,<span class="comment">#0xff ;</span></div><div class="line"><span class="keyword">subs </span>w0,w0,<span class="comment">#0xff</span></div><div class="line"><span class="keyword">subs </span>w0,w0,<span class="comment">#0xff</span></div></pre></td></tr></table></figure>
-<p>###V(Overflow)溢出标志  </p>
-<blockquote>
+<h3 id="V_28Overflow_29_u6EA2_u51FA_u6807_u5FD7"><a href="#V_28Overflow_29_u6EA2_u51FA_u6807_u5FD7" class="headerlink" title="V(Overflow)溢出标志"></a>V(Overflow)溢出标志</h3><blockquote>
 <p>CPSR的第28位是V，溢出标志位。在进行有符号数运算的时候，如果超过了机器所能标识的范围，称为溢出。</p>
 </blockquote>
 <ul>
@@ -389,8 +386,47 @@
 <li>负数 +  负数  为正数  溢出</li>
 <li>正数 +  负数  不可能溢出</li>
 </ul>
-<p>#循环&amp;选择</p>
-<p>##cmp（Compare）比较指令<br>&emsp;&emsp;&ensp;CMP 把一个寄存器的内容和另一个寄存器的内容或立即数进行比较。但不存储结果，只是正确的更改标志。<br>&emsp;&emsp;&ensp;一般CMP做完判断后会进行跳转，后面通常会跟上B指令！</p>
+<h2 id="u6307_u4EE4_u4ECB_u7ECD"><a href="#u6307_u4EE4_u4ECB_u7ECD" class="headerlink" title="指令介绍"></a>指令介绍</h2><h4 id="bl_u6307_u4EE4"><a href="#bl_u6307_u4EE4" class="headerlink" title="bl指令"></a>bl指令</h4><ul>
+<li>跳转，将下一条执行的指令放入lr（X30）寄存器</li>
+</ul>
+<h4 id="ret"><a href="#ret" class="headerlink" title="ret"></a>ret</h4><ul>
+<li>返回到lr寄存器所保存的地址 执行代码</li>
+</ul>
+<h4 id="lr__u5BC4_u5B58_u5668"><a href="#lr__u5BC4_u5B58_u5668" class="headerlink" title="lr 寄存器"></a>lr 寄存器</h4><ul>
+<li>保存子程序返回地址</li>
+</ul>
+<h4 id="pc__u5BC4_u5B58_u5668"><a href="#pc__u5BC4_u5B58_u5668" class="headerlink" title="pc 寄存器"></a>pc 寄存器</h4><ul>
+<li>指向马上要执行的代码地址</li>
+</ul>
+<h4 id="sp"><a href="#sp" class="headerlink" title="sp"></a>sp</h4><ul>
+<li>指向了我们栈</li>
+<li>栈平衡（每个函数调用完毕之后，将拉伸的栈空间平衡（将sp加回去））</li>
+</ul>
+<ul>
+<li>函数调用会开辟一段空间（栈空间）</li>
+<li>函数的局部变量、参数、寄存器的保护</li>
+</ul>
+<blockquote>
+<p>参数：x0 – x7(个数有关系、数据类型也有关)<br>    多余的就会入栈</p>
+<p>函数嵌套调用：<br>    | - A(开辟) –&gt; B（开辟） –&gt; A（开辟）<br>    | -  A&lt;–&gt;A 死的递归（内存溢出）</p>
+</blockquote>
+<h4 id="adrp"><a href="#adrp" class="headerlink" title="adrp"></a>adrp</h4><ul>
+<li>是计算指定的数据地址 到当前PC值的相对偏移<br>由于得到的结果是低12bit为0</li>
+</ul>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">adrp   x0, <span class="number">1</span></div><div class="line">adrp</div><div class="line"><span class="number">10</span> <span class="number">1024</span></div><div class="line"><span class="number">12</span>  == <span class="number">4</span>KB</div></pre></td></tr></table></figure>
+<ol>
+<li>将1的值,左移12位 1 0000 0000 0000 == 0x1000</li>
+<li>将PC寄存器的低12位清零 0x1002e6874  ==&gt; 0x1002e6000</li>
+<li>将将1 和 2 的结果相加  给 X0 寄存器!!</li>
+</ol>
+<h2 id="u5185_u5B58_u5206_u533A_u57DF"><a href="#u5185_u5B58_u5206_u533A_u57DF" class="headerlink" title="内存分区域"></a>内存分区域</h2><ul>
+<li>代码区  特点: 可读可写可执行</li>
+<li>栈区域  放参数和局部变量</li>
+<li>堆区域 动态申请 可读可写</li>
+<li>全局:  可读可写</li>
+<li>常量区: 只读!</li>
+</ul>
+<h1 id="u5FAA_u73AF_26amp_3B_u9009_u62E9"><a href="#u5FAA_u73AF_26amp_3B_u9009_u62E9" class="headerlink" title="循环&amp;选择"></a>循环&amp;选择</h1><h2 id="cmp_uFF08Compare_uFF09_u6BD4_u8F83_u6307_u4EE4"><a href="#cmp_uFF08Compare_uFF09_u6BD4_u8F83_u6307_u4EE4" class="headerlink" title="cmp（Compare）比较指令"></a>cmp（Compare）比较指令</h2><p>&emsp;&emsp;&ensp;CMP 把一个寄存器的内容和另一个寄存器的内容或立即数进行比较。但不存储结果，只是正确的更改标志。<br>&emsp;&emsp;&ensp;一般CMP做完判断后会进行跳转，后面通常会跟上B指令！</p>
 <ul>
 <li>BL 标号：跳转到标号处执行</li>
 <li>B.GT  标号：比较结果是<strong>大于（greater than）</strong>，执行标号，否则不跳转</li>
@@ -398,7 +434,7 @@
 <li>B.EQ  标号：比较结果是<strong>等于</strong>，执行标号，否则不跳转</li>
 <li>B.HI  标号：比较结果是<strong>无符号大于</strong>，执行标号，否则不跳转</li>
 </ul>
-<p>##Switch<br>1、假设switch语句的分支比较少的时候（例如3，少于4的时候没有意义）没有必要使用此结构，相当于if。<br>2、各个分支常量的差值较大的时候，编译器会在效率还是内存进行取舍，这个时候编译器还是会编译成类似于if，else的结构。<br>3、在分支比较多的时候：在编译的时候会生成一个表（跳转表每个地址四个字节）。</p>
+<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><p>1、假设switch语句的分支比较少的时候（例如3，少于4的时候没有意义）没有必要使用此结构，相当于if。<br>2、各个分支常量的差值较大的时候，编译器会在效率还是内存进行取舍，这个时候编译器还是会编译成类似于if，else的结构。<br>3、在分支比较多的时候：在编译的时候会生成一个表（跳转表每个地址四个字节）。</p>
 </the>
       
     </div>
@@ -514,8 +550,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -640,6 +685,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u72B6_u6001_u5BC4_u5B58_u5668"><span class="nav-number">1.</span> <span class="nav-text">状态寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#N_uFF08Negative_uFF09_u6807_u5FD7"><span class="nav-number">1.0.1.</span> <span class="nav-text">N（Negative）标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Z_28Zero_29_u6807_u5FD7"><span class="nav-number">1.0.2.</span> <span class="nav-text">Z(Zero)标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C_28Carry_29_u6807_u5FD7"><span class="nav-number">1.0.3.</span> <span class="nav-text">C(Carry)标志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u8FDB_u4F4D"><span class="nav-number">1.0.4.</span> <span class="nav-text">进位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u501F_u4F4D"><span class="nav-number">1.0.5.</span> <span class="nav-text">借位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V_28Overflow_29_u6EA2_u51FA_u6807_u5FD7"><span class="nav-number">1.0.6.</span> <span class="nav-text">V(Overflow)溢出标志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6307_u4EE4_u4ECB_u7ECD"><span class="nav-number">1.1.</span> <span class="nav-text">指令介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bl_u6307_u4EE4"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">bl指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ret"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">ret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lr__u5BC4_u5B58_u5668"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">lr 寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pc__u5BC4_u5B58_u5668"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">pc 寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sp"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">sp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adrp"><span class="nav-number">1.1.0.6.</span> <span class="nav-text">adrp</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u5185_u5B58_u5206_u533A_u57DF"><span class="nav-number">1.2.</span> <span class="nav-text">内存分区域</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u5FAA_u73AF_26amp_3B_u9009_u62E9"><span class="nav-number">2.</span> <span class="nav-text">循环&选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cmp_uFF08Compare_uFF09_u6BD4_u8F83_u6307_u4EE4"><span class="nav-number">2.1.</span> <span class="nav-text">cmp（Compare）比较指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Switch"><span class="nav-number">2.2.</span> <span class="nav-text">Switch</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
