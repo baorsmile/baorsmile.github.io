@@ -95,18 +95,33 @@
 
 
 
-<meta name="description" content="只是一点点">
+<meta name="description" content="寄存器介绍">
 <meta name="keywords" content="逆向">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向工程_汇编">
 <meta property="og:url" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/index.html">
 <meta property="og:site_name" content="黑客与画家">
-<meta property="og:description" content="只是一点点">
+<meta property="og:description" content="寄存器介绍">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-19T04:54:22.054Z">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193669666308.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193672391363.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193692496345.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193692648349.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193693448725.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-bfac743167c4e554.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-b22c5ebccc4e6a9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-cb3c46652c7bad8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-49e73b88a2e7af92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-d723c11cce5cdaaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15170403463820/15178439312380.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193738988252.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193699098685.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193703231861.jpg">
+<meta property="og:updated_time" content="2018-07-09T14:08:38.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向工程_汇编">
-<meta name="twitter:description" content="只是一点点">
+<meta name="twitter:description" content="寄存器介绍">
+<meta name="twitter:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193669666308.jpg">
 
 
 
@@ -345,7 +360,268 @@
       
 
       
-        
+        <p>寄存器介绍<br><a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文\="">
+
+<h1 id="u521D_u8BC6_u6C47_u7F16"><a href="#u521D_u8BC6_u6C47_u7F16" class="headerlink" title="初识汇编"></a>初识汇编</h1><p>我们在学习逆向开发之前,我们要了解一个基本的逆向原理.首先我们是逆向iOS系统上面的APP.那么我们知道,一个APP安装在手机上面的可执行文件本质上是二进制文件.因为iPhone手机本质上执行的指令是二进制.是由手机上的CPU执行的.所以逆向开发是建立在分析二进制上面。</p>
+<h2 id="u6C47_u7F16_u8BED_u8A00_u7684_u53D1_u5C55"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u53D1_u5C55" class="headerlink" title="汇编语言的发展"></a>汇编语言的发展</h2><h3 id="u673A_u5668_u8BED_u8A00"><a href="#u673A_u5668_u8BED_u8A00" class="headerlink" title="机器语言"></a>机器语言</h3><blockquote>
+<p>由0和1组成的机器指令.</p>
+</blockquote>
+<ul>
+<li>加：0100 0000</li>
+<li>减：0100 1000</li>
+<li>乘：1111 0111 1110 0000</li>
+<li>除：1111 0111 1111 0000</li>
+</ul>
+<h3 id="u6C47_u7F16_u8BED_u8A00_28assembly_language_29"><a href="#u6C47_u7F16_u8BED_u8A00_28assembly_language_29" class="headerlink" title="汇编语言(assembly language)"></a>汇编语言(assembly language)</h3><blockquote>
+<p>使用助记符代替机器语言<br>如:</p>
+</blockquote>
+<ul>
+<li>加：INC EAX        通过编译器 0100 0000</li>
+<li>减：DEC EAX        通过编译器 0100 1000</li>
+<li>乘：MUL EAX         通过编译器 1111 0111 1110 0000</li>
+<li>除：DIV EAX        通过编译器 1111 0111 1111 0000</li>
+</ul>
+<p>###高级语言（High-level programming language)</p>
+<blockquote>
+<p>C\C++\Java\OC\Swift,更加接近人类的自然语言<br>比如C语言:</p>
+</blockquote>
+<ul>
+<li>加：A+B        通过编译器            0100 0000</li>
+<li>减：A-B        通过编译器            0100 1000</li>
+<li>乘：A*B     通过编译器            1111 0111 1110 0000</li>
+<li>除：A/B        通过编译器            1111 0111 1111 0000</li>
+</ul>
+<p>我们的代码在终端设备上是这样的过程:</p>
+<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193669666308.jpg" alt=""></p>
+<ul>
+<li><strong>汇编语言</strong>与<strong>机器语言</strong>一一对应，每一条机器指令都有与之对应的汇编指令</li>
+<li><strong>汇编语言</strong>可以通过编译得到<strong>机器语言</strong>，<strong>机器语言</strong>可以通过反汇编得到<strong>汇编语言</strong></li>
+<li><strong>高级语言</strong>可以通过编译得到<strong>汇编语言</strong> \ <strong>机器语言</strong>，但汇编语言\机器语言几乎不可能还原成<strong>高级语言</strong></li>
+</ul>
+<h3 id="u6C47_u7F16_u8BED_u8A00_u7684_u7279_u70B9"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u7279_u70B9" class="headerlink" title="汇编语言的特点"></a>汇编语言的特点</h3><ul>
+<li><p>可以直接访问、控制各种硬件设备，比如存储器、CPU等，能最大限度地发挥硬件的功能</p>
+</li>
+<li><p>能够不受编译器的限制，对生成的二进制代码进行完全的控制</p>
+</li>
+<li><p>目标代码简短，占用内存少，执行速度快</p>
+</li>
+<li><p>汇编指令是机器指令的助记符,同机器指令一一对应。每一种CPU都有自己的机器指令集\汇编指令集，所以汇编语言不具备可移植性</p>
+</li>
+<li><p>知识点过多，开发者需要对CPU等硬件结构有所了解，不易于编写、调试、维护</p>
+</li>
+<li><p>不区分大小写，比如mov和MOV是一样的</p>
+</li>
+</ul>
+<h3 id="u6C47_u7F16_u7684_u7528_u9014_28_u54E5_u4E48_u6211_u5B66_u4E86_u80FD_u5E72_u5565_3F_29"><a href="#u6C47_u7F16_u7684_u7528_u9014_28_u54E5_u4E48_u6211_u5B66_u4E86_u80FD_u5E72_u5565_3F_29" class="headerlink" title="汇编的用途(哥么我学了能干啥?)"></a>汇编的用途(哥么我学了能干啥?)</h3><ul>
+<li>编写驱动程序、操作系统（比如Linux内核的某些关键部分）</li>
+<li>对性能要求极高的程序或者代码片段，可与高级语言混合使用（内联汇编）</li>
+<li>软件安全<ul>
+<li>病毒分析与防治</li>
+<li>逆向\加壳\脱壳\破解\外挂\免杀\加密解密\漏洞\黑客</li>
+</ul>
+</li>
+<li>理解整个计算机系统的最佳起点和最有效途径</li>
+<li>为编写高效代码打下基础</li>
+<li>弄清代码的本质<ul>
+<li>函数的本质究竟是什么?</li>
+<li>++a + ++a + ++a 底层如何执行的?</li>
+<li>编译器到底帮我们干了什么?</li>
+<li>DEBUG模式和RELEASE模式有什么关键的地方被我们忽略</li>
+<li>……</li>
+</ul>
+</li>
+</ul>
+<p>最后来句装13的话</p>
+<blockquote>
+<p>越底层越单纯!真正的程序员都需要了解的一门非常重要的语言,汇编!</p>
+</blockquote>
+<h3 id="u6C47_u7F16_u8BED_u8A00_u7684_u79CD_u7C7B"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u79CD_u7C7B" class="headerlink" title="汇编语言的种类"></a>汇编语言的种类</h3><ul>
+<li><p>目前讨论比较多的汇编语言有</p>
+<ul>
+<li>8086汇编（8086处理器是16bit的CPU）</li>
+<li>Win32汇编</li>
+<li>Win64汇编</li>
+<li>ARM汇编（嵌入式、Mac、iOS）</li>
+<li>……</li>
+</ul>
+</li>
+<li><p>我们iPhone里面用到的是ARM汇编,但是不同的设备也有差异.因CPU的架构不同.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>架构</th>
+<th>设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>armv6</td>
+<td>iPhone, iPhone2, iPhone3G, 第一代、第二代 iPod Touch</td>
+</tr>
+<tr>
+<td>armv7</td>
+<td>iPhone3GS, iPhone4, iPhone4S,iPad, iPad2, iPad3(The New iPad), iPad mini, iPod Touch 3G, iPod Touch4</td>
+</tr>
+<tr>
+<td>armv7s</td>
+<td>iPhone5, iPhone5C, iPad4(iPad with Retina Display)</td>
+</tr>
+<tr>
+<td>arm64</td>
+<td>iPhone5S 以后 iPhoneX , iPad Air, iPad mini2以后</td>
+</tr>
+</tbody>
+</table>
+<h3 id="u51E0_u4E2A_u5FC5_u8981_u7684_u5E38_u8BC6"><a href="#u51E0_u4E2A_u5FC5_u8981_u7684_u5E38_u8BC6" class="headerlink" title="几个必要的常识"></a>几个必要的常识</h3><ul>
+<li>要想学好汇编,首先需要了解CPU等硬件结构</li>
+<li>APP/程序的执行过程</li>
+</ul>
+<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193672391363.jpg" alt=""></p>
+<ul>
+<li>硬件相关最为重要是CPU/内存</li>
+<li>在汇编中,大部分指令都是和CPU与内存相关的</li>
+</ul>
+<h3 id="u603B_u7EBF"><a href="#u603B_u7EBF" class="headerlink" title="总线"></a>总线</h3><p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193692496345.jpg" alt=""><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193692648349.jpg" alt=""></p>
+<ul>
+<li>每一个CPU芯片都有许多管脚，这些管脚和总线相连，CPU通过总线跟外部器件进行交互</li>
+<li>总线：一根根导线的集合</li>
+<li>总线的分类<ul>
+<li>地址总线</li>
+<li>数据总线</li>
+<li>控制总线</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193693448725.jpg" alt=""></p>
+<p><strong>举个例子</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-bfac743167c4e554.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="来至书上的截图"></p>
+<ul>
+<li><strong>地址总线</strong><ul>
+<li>它的宽度决定了CPU的<em>寻址能力</em></li>
+<li>8086的地址总线宽度是<em>20</em>，所以寻址能力是<em>1M</em>（ 2^20  ）</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-b22c5ebccc4e6a9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li><strong>数据总线</strong><ul>
+<li>它的宽度决定了CPU的单次数据传送量，也就是数据<em>传送速度</em></li>
+<li>8086的数据总线宽度是<em>16</em>，所以单次最大传递<em>2个字节</em>的数据</li>
+</ul>
+</li>
+<li><strong>控制总线</strong><ul>
+<li>它的宽度决定了CPU对其他器件的<em>控制能力</em>、能有多少种控制</li>
+</ul>
+</li>
+</ul>
+<h3 id="u5185_u5B58"><a href="#u5185_u5B58" class="headerlink" title="内存"></a>内存</h3><p><img src="http://upload-images.jianshu.io/upload_images/2990730-cb3c46652c7bad8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储区的逻辑连接"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-49e73b88a2e7af92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储器的逻辑连接-物理地址对应图"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-d723c11cce5cdaaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储器的物理地址情况"></p>
+<ul>
+<li><p>内存地址空间的大小受CPU地址总线宽度的限制。8086的地址总线宽度为20，可以定位2^20个不同的内存单元（内存地址范围0x00000~0xFFFFF），所以8086的内存空间大小为1MB</p>
+</li>
+<li><p>0x00000~0x9FFFF：主存储器。可读可写</p>
+</li>
+<li><p>0xA0000~0xBFFFF：向显存中写入数据，这些数据会被显卡输出到显示器。可读可写</p>
+</li>
+<li><p>0xC0000~0xFFFFF：存储各种硬件\系统信息。只读</p>
+</li>
+</ul>
+<p>##进制<br><strong>学习进制的障碍</strong></p>
+<blockquote>
+<p>很多人学不好进制，原因是总以十进制为依托去考虑其他进制，需要运算的时候也总是先转换成十进制，这种学习方法是错误的.<br>我们为什么一定要转换十进制呢？仅仅是因为我们对十进制最熟悉，所以才转换.<br>每一种进制都是完美的,想学好进制首先要忘掉十进制，也要忘掉进制间的转换！</p>
+</blockquote>
+<p>###进制的定义</p>
+<ul>
+<li>八进制由8个符号组成:0 1 2 3 4 5 6 7 逢八进一</li>
+<li>十进制由10个符号组成:0 1 2 3 4 5 6 7 8 9逢十进一</li>
+<li>N进制就是由N个符号组成:逢N进一</li>
+</ul>
+<p><strong>这样的目的何在?</strong><br>传统我们定义的十进制和自定义的十进制不一样.那么这10个符号如果我们不告诉别人这个符号表,别人是没办法拿到我们的具体数据的!用于加密!</p>
+<blockquote>
+<p><strong>十进制</strong>由十个<strong>符号</strong>组成,逢十进一,<strong>符号</strong>是可以<strong>自定义</strong>的!!</p>
+</blockquote>
+<p>###进制的运算</p>
+<p>#####八进制加法表<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span></div><div class="line"><span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span></div><div class="line"><span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span> <span class="number">25</span> <span class="number">26</span> <span class="number">27</span></div><div class="line">...</div><div class="line"></div><div class="line"><span class="number">1</span>+<span class="number">1</span> = <span class="number">2</span>						</div><div class="line"><span class="number">1</span>+<span class="number">2</span> = <span class="number">3</span>   <span class="number">2</span>+<span class="number">2</span> = <span class="number">4</span>				</div><div class="line"><span class="number">1</span>+<span class="number">3</span> = <span class="number">4</span>   <span class="number">2</span>+<span class="number">3</span> = <span class="number">5</span>   <span class="number">3</span>+<span class="number">3</span> = <span class="number">6</span></div><div class="line"><span class="number">1</span>+<span class="number">4</span> = <span class="number">5</span>   <span class="number">2</span>+<span class="number">4</span> = <span class="number">6</span>   <span class="number">3</span>+<span class="number">4</span> = <span class="number">7</span>   <span class="number">4</span>+<span class="number">4</span> = <span class="number">10</span>  </div><div class="line"><span class="number">1</span>+<span class="number">5</span> = <span class="number">6</span>   <span class="number">2</span>+<span class="number">5</span> = <span class="number">7</span>   <span class="number">3</span>+<span class="number">5</span> = <span class="number">10</span>  <span class="number">4</span>+<span class="number">5</span> = <span class="number">11</span>  <span class="number">5</span>+<span class="number">5</span> = <span class="number">12</span></div><div class="line"><span class="number">1</span>+<span class="number">6</span> = <span class="number">7</span>   <span class="number">2</span>+<span class="number">6</span> = <span class="number">10</span>  <span class="number">3</span>+<span class="number">6</span> = <span class="number">11</span>  <span class="number">4</span>+<span class="number">6</span> = <span class="number">12</span>  <span class="number">5</span>+<span class="number">6</span> = <span class="number">13</span>  <span class="number">6</span>+<span class="number">6</span> = <span class="number">14</span></div><div class="line"><span class="number">1</span>+<span class="number">7</span> = <span class="number">10</span>  <span class="number">2</span>+<span class="number">7</span> = <span class="number">11</span>  <span class="number">3</span>+<span class="number">7</span> = <span class="number">12</span>  <span class="number">4</span>+<span class="number">7</span> = <span class="number">13</span>  <span class="number">5</span>+<span class="number">7</span> = <span class="number">14</span>  <span class="number">6</span>+<span class="number">7</span> = <span class="number">15</span>  <span class="number">7</span>+<span class="number">7</span> = <span class="number">16</span></div></pre></td></tr></table></figure></p>
+<p>#####八进制乘法表<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span> <span class="number">25</span> <span class="number">26</span> <span class="number">27.</span>..</div><div class="line"><span class="number">1</span>*<span class="number">1</span> = <span class="number">1</span>						</div><div class="line"><span class="number">1</span>*<span class="number">2</span> = <span class="number">2</span>	  <span class="number">2</span>*<span class="number">2</span> = <span class="number">4</span>				</div><div class="line"><span class="number">1</span>*<span class="number">3</span> = <span class="number">3</span>	  <span class="number">2</span>*<span class="number">3</span> = <span class="number">6</span>	<span class="number">3</span>*<span class="number">3</span> = <span class="number">11</span></div><div class="line"><span class="number">1</span>*<span class="number">4</span> = <span class="number">4</span>	  <span class="number">2</span>*<span class="number">4</span> = <span class="number">10</span>	<span class="number">3</span>*<span class="number">4</span> = <span class="number">14</span>  <span class="number">4</span>*<span class="number">4</span> = <span class="number">20</span></div><div class="line"><span class="number">1</span>*<span class="number">5</span> = <span class="number">5</span>	  <span class="number">2</span>*<span class="number">5</span> = <span class="number">12</span>	<span class="number">3</span>*<span class="number">5</span> = <span class="number">17</span>  <span class="number">4</span>*<span class="number">5</span> = <span class="number">24</span>  <span class="number">5</span>*<span class="number">5</span> = <span class="number">31</span></div><div class="line"><span class="number">1</span>*<span class="number">6</span> = <span class="number">6</span>	  <span class="number">2</span>*<span class="number">6</span> = <span class="number">14</span>	<span class="number">3</span>*<span class="number">6</span> = <span class="number">22</span>  <span class="number">4</span>*<span class="number">6</span> = <span class="number">30</span>  <span class="number">5</span>*<span class="number">6</span> = <span class="number">36</span>  <span class="number">6</span>*<span class="number">6</span> = <span class="number">44</span></div><div class="line"><span class="number">1</span>*<span class="number">7</span> = <span class="number">7</span>	  <span class="number">2</span>*<span class="number">7</span> = <span class="number">16</span>	<span class="number">3</span>*<span class="number">7</span> = <span class="number">25</span>  <span class="number">4</span>*<span class="number">7</span> = <span class="number">34</span>  <span class="number">5</span>*<span class="number">7</span> = <span class="number">43</span>  <span class="number">6</span>*<span class="number">7</span> = <span class="number">52</span>  <span class="number">7</span>*<span class="number">7</span> = <span class="number">61</span></div></pre></td></tr></table></figure></p>
+<p>#####实战四则运算<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   <span class="number">277</span>         <span class="number">236</span>         <span class="number">276</span>         <span class="number">234</span></div><div class="line">+  <span class="number">333</span>       -  <span class="number">54</span>       *  <span class="number">54</span>       /   <span class="number">4</span></div><div class="line">--------    --------    --------    --------</div></pre></td></tr></table></figure></p>
+<p>###二进制的简写形式<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">       二进制:<span class="number"> 1 </span>0<span class="number"> 1 </span>1<span class="number"> 1 </span>0<span class="number"> 1 </span>1<span class="number"> 1 </span>1<span class="number"> 0 </span>0</div><div class="line">三个二进制一组:<span class="number"> 101 </span>110<span class="number"> 111 </span>100</div><div class="line">       八进制:  <span class="number"> 5 </span> <span class="number"> 6 </span> <span class="number"> 7 </span>  4</div><div class="line">四个二进制一组:<span class="number"> 1011 </span>1011 1100</div><div class="line">     十六进制:    b    b    c</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>二进制：从0 写到 1111<br>0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111<br>这种二进制使用起来太麻烦，改成更简单一点的符号：<br>0 1 2 3 4 5 6 7 8 9 A B C D E F 这就是十六进制了</p>
+</blockquote>
+<p>###数据的宽度<br>数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"AppDelegate.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> test()&#123;</div><div class="line">    <span class="keyword">int</span> cTemp = <span class="number">0x1FFFFFFFF</span>;</div><div class="line">    <span class="keyword">return</span> cTemp;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    printf(<span class="string">"%x\n"</span>,test());</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###计算机中常见的数据宽度</p>
+<ul>
+<li>位(Bit): 1个位就是1个二进制位.0或者1</li>
+<li>字节(Byte): 1个字节由8个Bit组成(8位).内存中的最小单元Byte.</li>
+<li>字(Word): 1个字由2个字节组成(16位),这2个字节分别称为高字节和低字节.</li>
+<li>双字(Doubleword): 1个双字由两个字组成(32位)</li>
+</ul>
+<p>那么计算机存储数据它会分为有符号数和无符号数.那么关于这个看图就理解了!<br><img src="/2018/04/19/逆向工程-汇编/15170403463820/15178439312380.jpg" alt=""></p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">无符号数,直接换算!</div><div class="line">有符号数:</div><div class="line">正数:  0    1    2    3    4    5    6    7</div><div class="line">负数:  F    E    D    B    C    A    9    8</div><div class="line">      <span class="string">-1</span>   <span class="string">-2</span>   <span class="string">-3</span>   <span class="string">-4</span>   <span class="string">-5</span>   <span class="string">-6</span>   <span class="string">-7</span>   <span class="string">-8</span></div></pre></td></tr></table></figure>
+<p>###自定义进制符号</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">十进制:   <span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span><span class="number"> 7 </span><span class="number"> 8 </span> 9</div><div class="line">自定义:   <span class="number"> 2 </span><span class="number"> 9 </span><span class="number"> 1 </span><span class="number"> 7 </span><span class="number"> 6 </span><span class="number"> 5 </span><span class="number"> 4 </span><span class="number"> 8 </span><span class="number"> 3 </span> A</div><div class="line">        <span class="number"> 92 </span>99<span class="number"> 91 </span>97<span class="number"> 96 </span>95<span class="number"> 94 </span>98<span class="number"> 93 </span>9A</div><div class="line">        <span class="number"> 12 </span>19<span class="number"> 11 </span>17<span class="number"> 16 </span>15<span class="number"> 14 </span>18<span class="number"> 13 </span>1A</div><div class="line">        <span class="number"> 72 </span>79<span class="number"> 71 </span>77<span class="number"> 76 </span>75<span class="number"> 74 </span>78<span class="number"> 73 </span>7A</div><div class="line">        <span class="number"> 62 </span>69<span class="number"> 61 </span>67<span class="number"> 66 </span>65<span class="number"> 64 </span>68<span class="number"> 63 </span>6A</div><div class="line">        <span class="number"> 52 </span>59<span class="number"> 51 </span>57<span class="number"> 56 </span>55<span class="number"> 54 </span>58<span class="number"> 53 </span>5A</div><div class="line">        <span class="number"> 42 </span>49<span class="number"> 41 </span>47<span class="number"> 46 </span>45<span class="number"> 44 </span>48<span class="number"> 43 </span>4A</div><div class="line">        <span class="number"> 82 </span>89<span class="number"> 81 </span>87<span class="number"> 86 </span>85<span class="number"> 84 </span>88<span class="number"> 83 </span>8A</div><div class="line">        <span class="number"> 32 </span>39<span class="number"> 31 </span>37<span class="number"> 36 </span>35<span class="number"> 34 </span>38<span class="number"> 33 </span>3A</div><div class="line">         922</div></pre></td></tr></table></figure>
+<p>那么刚才通过10进制运算可以转化10进制然后查表!但是如果是其他进制.我们就不能转换,要直接学会查表</p>
+<ul>
+<li>现在有9进制数 9个符号分别是：2，9，1，7，6，5，4， 8，3 逢9进1 那么： 123 + 234 = <em>__</em></li>
+</ul>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">十进制:   <span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span><span class="number"> 7 </span><span class="number"> 8 </span> </div><div class="line">自定义:   <span class="number"> 2 </span><span class="number"> 9 </span><span class="number"> 1 </span><span class="number"> 7 </span><span class="number"> 6 </span><span class="number"> 5 </span><span class="number"> 4 </span><span class="number"> 8 </span><span class="number"> 3 </span> </div><div class="line">        <span class="number"> 92 </span>99<span class="number"> 91 </span>97<span class="number"> 96 </span>95<span class="number"> 94 </span>98 93</div><div class="line">        <span class="number"> 12 </span>19<span class="number"> 11 </span>17<span class="number"> 16 </span>15<span class="number"> 14 </span>18 13</div><div class="line">        <span class="number"> 72 </span>79<span class="number"> 71 </span>77<span class="number"> 76 </span>75<span class="number"> 74 </span>78 73</div><div class="line">        <span class="number"> 62 </span>69<span class="number"> 61 </span>67<span class="number"> 66 </span>65<span class="number"> 64 </span>68 63</div><div class="line">        <span class="number"> 52 </span>59<span class="number"> 51 </span>57<span class="number"> 56 </span>55<span class="number"> 54 </span>58 53</div><div class="line">        <span class="number"> 42 </span>49<span class="number"> 41 </span>47<span class="number"> 46 </span>45<span class="number"> 44 </span>48 43</div><div class="line">        <span class="number"> 82 </span>89<span class="number"> 81 </span>87<span class="number"> 86 </span>85<span class="number"> 84 </span>88 83</div><div class="line">        <span class="number"> 32 </span>39<span class="number"> 31 </span>37<span class="number"> 36 </span>35<span class="number"> 34 </span>38 33</div><div class="line">         922</div></pre></td></tr></table></figure>
+<h3 id="u5BC4_u5B58_u5668"><a href="#u5BC4_u5B58_u5668" class="headerlink" title="寄存器"></a>寄存器</h3><p><strong>内部部件之间由总线连接</strong><br><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193738988252.jpg" alt=""></p>
+<ul>
+<li>对程序员来说，CPU中最主要部件是寄存器，可以通过改变寄存器的内容来实现对CPU的控制</li>
+<li>不同的CPU，寄存器的个数、结构是不相同的</li>
+</ul>
+<h3 id="u901A_u7528_u5BC4_u5B58_u5668"><a href="#u901A_u7528_u5BC4_u5B58_u5668" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><ul>
+<li><p>ARM64拥有有31个64位的通用寄存器 x0 到 x30,这些寄存器通常用来存放一般性的数据，称为通用寄存器（有时也有特定用途）</p>
+<ul>
+<li>那么w0 到 w28 这些是32位的. 因为64位CPU可以兼容32位.所以可以只使用64位寄存器的低32位.</li>
+<li><p>比如 w0 就是 x0的低32位!</p>
+<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193699098685.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+<li>通常，CPU会先将内存中的数据存储到通用寄存器中，然后再对通用寄存器中的数据进行运算</li>
+<li>假设内存中有块红色内存空间的值是3，现在想把它的值加1，并将结果存储到蓝色内存空间<br><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193703231861.jpg" alt=""></li>
+</ul>
+<ul>
+<li>CPU首先会将红色内存空间的值放到X0寄存器中：mov X0,红色内存空间</li>
+<li>然后让X0寄存器与1相加：add X0,1</li>
+<li>最后将值赋值给内存空间：mov 蓝色内存空间,X0</li>
+</ul>
+<p>###pc寄存器(program counter)</p>
+<ul>
+<li>为指令指针寄存器，它指示了CPU当前要读取指令的地址</li>
+<li>在内存或者磁盘上，指令和数据没有任何区别，都是二进制信息</li>
+<li>CPU在工作的时候把有的信息看做指令，有的信息看做数据，为同样的信息赋予了不同的意义<ul>
+<li>比如 1110 0000 0000 0011 0000 1000 1010 1010</li>
+<li>可以当做数据   0xE003008AA</li>
+<li>也可以当做指令  mov    x0, x8</li>
+</ul>
+</li>
+<li>CPU根据什么将内存中的信息看做指令？<ul>
+<li>CPU将pc指向的内存单元的内容看做指令</li>
+<li>如果内存中的某段内容曾被CPU执行过，那么它所在的内存单元必然被pc指向过</li>
+</ul>
+</li>
+</ul>
+<h3 id="bl_u6307_u4EE4"><a href="#bl_u6307_u4EE4" class="headerlink" title="bl指令"></a>bl指令</h3><ul>
+<li>CPU从何处执行指令是由pc中的内容决定的，我们可以通过改变pc的内容来控制CPU执行目标指令</li>
+<li>ARM64提供了一个mov指令（传送指令），可以用来修改大部分寄存器的值，比如<ul>
+<li>mov x0,#10、mov x1,#20</li>
+</ul>
+</li>
+<li><p>但是，mov指令不能用于设置pc的值，ARM64没有提供这样的功能</p>
+</li>
+<li><p>ARM64提供了另外的指令来修改PC的值，这些指令统称为转移指令，最简单的是bl指令</p>
+</li>
+</ul>
+<h3 id="bl_u6307_u4EE4__u2013__u7EC3_u4E60"><a href="#bl_u6307_u4EE4__u2013__u7EC3_u4E60" class="headerlink" title="bl指令 – 练习"></a>bl指令 – 练习</h3><p>现在有两段代码!假设程序先执行A,请写出指令执行顺序.最终寄存器x0的值是多少?</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">_A:</div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="symbol">#0</span>xa<span class="number">0</span></div><div class="line">    mov <span class="keyword">x</span><span class="number">1</span>,<span class="symbol">#0</span><span class="keyword">x</span><span class="number">00</span></div><div class="line">    <span class="keyword">add</span> <span class="keyword">x</span><span class="number">1</span>, <span class="keyword">x</span><span class="number">0</span>, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">14</span></div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="keyword">x</span><span class="number">1</span></div><div class="line">    bl _B</div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="symbol">#0</span><span class="keyword">x</span><span class="number">0</span></div><div class="line">    <span class="keyword">ret</span></div><div class="line"></div><div class="line">_B:</div><div class="line">    <span class="keyword">add</span> <span class="keyword">x</span><span class="number">0</span>, <span class="keyword">x</span><span class="number">0</span>, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">10</span></div><div class="line">    <span class="keyword">ret</span></div></pre></td></tr></table></figure>
+</the>
       
     </div>
 
@@ -412,6 +688,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/07/09/逆向工程-函数本质/" rel="prev" title="逆向工程_函数本质">
+                逆向工程_函数本质 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -460,8 +740,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -476,7 +765,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -586,6 +875,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u521D_u8BC6_u6C47_u7F16"><span class="nav-number">1.</span> <span class="nav-text">初识汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u6C47_u7F16_u8BED_u8A00_u7684_u53D1_u5C55"><span class="nav-number">1.1.</span> <span class="nav-text">汇编语言的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u673A_u5668_u8BED_u8A00"><span class="nav-number">1.1.1.</span> <span class="nav-text">机器语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6C47_u7F16_u8BED_u8A00_28assembly_language_29"><span class="nav-number">1.1.2.</span> <span class="nav-text">汇编语言(assembly language)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6C47_u7F16_u8BED_u8A00_u7684_u7279_u70B9"><span class="nav-number">1.1.3.</span> <span class="nav-text">汇编语言的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6C47_u7F16_u7684_u7528_u9014_28_u54E5_u4E48_u6211_u5B66_u4E86_u80FD_u5E72_u5565_3F_29"><span class="nav-number">1.1.4.</span> <span class="nav-text">汇编的用途(哥么我学了能干啥?)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6C47_u7F16_u8BED_u8A00_u7684_u79CD_u7C7B"><span class="nav-number">1.1.5.</span> <span class="nav-text">汇编语言的种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u51E0_u4E2A_u5FC5_u8981_u7684_u5E38_u8BC6"><span class="nav-number">1.1.6.</span> <span class="nav-text">几个必要的常识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u603B_u7EBF"><span class="nav-number">1.1.7.</span> <span class="nav-text">总线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5185_u5B58"><span class="nav-number">1.1.8.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5BC4_u5B58_u5668"><span class="nav-number">1.1.9.</span> <span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u7528_u5BC4_u5B58_u5668"><span class="nav-number">1.1.10.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bl_u6307_u4EE4"><span class="nav-number">1.1.11.</span> <span class="nav-text">bl指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bl_u6307_u4EE4__u2013__u7EC3_u4E60"><span class="nav-number">1.1.12.</span> <span class="nav-text">bl指令 – 练习</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
