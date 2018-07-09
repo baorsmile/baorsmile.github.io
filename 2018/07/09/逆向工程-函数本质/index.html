@@ -104,7 +104,7 @@
 <meta property="og:description" content="查看函数本质">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://www.tiandabao.com/2018/07/09/逆向工程-函数本质/15193997917344/15193998892055.jpg">
-<meta property="og:updated_time" content="2018-07-09T14:13:35.715Z">
+<meta property="og:updated_time" content="2018-07-09T14:43:08.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆向工程_函数本质">
 <meta name="twitter:description" content="查看函数本质">
@@ -350,18 +350,16 @@
         <p>查看函数本质<br><a id="more"></a></p>
 <the rest="" of="" contents="" |="" 余下全文\="">
 
-<h1 id="u51FD_u6570_u672C_u8D28"><a href="#u51FD_u6570_u672C_u8D28" class="headerlink" title="函数本质"></a>函数本质</h1><p>##关于CPU的补充</p>
-<p>####寄存器<br>CPU除了有控制器、运算器还有寄存器。其中寄存器的作用就是进行数据的临时存储。</p>
+<h1 id="u51FD_u6570_u672C_u8D28"><a href="#u51FD_u6570_u672C_u8D28" class="headerlink" title="函数本质"></a>函数本质</h1><h2 id="u5173_u4E8ECPU_u7684_u8865_u5145"><a href="#u5173_u4E8ECPU_u7684_u8865_u5145" class="headerlink" title="关于CPU的补充"></a>关于CPU的补充</h2><h4 id="u5BC4_u5B58_u5668"><a href="#u5BC4_u5B58_u5668" class="headerlink" title="寄存器"></a>寄存器</h4><p>CPU除了有控制器、运算器还有寄存器。其中寄存器的作用就是进行数据的临时存储。</p>
 <blockquote>
 <p>CPU的运算速度是非常快的，为了性能CPU在内部开辟一小块临时存储区域，并在进行运算时先将数据从内存复制到这一小块临时存储区域中，运算时就在这一小快临时存储区域内进行。我们称这一小块临时存储区域为寄存器。</p>
 </blockquote>
 <p>对于arm64系的CPU来说， 如果寄存器以x开头则表明的是一个64位的寄存器，如果以w开头则表明是一个32位的寄存器，在系统中没有提供16位和8位的寄存器供访问和使用。其中32位的寄存器是64位寄存器的低32位部分并不是独立存在的。</p>
-<p>####高速缓存<br>iPhoneX上搭载的ARM处理器A11它的1级缓存的容量是64KB，2级缓存的容量8M.</p>
+<h4 id="u9AD8_u901F_u7F13_u5B58"><a href="#u9AD8_u901F_u7F13_u5B58" class="headerlink" title="高速缓存"></a>高速缓存</h4><p>iPhoneX上搭载的ARM处理器A11它的1级缓存的容量是64KB，2级缓存的容量8M.</p>
 <blockquote>
 <p>CPU每执行一条指令前都需要从内存中将指令读取到CPU内并执行。而寄存器的运行速度相比内存读写要快很多,为了性能,CPU还集成了一个<strong>高速缓存存储区域</strong>.当程序在运行时，先将要执行的指令代码以及数据复制到高速缓存中去(由操作系统完成).CPU直接从高速缓存依次读取指令来执行.</p>
 </blockquote>
-<p>###寄存器的补充</p>
-<p>####数据地址寄存器<br>数据地址寄存器通常用来做数据计算的临时存储、做累加、计数、地址保存等功能。定义这些寄存器的作用主要是用于在CPU指令中保存操作数，在CPU中当做一些常规变量来使用。<br><strong>ARM64中</strong></p>
+<h3 id="u5BC4_u5B58_u5668_u7684_u8865_u5145"><a href="#u5BC4_u5B58_u5668_u7684_u8865_u5145" class="headerlink" title="寄存器的补充"></a>寄存器的补充</h3><h4 id="u6570_u636E_u5730_u5740_u5BC4_u5B58_u5668"><a href="#u6570_u636E_u5730_u5740_u5BC4_u5B58_u5668" class="headerlink" title="数据地址寄存器"></a>数据地址寄存器</h4><p>数据地址寄存器通常用来做数据计算的临时存储、做累加、计数、地址保存等功能。定义这些寄存器的作用主要是用于在CPU指令中保存操作数，在CPU中当做一些常规变量来使用。<br><strong>ARM64中</strong></p>
 <ul>
 <li>64位: X0-X30, XZR(零寄存器)</li>
 <li>32位: W0-W30, WZR(零寄存器)</li>
@@ -369,7 +367,7 @@
 <blockquote>
 <p>注意:<br>之前讲解8086汇编中有一种特殊的寄存器段寄存器:CS,DS,SS,ES四个寄存器来保存这些段的基地址,这个属于Intel架构CPU中.在ARM中并没有</p>
 </blockquote>
-<p>####浮点和向量寄存器<br>因为浮点数的存储以及其运算的特殊性,CPU中专门提供浮点数寄存器来处理浮点数</p>
+<h4 id="u6D6E_u70B9_u548C_u5411_u91CF_u5BC4_u5B58_u5668"><a href="#u6D6E_u70B9_u548C_u5411_u91CF_u5BC4_u5B58_u5668" class="headerlink" title="浮点和向量寄存器"></a>浮点和向量寄存器</h4><p>因为浮点数的存储以及其运算的特殊性,CPU中专门提供浮点数寄存器来处理浮点数</p>
 <ul>
 <li>浮点寄存器 64位: D0 - D31  32位: S0 - S31</li>
 </ul>
@@ -380,8 +378,7 @@
 <h2 id="u6808"><a href="#u6808" class="headerlink" title="栈"></a>栈</h2><ul>
 <li>栈：是一种具有特殊的访问方式的存储空间（后进先出， Last In Out Firt，LIFO）<br><img src="/2018/07/09/逆向工程-函数本质/15193997917344/15193998892055.jpg" alt=""></li>
 </ul>
-<p>###SP和FP寄存器</p>
-<ul>
+<h3 id="SP_u548CFP_u5BC4_u5B58_u5668"><a href="#SP_u548CFP_u5BC4_u5B58_u5668" class="headerlink" title="SP和FP寄存器"></a>SP和FP寄存器</h3><ul>
 <li>sp寄存器在任意时刻会保存我们栈顶的地址.</li>
 <li><p>fp寄存器也称为x29寄存器属于通用寄存器,但是在某些时刻我们利用它保存栈底的地址!()</p>
 <blockquote>
@@ -389,8 +386,7 @@
 </blockquote>
 </li>
 </ul>
-<p>###关于内存读写指令</p>
-<blockquote>
+<h3 id="u5173_u4E8E_u5185_u5B58_u8BFB_u5199_u6307_u4EE4"><a href="#u5173_u4E8E_u5185_u5B58_u8BFB_u5199_u6307_u4EE4" class="headerlink" title="关于内存读写指令"></a>关于内存读写指令</h3><blockquote>
 <p>注意:读/写 数据是都是往高地址读/写</p>
 </blockquote>
 <p><strong>str(store register)指令</strong></p>
@@ -398,26 +394,24 @@
 <p><strong>ldr(load register)指令</strong></p>
 <p>将数据从内存中读出来,存到寄存器中</p>
 <p>此ldr 和 str 的变种ldp 和 stp 还可以操作2个寄存器.</p>
-<p>###堆栈操作练习<br>使用32个字节空间作为这段程序的栈空间,然后利用栈将x0和x1的值进行交换.</p>
+<h3 id="u5806_u6808_u64CD_u4F5C_u7EC3_u4E60"><a href="#u5806_u6808_u64CD_u4F5C_u7EC3_u4E60" class="headerlink" title="堆栈操作练习"></a>堆栈操作练习</h3><p>使用32个字节空间作为这段程序的栈空间,然后利用栈将x0和x1的值进行交换.</p>
 <figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">sub</span>    sp, sp, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">20</span>	<span class="comment">;拉伸栈空间32个字节</span></div><div class="line">stp    <span class="keyword">x</span><span class="number">0</span>, <span class="keyword">x</span><span class="number">1</span>, [sp, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">10</span>] <span class="comment">;sp往上加16个字节,存放x0 和 x1</span></div><div class="line">ldp    <span class="keyword">x</span><span class="number">1</span>, <span class="keyword">x</span><span class="number">0</span>, [sp, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">10</span>] <span class="comment">;将sp偏移16个字节的值取出来,放入x1 和 x0</span></div></pre></td></tr></table></figure>
-<h2 id="bl_u548Cret_u6307_u4EE4"><a href="#bl_u548Cret_u6307_u4EE4" class="headerlink" title="bl和ret指令"></a>bl和ret指令</h2><p>####bl标号</p>
-<ul>
+<h2 id="bl_u548Cret_u6307_u4EE4"><a href="#bl_u548Cret_u6307_u4EE4" class="headerlink" title="bl和ret指令"></a>bl和ret指令</h2><h4 id="bl_u6807_u53F7"><a href="#bl_u6807_u53F7" class="headerlink" title="bl标号"></a>bl标号</h4><ul>
 <li>将下一条指令的地址放入lr(x30)寄存器</li>
 <li>转到标号处执行指令</li>
 </ul>
-<p>####ret</p>
-<ul>
+<h4 id="ret"><a href="#ret" class="headerlink" title="ret"></a>ret</h4><ul>
 <li>默认使用lr(x30)寄存器的值,通过底层指令提示CPU此处作为下条指令地址!</li>
 </ul>
 <blockquote>
 <p>ARM64平台的特色指令,它面向硬件做了优化处理的</p>
 </blockquote>
-<p>####x30寄存器<br>x30寄存器存放的是函数的返回地址.当ret指令执行时刻,会寻找x30寄存器保存的地址值!</p>
+<h4 id="x30_u5BC4_u5B58_u5668"><a href="#x30_u5BC4_u5B58_u5668" class="headerlink" title="x30寄存器"></a>x30寄存器</h4><p>x30寄存器存放的是函数的返回地址.当ret指令执行时刻,会寻找x30寄存器保存的地址值!</p>
 <blockquote>
 <p>注意:在函数嵌套调用的时候.需要讲x30入栈!</p>
 </blockquote>
-<p>##函数的参数和返回值<br>ARM64下,<strong>函数的参数</strong>是存放在X0到X7(W0到W7)这8个寄存器里面的.如果超过8个参数,就会入栈.<br><strong>函数的返回值</strong>是放在X0 寄存器里面的.</p>
-<p>##函数的局部变量<br>函数的局部变量放在栈里面!</p>
+<h2 id="u51FD_u6570_u7684_u53C2_u6570_u548C_u8FD4_u56DE_u503C"><a href="#u51FD_u6570_u7684_u53C2_u6570_u548C_u8FD4_u56DE_u503C" class="headerlink" title="函数的参数和返回值"></a>函数的参数和返回值</h2><p>ARM64下,<strong>函数的参数</strong>是存放在X0到X7(W0到W7)这8个寄存器里面的.如果超过8个参数,就会入栈.<br><strong>函数的返回值</strong>是放在X0 寄存器里面的.</p>
+<h2 id="u51FD_u6570_u7684_u5C40_u90E8_u53D8_u91CF"><a href="#u51FD_u6570_u7684_u5C40_u90E8_u53D8_u91CF" class="headerlink" title="函数的局部变量"></a>函数的局部变量</h2><p>函数的局部变量放在栈里面!</p>
 </the>
       
     </div>
@@ -682,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u51FD_u6570_u672C_u8D28"><span class="nav-number">1.</span> <span class="nav-text">函数本质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u6808"><span class="nav-number">1.1.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bl_u548Cret_u6307_u4EE4"><span class="nav-number">1.2.</span> <span class="nav-text">bl和ret指令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u51FD_u6570_u672C_u8D28"><span class="nav-number">1.</span> <span class="nav-text">函数本质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u5173_u4E8ECPU_u7684_u8865_u5145"><span class="nav-number">1.1.</span> <span class="nav-text">关于CPU的补充</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#u5BC4_u5B58_u5668"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u9AD8_u901F_u7F13_u5B58"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">高速缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5BC4_u5B58_u5668_u7684_u8865_u5145"><span class="nav-number">1.1.1.</span> <span class="nav-text">寄存器的补充</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#u6570_u636E_u5730_u5740_u5BC4_u5B58_u5668"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">数据地址寄存器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#u6D6E_u70B9_u548C_u5411_u91CF_u5BC4_u5B58_u5668"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">浮点和向量寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6808"><span class="nav-number">1.2.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SP_u548CFP_u5BC4_u5B58_u5668"><span class="nav-number">1.2.1.</span> <span class="nav-text">SP和FP寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5173_u4E8E_u5185_u5B58_u8BFB_u5199_u6307_u4EE4"><span class="nav-number">1.2.2.</span> <span class="nav-text">关于内存读写指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5806_u6808_u64CD_u4F5C_u7EC3_u4E60"><span class="nav-number">1.2.3.</span> <span class="nav-text">堆栈操作练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bl_u548Cret_u6307_u4EE4"><span class="nav-number">1.3.</span> <span class="nav-text">bl和ret指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bl_u6807_u53F7"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">bl标号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ret"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">ret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x30_u5BC4_u5B58_u5668"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">x30寄存器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u51FD_u6570_u7684_u53C2_u6570_u548C_u8FD4_u56DE_u503C"><span class="nav-number">1.4.</span> <span class="nav-text">函数的参数和返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u51FD_u6570_u7684_u5C40_u90E8_u53D8_u91CF"><span class="nav-number">1.5.</span> <span class="nav-text">函数的局部变量</span></a></li></ol></li></ol></div>
             
 
           </div>
