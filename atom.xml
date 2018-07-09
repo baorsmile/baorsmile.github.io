@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.tiandabao.com/"/>
-  <updated>2018-04-19T04:54:22.054Z</updated>
+  <updated>2018-07-09T14:17:29.018Z</updated>
   <id>http://www.tiandabao.com/</id>
   
   <author>
@@ -16,13 +16,440 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>逆向工程_状态寄存器</title>
+    <link href="http://www.tiandabao.com/2018/07/09/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8/"/>
+    <id>http://www.tiandabao.com/2018/07/09/逆向工程-状态寄存器/</id>
+    <published>2018-07-09T14:11:02.000Z</published>
+    <updated>2018-07-09T14:17:29.018Z</updated>
+    
+    <content type="html"><![CDATA[<p>状态寄存器以及循环&amp;选择介绍<br><a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文\="">
+
+<p>#状态寄存器<br>&emsp;&emsp;&ensp;CPU内部的寄存器中,有一种特殊的寄存器(对于不同的处理器,个数和结构都可能不同).这种寄存器在ARM中,被称为状态寄存器就是CPSR(current program status register)寄存器<br>CPSR和其他寄存器不一样,其他寄存器是用来存放数据的,都是整个寄存器具有一个含义.而CPSR寄存器是按位起作用的,也就是说,它的每一位都有专门的含义,记录特定的信息.</p>
+<blockquote>
+<p>注:CPSR寄存器是32位的</p>
+</blockquote>
+<ul>
+<li>CPSR的低8位（包括I、F、T和M[4：0]）称为控制位，程序无法修改,除非CPU运行于特权模式下,程序才能修改控制位!</li>
+<li>N、Z、C、V均为条件码标志位。它们的内容可被算术或逻辑运算的结果所改变，并且可以决定某条指令是否被执行!意义重大!</li>
+</ul>
+<p><img src="/2018/07/09/逆向工程-状态寄存器/15201620403651/15201620642085.jpg" alt=""></p>
+<p>###N（Negative）标志</p>
+<blockquote>
+<p>CPSR的第31位是 N，符号标志位。它记录相关指令执行后,其结果是否为负.如果为负 N = 1,如果是非负数 N = 0.</p>
+</blockquote>
+<p>&emsp;&emsp;&ensp;<strong>注意</strong>,在ARM64的指令集中,有的指令的执行时影响状态寄存器的,比如add\sub\or等,他们大都是运算指令(进行逻辑或算数运算)；</p>
+<p>###Z(Zero)标志</p>
+<blockquote>
+<p>CPSR的第30位是Z，0标志位。它记录相关指令执行后,其结果是否为0.如果结果为0.那么Z = 1.如果结果不为0,那么Z = 0.</p>
+</blockquote>
+<p>&emsp;&emsp;&ensp;对于Z的值,我们可以这样来看,Z标记相关指令的计算结果是否为0,如果为0,则N要记录下”是0”这样的肯定信息.在计算机中1表示逻辑真,表示肯定.所以当结果为0的时候Z = 1,表示”结果是0”.如果结果不为0,则Z要记录下”不是0”这样的否定信息.在计算机中0表示逻辑假,表示否定,所以当结果不为0的时候Z = 0,表示”结果不为0”。</p>
+<p>###C(Carry)标志</p>
+<blockquote>
+<p>CPSR的第29位是C，进位标志位。一般情况下,进行<strong>无符号数</strong>的运算。<br>加法运算：当运算结果产生了进位时（无符号数溢出），C=1，否则C=0。<br>减法运算（包括CMP）：当运算时产生了借位时（无符号数溢出），C=0，否则C=1。</p>
+</blockquote>
+<p>&emsp;&emsp;&ensp;对于位数为N的无符号数来说，其对应的二进制信息的最高位，即第N - 1位，就是它的最高有效位，而假想存在的第N位，就是相对于最高有效位的更高位。如下图所示：</p>
+<p><img src="/2018/07/09/逆向工程-状态寄存器/15201620403651/15201651736312.jpg" alt=""></p>
+<p>###进位<br>&emsp;&emsp;&ensp;我们知道，当两个数据相加的时候，有可能产生从最高有效位向更高位的进位。比如两个32位数据：0xaaaaaaaa + 0xaaaaaaaa,将产生进位。由于这个进位值在32位中无法保存，我们就只是简单的说这个进位值丢失了。其实CPU在运算的时候，并不丢弃这个进位制，而是记录在一个特殊的寄存器的某一位上。ARM下就用C位来记录这个进位值。比如，下面的指令</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mov w0,#<span class="number">0xaaaaaaaa</span>；<span class="number">0xa</span> 的二进制是 <span class="number">1010</span></div><div class="line">adds w0,w0,w0； 执行后 相当于 <span class="number">1010</span> &lt;&lt; <span class="number">1</span> 进位<span class="number">1</span>（无符号溢出） 所以C标记 为 <span class="number">1</span></div><div class="line">adds w0,w0,w0； 执行后 相当于 <span class="number">0101</span> &lt;&lt; <span class="number">1</span> 进位<span class="number">0</span>（无符号没溢出） 所以C标记 为 <span class="number">0</span></div><div class="line">adds w0,w0,w0； 重复上面操作</div><div class="line">adds w0,w0,w0</div></pre></td></tr></table></figure>
+<p>###借位<br>&emsp;&emsp;&ensp;当两个数据做减法的时候，有可能向更高位借位。再比如，两个32位数据：0x00000000 - 0x000000ff,将产生借位，借位后，相当于计算0x100000000 - 0x000000ff。得到0xffffff01 这个值。由于借了一位，所以C位 用来标记借位。C = 0.比如下面指令：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mov w0,<span class="comment">#0x0</span></div><div class="line"><span class="keyword">subs </span>w0,w0,<span class="comment">#0xff ;</span></div><div class="line"><span class="keyword">subs </span>w0,w0,<span class="comment">#0xff</span></div><div class="line"><span class="keyword">subs </span>w0,w0,<span class="comment">#0xff</span></div></pre></td></tr></table></figure>
+<p>###V(Overflow)溢出标志  </p>
+<blockquote>
+<p>CPSR的第28位是V，溢出标志位。在进行有符号数运算的时候，如果超过了机器所能标识的范围，称为溢出。</p>
+</blockquote>
+<ul>
+<li>正数 +  正数  为负数  溢出</li>
+<li>负数 +  负数  为正数  溢出</li>
+<li>正数 +  负数  不可能溢出</li>
+</ul>
+<p>#循环&amp;选择</p>
+<p>##cmp（Compare）比较指令<br>&emsp;&emsp;&ensp;CMP 把一个寄存器的内容和另一个寄存器的内容或立即数进行比较。但不存储结果，只是正确的更改标志。<br>&emsp;&emsp;&ensp;一般CMP做完判断后会进行跳转，后面通常会跟上B指令！</p>
+<ul>
+<li>BL 标号：跳转到标号处执行</li>
+<li>B.GT  标号：比较结果是<strong>大于（greater than）</strong>，执行标号，否则不跳转</li>
+<li>B.GE  标号：比较结果是<strong>大于等于（greater than or equal to）</strong>，执行标号，否则不跳转</li>
+<li>B.EQ  标号：比较结果是<strong>等于</strong>，执行标号，否则不跳转</li>
+<li>B.HI  标号：比较结果是<strong>无符号大于</strong>，执行标号，否则不跳转</li>
+</ul>
+<p>##Switch<br>1、假设switch语句的分支比较少的时候（例如3，少于4的时候没有意义）没有必要使用此结构，相当于if。<br>2、各个分支常量的差值较大的时候，编译器会在效率还是内存进行取舍，这个时候编译器还是会编译成类似于if，else的结构。<br>3、在分支比较多的时候：在编译的时候会生成一个表（跳转表每个地址四个字节）。</p>
+</the>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;状态寄存器以及循环&amp;amp;选择介绍&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="逆向" scheme="http://www.tiandabao.com/tags/%E9%80%86%E5%90%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>逆向工程_函数本质</title>
+    <link href="http://www.tiandabao.com/2018/07/09/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E5%87%BD%E6%95%B0%E6%9C%AC%E8%B4%A8/"/>
+    <id>http://www.tiandabao.com/2018/07/09/逆向工程-函数本质/</id>
+    <published>2018-07-09T14:10:47.000Z</published>
+    <updated>2018-07-09T14:13:35.715Z</updated>
+    
+    <content type="html"><![CDATA[<p>查看函数本质<br><a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文\="">
+
+<h1 id="u51FD_u6570_u672C_u8D28"><a href="#u51FD_u6570_u672C_u8D28" class="headerlink" title="函数本质"></a>函数本质</h1><p>##关于CPU的补充</p>
+<p>####寄存器<br>CPU除了有控制器、运算器还有寄存器。其中寄存器的作用就是进行数据的临时存储。</p>
+<blockquote>
+<p>CPU的运算速度是非常快的，为了性能CPU在内部开辟一小块临时存储区域，并在进行运算时先将数据从内存复制到这一小块临时存储区域中，运算时就在这一小快临时存储区域内进行。我们称这一小块临时存储区域为寄存器。</p>
+</blockquote>
+<p>对于arm64系的CPU来说， 如果寄存器以x开头则表明的是一个64位的寄存器，如果以w开头则表明是一个32位的寄存器，在系统中没有提供16位和8位的寄存器供访问和使用。其中32位的寄存器是64位寄存器的低32位部分并不是独立存在的。</p>
+<p>####高速缓存<br>iPhoneX上搭载的ARM处理器A11它的1级缓存的容量是64KB，2级缓存的容量8M.</p>
+<blockquote>
+<p>CPU每执行一条指令前都需要从内存中将指令读取到CPU内并执行。而寄存器的运行速度相比内存读写要快很多,为了性能,CPU还集成了一个<strong>高速缓存存储区域</strong>.当程序在运行时，先将要执行的指令代码以及数据复制到高速缓存中去(由操作系统完成).CPU直接从高速缓存依次读取指令来执行.</p>
+</blockquote>
+<p>###寄存器的补充</p>
+<p>####数据地址寄存器<br>数据地址寄存器通常用来做数据计算的临时存储、做累加、计数、地址保存等功能。定义这些寄存器的作用主要是用于在CPU指令中保存操作数，在CPU中当做一些常规变量来使用。<br><strong>ARM64中</strong></p>
+<ul>
+<li>64位: X0-X30, XZR(零寄存器)</li>
+<li>32位: W0-W30, WZR(零寄存器)</li>
+</ul>
+<blockquote>
+<p>注意:<br>之前讲解8086汇编中有一种特殊的寄存器段寄存器:CS,DS,SS,ES四个寄存器来保存这些段的基地址,这个属于Intel架构CPU中.在ARM中并没有</p>
+</blockquote>
+<p>####浮点和向量寄存器<br>因为浮点数的存储以及其运算的特殊性,CPU中专门提供浮点数寄存器来处理浮点数</p>
+<ul>
+<li>浮点寄存器 64位: D0 - D31  32位: S0 - S31</li>
+</ul>
+<p>现在的CPU支持向量运算.(向量运算在图形处理相关的领域用得非常的多)为了支持向量计算系统了也提供了众多的向量寄存器.</p>
+<ul>
+<li>向量寄存器 128位:V0-V31</li>
+</ul>
+<h2 id="u6808"><a href="#u6808" class="headerlink" title="栈"></a>栈</h2><ul>
+<li>栈：是一种具有特殊的访问方式的存储空间（后进先出， Last In Out Firt，LIFO）<br><img src="/2018/07/09/逆向工程-函数本质/15193997917344/15193998892055.jpg" alt=""></li>
+</ul>
+<p>###SP和FP寄存器</p>
+<ul>
+<li>sp寄存器在任意时刻会保存我们栈顶的地址.</li>
+<li><p>fp寄存器也称为x29寄存器属于通用寄存器,但是在某些时刻我们利用它保存栈底的地址!()</p>
+<blockquote>
+<p>注意:ARM64开始,取消32位的 LDM,STM,PUSH,POP指令! 取而代之的是ldr\ldp  str\stp<br>ARM64里面 对栈的操作是16字节对齐的!!</p>
+</blockquote>
+</li>
+</ul>
+<p>###关于内存读写指令</p>
+<blockquote>
+<p>注意:读/写 数据是都是往高地址读/写</p>
+</blockquote>
+<p><strong>str(store register)指令</strong></p>
+<p>将数据从寄存器中读出来,存到内存中.</p>
+<p><strong>ldr(load register)指令</strong></p>
+<p>将数据从内存中读出来,存到寄存器中</p>
+<p>此ldr 和 str 的变种ldp 和 stp 还可以操作2个寄存器.</p>
+<p>###堆栈操作练习<br>使用32个字节空间作为这段程序的栈空间,然后利用栈将x0和x1的值进行交换.</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">sub</span>    sp, sp, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">20</span>	<span class="comment">;拉伸栈空间32个字节</span></div><div class="line">stp    <span class="keyword">x</span><span class="number">0</span>, <span class="keyword">x</span><span class="number">1</span>, [sp, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">10</span>] <span class="comment">;sp往上加16个字节,存放x0 和 x1</span></div><div class="line">ldp    <span class="keyword">x</span><span class="number">1</span>, <span class="keyword">x</span><span class="number">0</span>, [sp, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">10</span>] <span class="comment">;将sp偏移16个字节的值取出来,放入x1 和 x0</span></div></pre></td></tr></table></figure>
+<h2 id="bl_u548Cret_u6307_u4EE4"><a href="#bl_u548Cret_u6307_u4EE4" class="headerlink" title="bl和ret指令"></a>bl和ret指令</h2><p>####bl标号</p>
+<ul>
+<li>将下一条指令的地址放入lr(x30)寄存器</li>
+<li>转到标号处执行指令</li>
+</ul>
+<p>####ret</p>
+<ul>
+<li>默认使用lr(x30)寄存器的值,通过底层指令提示CPU此处作为下条指令地址!</li>
+</ul>
+<blockquote>
+<p>ARM64平台的特色指令,它面向硬件做了优化处理的</p>
+</blockquote>
+<p>####x30寄存器<br>x30寄存器存放的是函数的返回地址.当ret指令执行时刻,会寻找x30寄存器保存的地址值!</p>
+<blockquote>
+<p>注意:在函数嵌套调用的时候.需要讲x30入栈!</p>
+</blockquote>
+<p>##函数的参数和返回值<br>ARM64下,<strong>函数的参数</strong>是存放在X0到X7(W0到W7)这8个寄存器里面的.如果超过8个参数,就会入栈.<br><strong>函数的返回值</strong>是放在X0 寄存器里面的.</p>
+<p>##函数的局部变量<br>函数的局部变量放在栈里面!</p>
+</the>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;查看函数本质&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="逆向" scheme="http://www.tiandabao.com/tags/%E9%80%86%E5%90%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>逆向工程_汇编</title>
     <link href="http://www.tiandabao.com/2018/04/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E6%B1%87%E7%BC%96/"/>
     <id>http://www.tiandabao.com/2018/04/19/逆向工程-汇编/</id>
     <published>2018-04-19T03:07:09.000Z</published>
-    <updated>2018-04-19T04:54:22.054Z</updated>
+    <updated>2018-07-09T14:08:38.910Z</updated>
+    
+    <content type="html"><![CDATA[<p>寄存器介绍<br><a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文\="">
+
+<h1 id="u521D_u8BC6_u6C47_u7F16"><a href="#u521D_u8BC6_u6C47_u7F16" class="headerlink" title="初识汇编"></a>初识汇编</h1><p>我们在学习逆向开发之前,我们要了解一个基本的逆向原理.首先我们是逆向iOS系统上面的APP.那么我们知道,一个APP安装在手机上面的可执行文件本质上是二进制文件.因为iPhone手机本质上执行的指令是二进制.是由手机上的CPU执行的.所以逆向开发是建立在分析二进制上面。</p>
+<h2 id="u6C47_u7F16_u8BED_u8A00_u7684_u53D1_u5C55"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u53D1_u5C55" class="headerlink" title="汇编语言的发展"></a>汇编语言的发展</h2><h3 id="u673A_u5668_u8BED_u8A00"><a href="#u673A_u5668_u8BED_u8A00" class="headerlink" title="机器语言"></a>机器语言</h3><blockquote>
+<p>由0和1组成的机器指令.</p>
+</blockquote>
+<ul>
+<li>加：0100 0000</li>
+<li>减：0100 1000</li>
+<li>乘：1111 0111 1110 0000</li>
+<li>除：1111 0111 1111 0000</li>
+</ul>
+<h3 id="u6C47_u7F16_u8BED_u8A00_28assembly_language_29"><a href="#u6C47_u7F16_u8BED_u8A00_28assembly_language_29" class="headerlink" title="汇编语言(assembly language)"></a>汇编语言(assembly language)</h3><blockquote>
+<p>使用助记符代替机器语言<br>如:</p>
+</blockquote>
+<ul>
+<li>加：INC EAX        通过编译器 0100 0000</li>
+<li>减：DEC EAX        通过编译器 0100 1000</li>
+<li>乘：MUL EAX         通过编译器 1111 0111 1110 0000</li>
+<li>除：DIV EAX        通过编译器 1111 0111 1111 0000</li>
+</ul>
+<p>###高级语言（High-level programming language)</p>
+<blockquote>
+<p>C\C++\Java\OC\Swift,更加接近人类的自然语言<br>比如C语言:</p>
+</blockquote>
+<ul>
+<li>加：A+B        通过编译器            0100 0000</li>
+<li>减：A-B        通过编译器            0100 1000</li>
+<li>乘：A*B     通过编译器            1111 0111 1110 0000</li>
+<li>除：A/B        通过编译器            1111 0111 1111 0000</li>
+</ul>
+<p>我们的代码在终端设备上是这样的过程:</p>
+<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193669666308.jpg" alt=""></p>
+<ul>
+<li><strong>汇编语言</strong>与<strong>机器语言</strong>一一对应，每一条机器指令都有与之对应的汇编指令</li>
+<li><strong>汇编语言</strong>可以通过编译得到<strong>机器语言</strong>，<strong>机器语言</strong>可以通过反汇编得到<strong>汇编语言</strong></li>
+<li><strong>高级语言</strong>可以通过编译得到<strong>汇编语言</strong> \ <strong>机器语言</strong>，但汇编语言\机器语言几乎不可能还原成<strong>高级语言</strong></li>
+</ul>
+<h3 id="u6C47_u7F16_u8BED_u8A00_u7684_u7279_u70B9"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u7279_u70B9" class="headerlink" title="汇编语言的特点"></a>汇编语言的特点</h3><ul>
+<li><p>可以直接访问、控制各种硬件设备，比如存储器、CPU等，能最大限度地发挥硬件的功能</p>
+</li>
+<li><p>能够不受编译器的限制，对生成的二进制代码进行完全的控制</p>
+</li>
+<li><p>目标代码简短，占用内存少，执行速度快</p>
+</li>
+<li><p>汇编指令是机器指令的助记符,同机器指令一一对应。每一种CPU都有自己的机器指令集\汇编指令集，所以汇编语言不具备可移植性</p>
+</li>
+<li><p>知识点过多，开发者需要对CPU等硬件结构有所了解，不易于编写、调试、维护</p>
+</li>
+<li><p>不区分大小写，比如mov和MOV是一样的</p>
+</li>
+</ul>
+<h3 id="u6C47_u7F16_u7684_u7528_u9014_28_u54E5_u4E48_u6211_u5B66_u4E86_u80FD_u5E72_u5565_3F_29"><a href="#u6C47_u7F16_u7684_u7528_u9014_28_u54E5_u4E48_u6211_u5B66_u4E86_u80FD_u5E72_u5565_3F_29" class="headerlink" title="汇编的用途(哥么我学了能干啥?)"></a>汇编的用途(哥么我学了能干啥?)</h3><ul>
+<li>编写驱动程序、操作系统（比如Linux内核的某些关键部分）</li>
+<li>对性能要求极高的程序或者代码片段，可与高级语言混合使用（内联汇编）</li>
+<li>软件安全<ul>
+<li>病毒分析与防治</li>
+<li>逆向\加壳\脱壳\破解\外挂\免杀\加密解密\漏洞\黑客</li>
+</ul>
+</li>
+<li>理解整个计算机系统的最佳起点和最有效途径</li>
+<li>为编写高效代码打下基础</li>
+<li>弄清代码的本质<ul>
+<li>函数的本质究竟是什么?</li>
+<li>++a + ++a + ++a 底层如何执行的?</li>
+<li>编译器到底帮我们干了什么?</li>
+<li>DEBUG模式和RELEASE模式有什么关键的地方被我们忽略</li>
+<li>……</li>
+</ul>
+</li>
+</ul>
+<p>最后来句装13的话</p>
+<blockquote>
+<p>越底层越单纯!真正的程序员都需要了解的一门非常重要的语言,汇编!</p>
+</blockquote>
+<h3 id="u6C47_u7F16_u8BED_u8A00_u7684_u79CD_u7C7B"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u79CD_u7C7B" class="headerlink" title="汇编语言的种类"></a>汇编语言的种类</h3><ul>
+<li><p>目前讨论比较多的汇编语言有</p>
+<ul>
+<li>8086汇编（8086处理器是16bit的CPU）</li>
+<li>Win32汇编</li>
+<li>Win64汇编</li>
+<li>ARM汇编（嵌入式、Mac、iOS）</li>
+<li>……</li>
+</ul>
+</li>
+<li><p>我们iPhone里面用到的是ARM汇编,但是不同的设备也有差异.因CPU的架构不同.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>架构</th>
+<th>设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>armv6</td>
+<td>iPhone, iPhone2, iPhone3G, 第一代、第二代 iPod Touch</td>
+</tr>
+<tr>
+<td>armv7</td>
+<td>iPhone3GS, iPhone4, iPhone4S,iPad, iPad2, iPad3(The New iPad), iPad mini, iPod Touch 3G, iPod Touch4</td>
+</tr>
+<tr>
+<td>armv7s</td>
+<td>iPhone5, iPhone5C, iPad4(iPad with Retina Display)</td>
+</tr>
+<tr>
+<td>arm64</td>
+<td>iPhone5S 以后 iPhoneX , iPad Air, iPad mini2以后</td>
+</tr>
+</tbody>
+</table>
+<h3 id="u51E0_u4E2A_u5FC5_u8981_u7684_u5E38_u8BC6"><a href="#u51E0_u4E2A_u5FC5_u8981_u7684_u5E38_u8BC6" class="headerlink" title="几个必要的常识"></a>几个必要的常识</h3><ul>
+<li>要想学好汇编,首先需要了解CPU等硬件结构</li>
+<li>APP/程序的执行过程</li>
+</ul>
+<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193672391363.jpg" alt=""></p>
+<ul>
+<li>硬件相关最为重要是CPU/内存</li>
+<li>在汇编中,大部分指令都是和CPU与内存相关的</li>
+</ul>
+<h3 id="u603B_u7EBF"><a href="#u603B_u7EBF" class="headerlink" title="总线"></a>总线</h3><p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193692496345.jpg" alt=""><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193692648349.jpg" alt=""></p>
+<ul>
+<li>每一个CPU芯片都有许多管脚，这些管脚和总线相连，CPU通过总线跟外部器件进行交互</li>
+<li>总线：一根根导线的集合</li>
+<li>总线的分类<ul>
+<li>地址总线</li>
+<li>数据总线</li>
+<li>控制总线</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193693448725.jpg" alt=""></p>
+<p><strong>举个例子</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-bfac743167c4e554.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="来至书上的截图"></p>
+<ul>
+<li><strong>地址总线</strong><ul>
+<li>它的宽度决定了CPU的<em>寻址能力</em></li>
+<li>8086的地址总线宽度是<em>20</em>，所以寻址能力是<em>1M</em>（ 2^20  ）</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-b22c5ebccc4e6a9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<ul>
+<li><strong>数据总线</strong><ul>
+<li>它的宽度决定了CPU的单次数据传送量，也就是数据<em>传送速度</em></li>
+<li>8086的数据总线宽度是<em>16</em>，所以单次最大传递<em>2个字节</em>的数据</li>
+</ul>
+</li>
+<li><strong>控制总线</strong><ul>
+<li>它的宽度决定了CPU对其他器件的<em>控制能力</em>、能有多少种控制</li>
+</ul>
+</li>
+</ul>
+<h3 id="u5185_u5B58"><a href="#u5185_u5B58" class="headerlink" title="内存"></a>内存</h3><p><img src="http://upload-images.jianshu.io/upload_images/2990730-cb3c46652c7bad8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储区的逻辑连接"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-49e73b88a2e7af92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储器的逻辑连接-物理地址对应图"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-d723c11cce5cdaaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储器的物理地址情况"></p>
+<ul>
+<li><p>内存地址空间的大小受CPU地址总线宽度的限制。8086的地址总线宽度为20，可以定位2^20个不同的内存单元（内存地址范围0x00000~0xFFFFF），所以8086的内存空间大小为1MB</p>
+</li>
+<li><p>0x00000~0x9FFFF：主存储器。可读可写</p>
+</li>
+<li><p>0xA0000~0xBFFFF：向显存中写入数据，这些数据会被显卡输出到显示器。可读可写</p>
+</li>
+<li><p>0xC0000~0xFFFFF：存储各种硬件\系统信息。只读</p>
+</li>
+</ul>
+<p>##进制<br><strong>学习进制的障碍</strong></p>
+<blockquote>
+<p>很多人学不好进制，原因是总以十进制为依托去考虑其他进制，需要运算的时候也总是先转换成十进制，这种学习方法是错误的.<br>我们为什么一定要转换十进制呢？仅仅是因为我们对十进制最熟悉，所以才转换.<br>每一种进制都是完美的,想学好进制首先要忘掉十进制，也要忘掉进制间的转换！</p>
+</blockquote>
+<p>###进制的定义</p>
+<ul>
+<li>八进制由8个符号组成:0 1 2 3 4 5 6 7 逢八进一</li>
+<li>十进制由10个符号组成:0 1 2 3 4 5 6 7 8 9逢十进一</li>
+<li>N进制就是由N个符号组成:逢N进一</li>
+</ul>
+<p><strong>这样的目的何在?</strong><br>传统我们定义的十进制和自定义的十进制不一样.那么这10个符号如果我们不告诉别人这个符号表,别人是没办法拿到我们的具体数据的!用于加密!</p>
+<blockquote>
+<p><strong>十进制</strong>由十个<strong>符号</strong>组成,逢十进一,<strong>符号</strong>是可以<strong>自定义</strong>的!!</p>
+</blockquote>
+<p>###进制的运算</p>
+<p>#####八进制加法表<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span></div><div class="line"><span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span></div><div class="line"><span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span> <span class="number">25</span> <span class="number">26</span> <span class="number">27</span></div><div class="line">...</div><div class="line"></div><div class="line"><span class="number">1</span>+<span class="number">1</span> = <span class="number">2</span>						</div><div class="line"><span class="number">1</span>+<span class="number">2</span> = <span class="number">3</span>   <span class="number">2</span>+<span class="number">2</span> = <span class="number">4</span>				</div><div class="line"><span class="number">1</span>+<span class="number">3</span> = <span class="number">4</span>   <span class="number">2</span>+<span class="number">3</span> = <span class="number">5</span>   <span class="number">3</span>+<span class="number">3</span> = <span class="number">6</span></div><div class="line"><span class="number">1</span>+<span class="number">4</span> = <span class="number">5</span>   <span class="number">2</span>+<span class="number">4</span> = <span class="number">6</span>   <span class="number">3</span>+<span class="number">4</span> = <span class="number">7</span>   <span class="number">4</span>+<span class="number">4</span> = <span class="number">10</span>  </div><div class="line"><span class="number">1</span>+<span class="number">5</span> = <span class="number">6</span>   <span class="number">2</span>+<span class="number">5</span> = <span class="number">7</span>   <span class="number">3</span>+<span class="number">5</span> = <span class="number">10</span>  <span class="number">4</span>+<span class="number">5</span> = <span class="number">11</span>  <span class="number">5</span>+<span class="number">5</span> = <span class="number">12</span></div><div class="line"><span class="number">1</span>+<span class="number">6</span> = <span class="number">7</span>   <span class="number">2</span>+<span class="number">6</span> = <span class="number">10</span>  <span class="number">3</span>+<span class="number">6</span> = <span class="number">11</span>  <span class="number">4</span>+<span class="number">6</span> = <span class="number">12</span>  <span class="number">5</span>+<span class="number">6</span> = <span class="number">13</span>  <span class="number">6</span>+<span class="number">6</span> = <span class="number">14</span></div><div class="line"><span class="number">1</span>+<span class="number">7</span> = <span class="number">10</span>  <span class="number">2</span>+<span class="number">7</span> = <span class="number">11</span>  <span class="number">3</span>+<span class="number">7</span> = <span class="number">12</span>  <span class="number">4</span>+<span class="number">7</span> = <span class="number">13</span>  <span class="number">5</span>+<span class="number">7</span> = <span class="number">14</span>  <span class="number">6</span>+<span class="number">7</span> = <span class="number">15</span>  <span class="number">7</span>+<span class="number">7</span> = <span class="number">16</span></div></pre></td></tr></table></figure></p>
+<p>#####八进制乘法表<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span> <span class="number">25</span> <span class="number">26</span> <span class="number">27.</span>..</div><div class="line"><span class="number">1</span>*<span class="number">1</span> = <span class="number">1</span>						</div><div class="line"><span class="number">1</span>*<span class="number">2</span> = <span class="number">2</span>	  <span class="number">2</span>*<span class="number">2</span> = <span class="number">4</span>				</div><div class="line"><span class="number">1</span>*<span class="number">3</span> = <span class="number">3</span>	  <span class="number">2</span>*<span class="number">3</span> = <span class="number">6</span>	<span class="number">3</span>*<span class="number">3</span> = <span class="number">11</span></div><div class="line"><span class="number">1</span>*<span class="number">4</span> = <span class="number">4</span>	  <span class="number">2</span>*<span class="number">4</span> = <span class="number">10</span>	<span class="number">3</span>*<span class="number">4</span> = <span class="number">14</span>  <span class="number">4</span>*<span class="number">4</span> = <span class="number">20</span></div><div class="line"><span class="number">1</span>*<span class="number">5</span> = <span class="number">5</span>	  <span class="number">2</span>*<span class="number">5</span> = <span class="number">12</span>	<span class="number">3</span>*<span class="number">5</span> = <span class="number">17</span>  <span class="number">4</span>*<span class="number">5</span> = <span class="number">24</span>  <span class="number">5</span>*<span class="number">5</span> = <span class="number">31</span></div><div class="line"><span class="number">1</span>*<span class="number">6</span> = <span class="number">6</span>	  <span class="number">2</span>*<span class="number">6</span> = <span class="number">14</span>	<span class="number">3</span>*<span class="number">6</span> = <span class="number">22</span>  <span class="number">4</span>*<span class="number">6</span> = <span class="number">30</span>  <span class="number">5</span>*<span class="number">6</span> = <span class="number">36</span>  <span class="number">6</span>*<span class="number">6</span> = <span class="number">44</span></div><div class="line"><span class="number">1</span>*<span class="number">7</span> = <span class="number">7</span>	  <span class="number">2</span>*<span class="number">7</span> = <span class="number">16</span>	<span class="number">3</span>*<span class="number">7</span> = <span class="number">25</span>  <span class="number">4</span>*<span class="number">7</span> = <span class="number">34</span>  <span class="number">5</span>*<span class="number">7</span> = <span class="number">43</span>  <span class="number">6</span>*<span class="number">7</span> = <span class="number">52</span>  <span class="number">7</span>*<span class="number">7</span> = <span class="number">61</span></div></pre></td></tr></table></figure></p>
+<p>#####实战四则运算<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   <span class="number">277</span>         <span class="number">236</span>         <span class="number">276</span>         <span class="number">234</span></div><div class="line">+  <span class="number">333</span>       -  <span class="number">54</span>       *  <span class="number">54</span>       /   <span class="number">4</span></div><div class="line">--------    --------    --------    --------</div></pre></td></tr></table></figure></p>
+<p>###二进制的简写形式<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">       二进制:<span class="number"> 1 </span>0<span class="number"> 1 </span>1<span class="number"> 1 </span>0<span class="number"> 1 </span>1<span class="number"> 1 </span>1<span class="number"> 0 </span>0</div><div class="line">三个二进制一组:<span class="number"> 101 </span>110<span class="number"> 111 </span>100</div><div class="line">       八进制:  <span class="number"> 5 </span> <span class="number"> 6 </span> <span class="number"> 7 </span>  4</div><div class="line">四个二进制一组:<span class="number"> 1011 </span>1011 1100</div><div class="line">     十六进制:    b    b    c</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>二进制：从0 写到 1111<br>0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111<br>这种二进制使用起来太麻烦，改成更简单一点的符号：<br>0 1 2 3 4 5 6 7 8 9 A B C D E F 这就是十六进制了</p>
+</blockquote>
+<p>###数据的宽度<br>数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"AppDelegate.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> test()&#123;</div><div class="line">    <span class="keyword">int</span> cTemp = <span class="number">0x1FFFFFFFF</span>;</div><div class="line">    <span class="keyword">return</span> cTemp;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    printf(<span class="string">"%x\n"</span>,test());</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###计算机中常见的数据宽度</p>
+<ul>
+<li>位(Bit): 1个位就是1个二进制位.0或者1</li>
+<li>字节(Byte): 1个字节由8个Bit组成(8位).内存中的最小单元Byte.</li>
+<li>字(Word): 1个字由2个字节组成(16位),这2个字节分别称为高字节和低字节.</li>
+<li>双字(Doubleword): 1个双字由两个字组成(32位)</li>
+</ul>
+<p>那么计算机存储数据它会分为有符号数和无符号数.那么关于这个看图就理解了!<br><img src="/2018/04/19/逆向工程-汇编/15170403463820/15178439312380.jpg" alt=""></p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">无符号数,直接换算!</div><div class="line">有符号数:</div><div class="line">正数:  0    1    2    3    4    5    6    7</div><div class="line">负数:  F    E    D    B    C    A    9    8</div><div class="line">      <span class="string">-1</span>   <span class="string">-2</span>   <span class="string">-3</span>   <span class="string">-4</span>   <span class="string">-5</span>   <span class="string">-6</span>   <span class="string">-7</span>   <span class="string">-8</span></div></pre></td></tr></table></figure>
+<p>###自定义进制符号</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">十进制:   <span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span><span class="number"> 7 </span><span class="number"> 8 </span> 9</div><div class="line">自定义:   <span class="number"> 2 </span><span class="number"> 9 </span><span class="number"> 1 </span><span class="number"> 7 </span><span class="number"> 6 </span><span class="number"> 5 </span><span class="number"> 4 </span><span class="number"> 8 </span><span class="number"> 3 </span> A</div><div class="line">        <span class="number"> 92 </span>99<span class="number"> 91 </span>97<span class="number"> 96 </span>95<span class="number"> 94 </span>98<span class="number"> 93 </span>9A</div><div class="line">        <span class="number"> 12 </span>19<span class="number"> 11 </span>17<span class="number"> 16 </span>15<span class="number"> 14 </span>18<span class="number"> 13 </span>1A</div><div class="line">        <span class="number"> 72 </span>79<span class="number"> 71 </span>77<span class="number"> 76 </span>75<span class="number"> 74 </span>78<span class="number"> 73 </span>7A</div><div class="line">        <span class="number"> 62 </span>69<span class="number"> 61 </span>67<span class="number"> 66 </span>65<span class="number"> 64 </span>68<span class="number"> 63 </span>6A</div><div class="line">        <span class="number"> 52 </span>59<span class="number"> 51 </span>57<span class="number"> 56 </span>55<span class="number"> 54 </span>58<span class="number"> 53 </span>5A</div><div class="line">        <span class="number"> 42 </span>49<span class="number"> 41 </span>47<span class="number"> 46 </span>45<span class="number"> 44 </span>48<span class="number"> 43 </span>4A</div><div class="line">        <span class="number"> 82 </span>89<span class="number"> 81 </span>87<span class="number"> 86 </span>85<span class="number"> 84 </span>88<span class="number"> 83 </span>8A</div><div class="line">        <span class="number"> 32 </span>39<span class="number"> 31 </span>37<span class="number"> 36 </span>35<span class="number"> 34 </span>38<span class="number"> 33 </span>3A</div><div class="line">         922</div></pre></td></tr></table></figure>
+<p>那么刚才通过10进制运算可以转化10进制然后查表!但是如果是其他进制.我们就不能转换,要直接学会查表</p>
+<ul>
+<li>现在有9进制数 9个符号分别是：2，9，1，7，6，5，4， 8，3 逢9进1 那么： 123 + 234 = <em>__</em></li>
+</ul>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">十进制:   <span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span><span class="number"> 7 </span><span class="number"> 8 </span> </div><div class="line">自定义:   <span class="number"> 2 </span><span class="number"> 9 </span><span class="number"> 1 </span><span class="number"> 7 </span><span class="number"> 6 </span><span class="number"> 5 </span><span class="number"> 4 </span><span class="number"> 8 </span><span class="number"> 3 </span> </div><div class="line">        <span class="number"> 92 </span>99<span class="number"> 91 </span>97<span class="number"> 96 </span>95<span class="number"> 94 </span>98 93</div><div class="line">        <span class="number"> 12 </span>19<span class="number"> 11 </span>17<span class="number"> 16 </span>15<span class="number"> 14 </span>18 13</div><div class="line">        <span class="number"> 72 </span>79<span class="number"> 71 </span>77<span class="number"> 76 </span>75<span class="number"> 74 </span>78 73</div><div class="line">        <span class="number"> 62 </span>69<span class="number"> 61 </span>67<span class="number"> 66 </span>65<span class="number"> 64 </span>68 63</div><div class="line">        <span class="number"> 52 </span>59<span class="number"> 51 </span>57<span class="number"> 56 </span>55<span class="number"> 54 </span>58 53</div><div class="line">        <span class="number"> 42 </span>49<span class="number"> 41 </span>47<span class="number"> 46 </span>45<span class="number"> 44 </span>48 43</div><div class="line">        <span class="number"> 82 </span>89<span class="number"> 81 </span>87<span class="number"> 86 </span>85<span class="number"> 84 </span>88 83</div><div class="line">        <span class="number"> 32 </span>39<span class="number"> 31 </span>37<span class="number"> 36 </span>35<span class="number"> 34 </span>38 33</div><div class="line">         922</div></pre></td></tr></table></figure>
+<h3 id="u5BC4_u5B58_u5668"><a href="#u5BC4_u5B58_u5668" class="headerlink" title="寄存器"></a>寄存器</h3><p><strong>内部部件之间由总线连接</strong><br><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193738988252.jpg" alt=""></p>
+<ul>
+<li>对程序员来说，CPU中最主要部件是寄存器，可以通过改变寄存器的内容来实现对CPU的控制</li>
+<li>不同的CPU，寄存器的个数、结构是不相同的</li>
+</ul>
+<h3 id="u901A_u7528_u5BC4_u5B58_u5668"><a href="#u901A_u7528_u5BC4_u5B58_u5668" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><ul>
+<li><p>ARM64拥有有31个64位的通用寄存器 x0 到 x30,这些寄存器通常用来存放一般性的数据，称为通用寄存器（有时也有特定用途）</p>
+<ul>
+<li>那么w0 到 w28 这些是32位的. 因为64位CPU可以兼容32位.所以可以只使用64位寄存器的低32位.</li>
+<li><p>比如 w0 就是 x0的低32位!</p>
+<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193699098685.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+<li>通常，CPU会先将内存中的数据存储到通用寄存器中，然后再对通用寄存器中的数据进行运算</li>
+<li>假设内存中有块红色内存空间的值是3，现在想把它的值加1，并将结果存储到蓝色内存空间<br><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193703231861.jpg" alt=""></li>
+</ul>
+<ul>
+<li>CPU首先会将红色内存空间的值放到X0寄存器中：mov X0,红色内存空间</li>
+<li>然后让X0寄存器与1相加：add X0,1</li>
+<li>最后将值赋值给内存空间：mov 蓝色内存空间,X0</li>
+</ul>
+<p>###pc寄存器(program counter)</p>
+<ul>
+<li>为指令指针寄存器，它指示了CPU当前要读取指令的地址</li>
+<li>在内存或者磁盘上，指令和数据没有任何区别，都是二进制信息</li>
+<li>CPU在工作的时候把有的信息看做指令，有的信息看做数据，为同样的信息赋予了不同的意义<ul>
+<li>比如 1110 0000 0000 0011 0000 1000 1010 1010</li>
+<li>可以当做数据   0xE003008AA</li>
+<li>也可以当做指令  mov    x0, x8</li>
+</ul>
+</li>
+<li>CPU根据什么将内存中的信息看做指令？<ul>
+<li>CPU将pc指向的内存单元的内容看做指令</li>
+<li>如果内存中的某段内容曾被CPU执行过，那么它所在的内存单元必然被pc指向过</li>
+</ul>
+</li>
+</ul>
+<h3 id="bl_u6307_u4EE4"><a href="#bl_u6307_u4EE4" class="headerlink" title="bl指令"></a>bl指令</h3><ul>
+<li>CPU从何处执行指令是由pc中的内容决定的，我们可以通过改变pc的内容来控制CPU执行目标指令</li>
+<li>ARM64提供了一个mov指令（传送指令），可以用来修改大部分寄存器的值，比如<ul>
+<li>mov x0,#10、mov x1,#20</li>
+</ul>
+</li>
+<li><p>但是，mov指令不能用于设置pc的值，ARM64没有提供这样的功能</p>
+</li>
+<li><p>ARM64提供了另外的指令来修改PC的值，这些指令统称为转移指令，最简单的是bl指令</p>
+</li>
+</ul>
+<h3 id="bl_u6307_u4EE4__u2013__u7EC3_u4E60"><a href="#bl_u6307_u4EE4__u2013__u7EC3_u4E60" class="headerlink" title="bl指令 – 练习"></a>bl指令 – 练习</h3><p>现在有两段代码!假设程序先执行A,请写出指令执行顺序.最终寄存器x0的值是多少?</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">_A:</div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="symbol">#0</span>xa<span class="number">0</span></div><div class="line">    mov <span class="keyword">x</span><span class="number">1</span>,<span class="symbol">#0</span><span class="keyword">x</span><span class="number">00</span></div><div class="line">    <span class="keyword">add</span> <span class="keyword">x</span><span class="number">1</span>, <span class="keyword">x</span><span class="number">0</span>, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">14</span></div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="keyword">x</span><span class="number">1</span></div><div class="line">    bl _B</div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="symbol">#0</span><span class="keyword">x</span><span class="number">0</span></div><div class="line">    <span class="keyword">ret</span></div><div class="line"></div><div class="line">_B:</div><div class="line">    <span class="keyword">add</span> <span class="keyword">x</span><span class="number">0</span>, <span class="keyword">x</span><span class="number">0</span>, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">10</span></div><div class="line">    <span class="keyword">ret</span></div></pre></td></tr></table></figure>
+</the>]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;寄存器介绍&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -94,7 +521,7 @@
     <published>2018-02-07T06:26:05.000Z</published>
     <updated>2018-02-08T07:30:13.000Z</updated>
     
-    <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 密码!!!!你懂的! "/> <label for="pass"> 密码!!!!你懂的! </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+    <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 密码!!!!你懂的! "/> <label for="pass"> 密码!!!!你懂的! </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
     
     <summary type="html">
     
@@ -447,7 +874,7 @@
     <published>2017-03-02T01:30:41.000Z</published>
     <updated>2017-07-24T09:26:22.000Z</updated>
     
-    <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 密码!!!!你懂的! "/> <label for="pass"> 密码!!!!你懂的! </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+    <content type="html"><![CDATA[<link href="/style.css" rel="stylesheet" type="text/css"><script src="/crypto-js.js"></script><script src="/mcommon.js"></script><script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <div id="security"> <div> <div class="input-container"> <input type="password" class="form-control" id="pass" placeholder=" 密码!!!!你懂的! "/> <label for="pass"> 密码!!!!你懂的! </label> <div class="bottom-line"></div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
     
     <summary type="html">
     
@@ -753,24 +1180,6 @@
     
     
       <category term="Hexo" scheme="http://www.tiandabao.com/tags/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的第一篇博客</title>
-    <link href="http://www.tiandabao.com/2016/02/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://www.tiandabao.com/2016/02/03/我的第一篇博客/</id>
-    <published>2016-02-03T09:31:50.000Z</published>
-    <updated>2017-07-24T09:20:51.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="u521D_u6765_u4E4D_u5230"><a href="#u521D_u6765_u4E4D_u5230" class="headerlink" title="初来乍到"></a>初来乍到</h1>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;u521D_u6765_u4E4D_u5230&quot;&gt;&lt;a href=&quot;#u521D_u6765_u4E4D_u5230&quot; class=&quot;headerlink&quot; title=&quot;初来乍到&quot;&gt;&lt;/a&gt;初来乍到&lt;/h1&gt;
-    
-    </summary>
-    
     
   </entry>
   
