@@ -88,10 +88,9 @@ theme: next
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: git  #最新版3.X把这个github缩写成git了,这句注视可以不复制的.
-  repository: https://github.com/tiandabao/tiandabao.github.io.git
+  type: git #最新版3.X把这个github缩写成git了,这句注视可以不复制的.
+  repository: https://github.com/baorsmile/tiandabao.github.io.git
   branch: master
-
 
 widgets:
   - cyHotnews
@@ -109,20 +108,20 @@ feed:
   hub:
 
 jsonContent:
-    meta: false
-    pages: false
-    posts:
-      title: true
-      date: true
-      path: true
-      text: true
-      raw: false
-      content: false
-      slug: false
-      updated: false
-      comments: false
-      link: false
-      permalink: false
-      excerpt: false
-      categories: false
-      tags: true
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true
