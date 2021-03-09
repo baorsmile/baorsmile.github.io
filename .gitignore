@@ -1,8 +1,9 @@
-.DS_Store
-*/.DS_Store
-Thumbs.db
-db.json
-*.log
-node_modules/
-public/
-.deploy*/
+
+# Created by https://www.gitignore.io/api/macos,objective-c,ruby
+
+*.DS_Store
+.vscode/
+node_modules
+themes
+node_modules
+node_modules
