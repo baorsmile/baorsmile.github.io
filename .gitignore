@@ -7,6 +7,11 @@ node_modules
 themes
 node_modules
 node_modules
+.deploy_git/
+public/
+.hexo/
+db.json
+debug.log
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,objective-c,ruby,node,vuejs
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,objective-c,ruby,node,vuejs
