@@ -62,13 +62,13 @@ pagination_dir: page
 
 # Extensions
 ## Plugins: http://hexo.io/plugins/
-# plugins:
-#   - hexo-generator-feed
-#   - hexo-generator-sitemap
-#   - hexo-generator-baidu-sitemap
+plugins:
+  #- hexo-generator-feed
+  #- hexo-generator-sitemap
+  #- hexo-generator-baidu-sitemap
 
 ## Themes: http://hexo.io/themes/
-theme: next
+theme: stellar
 # black-blue
 # smackdown
 # next
@@ -100,12 +100,12 @@ widgets:
 encrypt:
   enable: true
 
-# Feed
-feed:
-  type: atom
-  path: atom.xml
-  limit: 20
-  hub:
+# Feed (disabled)
+# feed:
+#   type: atom
+#   path: atom.xml
+#   limit: 20
+#   hub:
 
 jsonContent:
   meta: false
