@@ -28,7 +28,7 @@
 <meta property="og:description" content="Claude Code 源码深度分析报告 分析日期: 2026-04-01源码来源: 2026-03-31 通过 npm registry .map 文件泄露分支: backup   1. 项目总览   指标 数值    源文件数量 1,884 个 (.ts&#x2F;.tsx)   代码总行数 512,664 行   目录数量 301 个   语言 TypeScript (strict)   运">
 <meta property="og:locale">
 <meta property="article:published_time" content="2026-03-31T16:21:12.000Z">
-<meta property="article:modified_time" content="2026-03-31T16:22:07.028Z">
+<meta property="article:modified_time" content="2026-03-31T16:35:14.800Z">
 <meta property="article:author" content="大宝">
 <meta name="twitter:card" content="summary">
   
@@ -48,7 +48,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"大宝","sameAs":[]},"dateCreated":"2026-04-01T00:21:12+08:00","dateModified":"2026-04-01T00:22:07+08:00","datePublished":"2026-04-01T00:21:12+08:00","description":"","headline":"Claude Code拆解","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.tiandabao.com/2026/04/01/Claude-Code%E6%8B%86%E8%A7%A3/"},"publisher":{"@type":"Organization","name":"大宝","sameAs":[]},"url":"http://www.tiandabao.com/2026/04/01/Claude-Code%E6%8B%86%E8%A7%A3/","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"大宝","sameAs":[]},"dateCreated":"2026-04-01T00:21:12+08:00","dateModified":"2026-04-01T00:35:14+08:00","datePublished":"2026-04-01T00:21:12+08:00","description":"","headline":"Claude Code拆解","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.tiandabao.com/2026/04/01/Claude-Code%E6%8B%86%E8%A7%A3/"},"publisher":{"@type":"Organization","name":"大宝","sameAs":[]},"url":"http://www.tiandabao.com/2026/04/01/Claude-Code%E6%8B%86%E8%A7%A3/","image":[]}</script>
   
 </head>
 <body>
@@ -80,7 +80,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2026-03-31T16:21:12.000Z">2026-04-01</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2026-03-31T16:22:07.028Z">2026-04-01</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2026-03-31T16:21:12.000Z">2026-04-01</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2026-03-31T16:35:14.800Z">2026-04-01</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -321,9 +321,116 @@
 <p>[!IMPORTANT]<br><code>screens/REPL.tsx</code> 文件大小高达 <strong>895KB</strong>（5,005 行），是整个项目最庞大的单文件组件，承载了几乎所有交互逻辑。</p>
 </blockquote>
 <hr>
-<h2 id="3-核心架构"><a href="#3-核心架构" class="headerlink" title="3. 核心架构"></a>3. 核心架构</h2><h3 id="3-1-整体架构图"><a href="#3-1-整体架构图" class="headerlink" title="3.1 整体架构图"></a>3.1 整体架构图</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">    subgraph Entrypoints[&quot;入口层&quot;]</span><br><span class="line">        CLI[&quot;main.tsx&lt;br/&gt;Commander.js CLI&quot;]</span><br><span class="line">        SDK[&quot;entrypoints/sdk/&lt;br/&gt;Agent SDK&quot;]</span><br><span class="line">        MCP_EP[&quot;entrypoints/mcp.ts&lt;br/&gt;MCP Server&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Core[&quot;核心引擎&quot;]</span><br><span class="line">        QE[&quot;QueryEngine.ts&lt;br/&gt;查询引擎&quot;]</span><br><span class="line">        Q[&quot;query.ts&lt;br/&gt;查询循环&quot;]</span><br><span class="line">        API[&quot;services/api/claude.ts&lt;br/&gt;Anthropic API Client&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph ToolSystem[&quot;工具系统&quot;]</span><br><span class="line">        TR[&quot;tools.ts&lt;br/&gt;工具注册表&quot;]</span><br><span class="line">        T[&quot;Tool.ts&lt;br/&gt;工具类型定义&quot;]</span><br><span class="line">        BT[&quot;BashTool&quot;]</span><br><span class="line">        FRT[&quot;FileReadTool&quot;]</span><br><span class="line">        FET[&quot;FileEditTool&quot;]</span><br><span class="line">        FWT[&quot;FileWriteTool&quot;]</span><br><span class="line">        AT[&quot;AgentTool&quot;]</span><br><span class="line">        ST[&quot;SkillTool&quot;]</span><br><span class="line">        MT[&quot;MCPTool&quot;]</span><br><span class="line">        OT[&quot;40+ 其他工具...&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Commands[&quot;命令系统&quot;]</span><br><span class="line">        CR[&quot;commands.ts&lt;br/&gt;命令注册表&quot;]</span><br><span class="line">        SC[&quot;86+ 斜杠命令目录&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph UI[&quot;用户界面&quot;]</span><br><span class="line">        REPL[&quot;screens/REPL.tsx&quot;]</span><br><span class="line">        COMP[&quot;components/&lt;br/&gt;144 个 UI 组件&quot;]</span><br><span class="line">        HOOKS[&quot;hooks/&lt;br/&gt;85 个 React Hooks&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Services[&quot;服务层&quot;]</span><br><span class="line">        MCP_S[&quot;services/mcp/&lt;br/&gt;MCP 客户端&quot;]</span><br><span class="line">        LSP_S[&quot;services/lsp/&lt;br/&gt;LSP 集成&quot;]</span><br><span class="line">        OAUTH[&quot;services/oauth/&lt;br/&gt;OAuth 2.0&quot;]</span><br><span class="line">        ANALYTICS[&quot;services/analytics/&lt;br/&gt;GrowthBook&quot;]</span><br><span class="line">        COMPACT[&quot;services/compact/&lt;br/&gt;上下文压缩&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph Infra[&quot;基础设施&quot;]</span><br><span class="line">        BRIDGE[&quot;bridge/&lt;br/&gt;IDE 桥接&quot;]</span><br><span class="line">        COORD[&quot;coordinator/&lt;br/&gt;多 Agent 协调&quot;]</span><br><span class="line">        PLUGINS[&quot;plugins/&lt;br/&gt;插件系统&quot;]</span><br><span class="line">        SKILLS[&quot;skills/&lt;br/&gt;技能系统&quot;]</span><br><span class="line">        STATE[&quot;state/&lt;br/&gt;状态管理&quot;]</span><br><span class="line">        REMOTE[&quot;remote/&lt;br/&gt;远程会话&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    CLI --&gt; QE</span><br><span class="line">    SDK --&gt; QE</span><br><span class="line">    QE --&gt; Q</span><br><span class="line">    Q --&gt; API</span><br><span class="line">    Q --&gt; TR</span><br><span class="line">    TR --&gt; T</span><br><span class="line">    T --&gt; BT &amp; FRT &amp; FET &amp; FWT &amp; AT &amp; ST &amp; MT &amp; OT</span><br><span class="line">    QE --&gt; CR</span><br><span class="line">    CLI --&gt; REPL</span><br><span class="line">    REPL --&gt; COMP</span><br><span class="line">    REPL --&gt; HOOKS</span><br><span class="line">    Q --&gt; MCP_S &amp; LSP_S &amp; COMPACT</span><br><span class="line">    QE --&gt; OAUTH &amp; ANALYTICS</span><br><span class="line">    REPL --&gt; BRIDGE</span><br><span class="line">    AT --&gt; COORD</span><br><span class="line">    QE --&gt; PLUGINS &amp; SKILLS</span><br><span class="line">    QE --&gt; STATE</span><br><span class="line">    SDK --&gt; REMOTE</span><br></pre></td></tr></table></figure>
+<h2 id="3-核心架构"><a href="#3-核心架构" class="headerlink" title="3. 核心架构"></a>3. 核心架构</h2><h3 id="3-1-整体架构图"><a href="#3-1-整体架构图" class="headerlink" title="3.1 整体架构图"></a>3.1 整体架构图</h3><pre class="mermaid">graph TB
+    subgraph Entrypoints["入口层"]
+        CLI["main.tsx<br>Commander.js CLI"]
+        SDK["entrypoints/sdk/<br>Agent SDK"]
+        MCP_EP["entrypoints/mcp.ts<br>MCP Server"]
+    end
 
-<h3 id="3-2-请求生命周期"><a href="#3-2-请求生命周期" class="headerlink" title="3.2 请求生命周期"></a>3.2 请求生命周期</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">    participant U as 用户</span><br><span class="line">    participant REPL as REPL.tsx</span><br><span class="line">    participant QE as QueryEngine</span><br><span class="line">    participant Q as query()</span><br><span class="line">    participant API as claude.ts</span><br><span class="line">    participant T as Tool</span><br><span class="line">    participant P as Permission</span><br><span class="line"></span><br><span class="line">    U-&gt;&gt;REPL: 输入提示词</span><br><span class="line">    REPL-&gt;&gt;QE: submitMessage(prompt)</span><br><span class="line">    QE-&gt;&gt;QE: processUserInput()</span><br><span class="line">    QE-&gt;&gt;QE: fetchSystemPromptParts()</span><br><span class="line">    QE-&gt;&gt;Q: query(&#123;messages, systemPrompt, ...&#125;)</span><br><span class="line">    </span><br><span class="line">    loop 查询循环 (tool_use → tool_result)</span><br><span class="line">        Q-&gt;&gt;Q: autocompact / snip / microcompact</span><br><span class="line">        Q-&gt;&gt;API: callModel(messages, tools)</span><br><span class="line">        API--&gt;&gt;Q: stream assistant response</span><br><span class="line">        </span><br><span class="line">        alt 包含 tool_use</span><br><span class="line">            Q-&gt;&gt;P: canUseTool(tool, input)</span><br><span class="line">            P--&gt;&gt;Q: allow / deny</span><br><span class="line">            alt 允许</span><br><span class="line">                Q-&gt;&gt;T: tool.call(input, context)</span><br><span class="line">                T--&gt;&gt;Q: ToolResult</span><br><span class="line">                Q-&gt;&gt;Q: 追加 tool_result 消息</span><br><span class="line">            else 拒绝</span><br><span class="line">                Q-&gt;&gt;Q: 追加拒绝消息</span><br><span class="line">            end</span><br><span class="line">        else 纯文本响应</span><br><span class="line">            Q--&gt;&gt;QE: 结束循环</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    QE--&gt;&gt;REPL: yield SDKMessage</span><br><span class="line">    REPL--&gt;&gt;U: 渲染响应</span><br></pre></td></tr></table></figure>
+    subgraph Core["核心引擎"]
+        QE["QueryEngine.ts<br>查询引擎"]
+        Q["query.ts<br>查询循环"]
+        API["services/api/claude.ts<br>Anthropic API Client"]
+    end
+
+    subgraph ToolSystem["工具系统"]
+        TR["tools.ts<br>工具注册表"]
+        T["Tool.ts<br>工具类型定义"]
+        BT["BashTool"]
+        FRT["FileReadTool"]
+        FET["FileEditTool"]
+        FWT["FileWriteTool"]
+        AT["AgentTool"]
+        ST["SkillTool"]
+        MT["MCPTool"]
+        OT["40+ 其他工具..."]
+    end
+
+    subgraph Commands["命令系统"]
+        CR["commands.ts<br>命令注册表"]
+        SC["86+ 斜杠命令目录"]
+    end
+
+    subgraph UI["用户界面"]
+        REPL["screens/REPL.tsx"]
+        COMP["components/<br>144 个 UI 组件"]
+        HOOKS["hooks/<br>85 个 React Hooks"]
+    end
+
+    subgraph Services["服务层"]
+        MCP_S["services/mcp/<br>MCP 客户端"]
+        LSP_S["services/lsp/<br>LSP 集成"]
+        OAUTH["services/oauth/<br>OAuth 2.0"]
+        ANALYTICS["services/analytics/<br>GrowthBook"]
+        COMPACT["services/compact/<br>上下文压缩"]
+    end
+
+    subgraph Infra["基础设施"]
+        BRIDGE["bridge/<br>IDE 桥接"]
+        COORD["coordinator/<br>多 Agent 协调"]
+        PLUGINS["plugins/<br>插件系统"]
+        SKILLS["skills/<br>技能系统"]
+        STATE["state/<br>状态管理"]
+        REMOTE["remote/<br>远程会话"]
+    end
+
+    CLI --> QE
+    SDK --> QE
+    QE --> Q
+    Q --> API
+    Q --> TR
+    TR --> T
+    T --> BT & FRT & FET & FWT & AT & ST & MT & OT
+    QE --> CR
+    CLI --> REPL
+    REPL --> COMP
+    REPL --> HOOKS
+    Q --> MCP_S & LSP_S & COMPACT
+    QE --> OAUTH & ANALYTICS
+    REPL --> BRIDGE
+    AT --> COORD
+    QE --> PLUGINS & SKILLS
+    QE --> STATE
+    SDK --> REMOTE</pre>
+
+<h3 id="3-2-请求生命周期"><a href="#3-2-请求生命周期" class="headerlink" title="3.2 请求生命周期"></a>3.2 请求生命周期</h3><pre class="mermaid">sequenceDiagram
+    participant U as 用户
+    participant REPL as REPL.tsx
+    participant QE as QueryEngine
+    participant Q as query()
+    participant API as claude.ts
+    participant T as Tool
+    participant P as Permission
+
+    U->>REPL: 输入提示词
+    REPL->>QE: submitMessage(prompt)
+    QE->>QE: processUserInput()
+    QE->>QE: fetchSystemPromptParts()
+    QE->>Q: query({messages, systemPrompt, ...})
+    
+    loop 查询循环 (tool_use → tool_result)
+        Q->>Q: autocompact / snip / microcompact
+        Q->>API: callModel(messages, tools)
+        API-->>Q: stream assistant response
+        
+        alt 包含 tool_use
+            Q->>P: canUseTool(tool, input)
+            P-->>Q: allow / deny
+            alt 允许
+                Q->>T: tool.call(input, context)
+                T-->>Q: ToolResult
+                Q->>Q: 追加 tool_result 消息
+            else 拒绝
+                Q->>Q: 追加拒绝消息
+            end
+        else 纯文本响应
+            Q-->>QE: 结束循环
+        end
+    end
+    
+    QE-->>REPL: yield SDKMessage
+    REPL-->>U: 渲染响应</pre>
 
 <hr>
 <h2 id="4-核心模块详解"><a href="#4-核心模块详解" class="headerlink" title="4. 核心模块详解"></a>4. 核心模块详解</h2><h3 id="4-1-QueryEngine-—-查询引擎-QueryEngine-ts-1-296-行"><a href="#4-1-QueryEngine-—-查询引擎-QueryEngine-ts-1-296-行" class="headerlink" title="4.1 QueryEngine — 查询引擎 (QueryEngine.ts, 1,296 行)"></a>4.1 QueryEngine — 查询引擎 (<code>QueryEngine.ts</code>, 1,296 行)</h3><p>QueryEngine 是整个系统的<strong>心脏</strong>，每个会话对应一个实例。</p>
@@ -762,7 +869,21 @@
 <td>跳过所有权限检查</td>
 </tr>
 </tbody></table>
-<h3 id="6-2-权限检查流程"><a href="#6-2-权限检查流程" class="headerlink" title="6.2 权限检查流程"></a>6.2 权限检查流程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    A[&quot;tool_use 请求&quot;] --&gt; B&#123;&quot;全局 Deny 规则?&quot;&#125;</span><br><span class="line">    B --&gt;|匹配| C[&quot;拒绝&quot;]</span><br><span class="line">    B --&gt;|不匹配| D&#123;&quot;Always Allow 规则?&quot;&#125;</span><br><span class="line">    D --&gt;|匹配| E[&quot;允许&quot;]</span><br><span class="line">    D --&gt;|不匹配| F&#123;&quot;工具自身 checkPermissions()&quot;&#125;</span><br><span class="line">    F --&gt; G&#123;&quot;权限模式?&quot;&#125;</span><br><span class="line">    G --&gt;|default| H[&quot;提示用户&quot;]</span><br><span class="line">    G --&gt;|plan| I&#123;&quot;isReadOnly?&quot;&#125;</span><br><span class="line">    I --&gt;|是| E</span><br><span class="line">    I --&gt;|否| H</span><br><span class="line">    G --&gt;|auto| J[&quot;安全分类器&quot;]</span><br><span class="line">    J --&gt;|安全| E</span><br><span class="line">    J --&gt;|不安全| H</span><br><span class="line">    G --&gt;|bypass| E</span><br></pre></td></tr></table></figure>
+<h3 id="6-2-权限检查流程"><a href="#6-2-权限检查流程" class="headerlink" title="6.2 权限检查流程"></a>6.2 权限检查流程</h3><pre class="mermaid">flowchart TD
+    A["tool_use 请求"] --> B{"全局 Deny 规则?"}
+    B -->|匹配| C["拒绝"]
+    B -->|不匹配| D{"Always Allow 规则?"}
+    D -->|匹配| E["允许"]
+    D -->|不匹配| F{"工具自身 checkPermissions()"}
+    F --> G{"权限模式?"}
+    G -->|default| H["提示用户"]
+    G -->|plan| I{"isReadOnly?"}
+    I -->|是| E
+    I -->|否| H
+    G -->|auto| J["安全分类器"]
+    J -->|安全| E
+    J -->|不安全| H
+    G -->|bypass| E</pre>
 
 <h3 id="6-3-BashTool-安全子系统"><a href="#6-3-BashTool-安全子系统" class="headerlink" title="6.3 BashTool 安全子系统"></a>6.3 BashTool 安全子系统</h3><p>BashTool 的安全检测是最复杂的子系统 (超过 200K 代码)：</p>
 <table>
@@ -842,7 +963,12 @@
 </ul>
 <hr>
 <h2 id="8-上下文管理策略"><a href="#8-上下文管理策略" class="headerlink" title="8. 上下文管理策略"></a>8. 上下文管理策略</h2><p>Claude Code 实现了<strong>4 层上下文压缩</strong>策略，确保长会话不超出 Token 限制：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;原始消息&quot;] --&gt; B[&quot;1. Snip&lt;br/&gt;(历史剪切)&quot;]</span><br><span class="line">    B --&gt; C[&quot;2. Microcompact&lt;br/&gt;(内联压缩)&quot;]</span><br><span class="line">    C --&gt; D[&quot;3. Context Collapse&lt;br/&gt;(上下文折叠)&quot;]</span><br><span class="line">    D --&gt; E[&quot;4. Autocompact&lt;br/&gt;(自动压缩)&quot;]</span><br><span class="line">    E --&gt; F[&quot;发送到 API&quot;]</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart LR
+    A["原始消息"] --> B["1. Snip<br>(历史剪切)"]
+    B --> C["2. Microcompact<br>(内联压缩)"]
+    C --> D["3. Context Collapse<br>(上下文折叠)"]
+    D --> E["4. Autocompact<br>(自动压缩)"]
+    E --> F["发送到 API"]</pre>
 
 <table>
 <thead>
@@ -875,7 +1001,28 @@
 </tbody></table>
 <p>还有 <strong>Reactive Compact</strong> 作为后备 — 当 API 返回 <code>prompt_too_long</code> 错误时触发紧急压缩。</p>
 <hr>
-<h2 id="9-IDE-桥接系统-bridge-31-个文件"><a href="#9-IDE-桥接系统-bridge-31-个文件" class="headerlink" title="9. IDE 桥接系统 (bridge/, 31 个文件)"></a>9. IDE 桥接系统 (<code>bridge/</code>, 31 个文件)</h2><h3 id="9-1-架构"><a href="#9-1-架构" class="headerlink" title="9.1 架构"></a>9.1 架构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">    subgraph IDE[&quot;IDE 侧&quot;]</span><br><span class="line">        VSC[&quot;VS Code Extension&quot;]</span><br><span class="line">        JB[&quot;JetBrains Plugin&quot;]</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    subgraph Bridge[&quot;桥接层&quot;]</span><br><span class="line">        BM[&quot;bridgeMain.ts&lt;br/&gt;(115K)&quot;]</span><br><span class="line">        RB[&quot;replBridge.ts&lt;br/&gt;(100K)&quot;]</span><br><span class="line">        JWT[&quot;jwtUtils.ts&lt;br/&gt;JWT 认证&quot;]</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    subgraph CLI[&quot;CLI 侧&quot;]</span><br><span class="line">        REPL2[&quot;REPL.tsx&quot;]</span><br><span class="line">        TOOLS[&quot;工具系统&quot;]</span><br><span class="line">    end</span><br><span class="line">    </span><br><span class="line">    VSC &lt;--&gt;|WebSocket/stdio| BM</span><br><span class="line">    JB &lt;--&gt;|WebSocket/stdio| BM</span><br><span class="line">    BM &lt;--&gt; RB</span><br><span class="line">    RB &lt;--&gt; REPL2</span><br><span class="line">    REPL2 --&gt; TOOLS</span><br></pre></td></tr></table></figure>
+<h2 id="9-IDE-桥接系统-bridge-31-个文件"><a href="#9-IDE-桥接系统-bridge-31-个文件" class="headerlink" title="9. IDE 桥接系统 (bridge/, 31 个文件)"></a>9. IDE 桥接系统 (<code>bridge/</code>, 31 个文件)</h2><h3 id="9-1-架构"><a href="#9-1-架构" class="headerlink" title="9.1 架构"></a>9.1 架构</h3><pre class="mermaid">graph LR
+    subgraph IDE["IDE 侧"]
+        VSC["VS Code Extension"]
+        JB["JetBrains Plugin"]
+    end
+    
+    subgraph Bridge["桥接层"]
+        BM["bridgeMain.ts<br>(115K)"]
+        RB["replBridge.ts<br>(100K)"]
+        JWT["jwtUtils.ts<br>JWT 认证"]
+    end
+    
+    subgraph CLI["CLI 侧"]
+        REPL2["REPL.tsx"]
+        TOOLS["工具系统"]
+    end
+    
+    VSC <-->|WebSocket/stdio| BM
+    JB <-->|WebSocket/stdio| BM
+    BM <--> RB
+    RB <--> REPL2
+    REPL2 --> TOOLS</--></--></--></--></pre>
 
 <h3 id="9-2-关键文件"><a href="#9-2-关键文件" class="headerlink" title="9.2 关键文件"></a>9.2 关键文件</h3><table>
 <thead>
@@ -1929,7 +2076,35 @@
     }
   });
 </script>
+<script defer type="text/javascript" src="https://gcore.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
 <script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    var mermaid_config = {
+      startOnLoad: true,
+      theme:
+        "auto" == "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "neutral",
+      logLevel: 3,
+      themeVariables: {
+        darkMode: true
+      },
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: "linear"
+      },
+      gantt: {
+        axisFormat: "%Y/%m/%d"
+      },
+      sequence: {
+        actorMargin: 50
+      }
+    }
+    mermaid.initialize(mermaid_config);
+  });
+</script><script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');
     if (window.codeElements.length > 0) {
