@@ -1,370 +1,117 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html><html lang="zh-Hans">
 
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
+  <meta name="generator" content="Hexo 8.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>逆向工程_汇编 - 黑客与画家</title>
 
   
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="逆向," />
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="黑客与画家" type="application/atom+xml" />
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.png?v=5.1.1" />
-
-
-
-
-
-
-<meta name="description" content="寄存器介绍">
-<meta name="keywords" content="逆向">
+    <meta name="description" content="寄存器介绍">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向工程_汇编">
-<meta property="og:url" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/index.html">
+<meta property="og:url" content="http://www.tiandabao.com/2018/04/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E6%B1%87%E7%BC%96/">
 <meta property="og:site_name" content="黑客与画家">
 <meta property="og:description" content="寄存器介绍">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193669666308.jpg">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193672391363.jpg">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193692496345.jpg">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193692648349.jpg">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193693448725.jpg">
+<meta property="og:locale">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15193666448504/15193669666308.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15193666448504/15193672391363.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15193666448504/15193692496345.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15193666448504/15193692648349.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15193666448504/15193693448725.jpg">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-bfac743167c4e554.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-b22c5ebccc4e6a9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-cb3c46652c7bad8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-49e73b88a2e7af92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2990730-d723c11cce5cdaaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15170403463820/15178439312380.jpg">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193738988252.jpg">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193699098685.jpg">
-<meta property="og:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193703231861.jpg">
-<meta property="og:updated_time" content="2018-07-19T09:29:14.000Z">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15170403463820/15178439312380.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15193666448504/15193738988252.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15193666448504/15193699098685.jpg">
+<meta property="og:image" content="http://www.tiandabao.com/.com//15193666448504/15193703231861.jpg">
+<meta property="article:published_time" content="2018-04-19T03:07:09.000Z">
+<meta property="article:modified_time" content="2026-03-24T17:05:48.782Z">
+<meta property="article:author" content="大宝">
+<meta property="article:tag" content="逆向">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逆向工程_汇编">
-<meta name="twitter:description" content="寄存器介绍">
-<meta name="twitter:image" content="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/15193666448504/15193669666308.jpg">
+<meta name="twitter:image" content="http://www.tiandabao.com/.com//15193666448504/15193669666308.jpg">
+  
+  
+  
+  <meta name="keywords" content="逆向">
 
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/"/>
-
-
-
-
-
-  <title>逆向工程_汇编 | 黑客与画家</title>
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="黑客与画家" type="application/atom+xml">
   
 
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
 
 
+  
 
+  
 
-
-
-
-
-
-
-
-
-
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"大宝","sameAs":[]},"dateCreated":"2018-04-19T11:07:09+08:00","dateModified":"2026-03-25T01:05:48+08:00","datePublished":"2018-04-19T11:07:09+08:00","description":"寄存器介绍","headline":"逆向工程_汇编","mainEntityOfPage":{"@type":"WebPage","@id":"http://www.tiandabao.com/2018/04/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E6%B1%87%E7%BC%96/"},"publisher":{"@type":"Organization","name":"大宝","sameAs":[]},"url":"http://www.tiandabao.com/2018/04/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E6%B1%87%E7%BC%96/","keywords":"逆向","image":[]}</script>
+  
 </head>
+<body>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
-  
-  
-    
-  
 
-  <div class="container sidebar-position-right page-post-detail ">
-    <div class="headband"></div>
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">黑客与画家</div><div class="sub cap">只是一点点</div></a></div></header>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+<div class="nav-area">
 
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">黑客与画家</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle">只是一点点</p>
-      
-  </div>
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="Search"></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><a class="item title" href="/2026/04/01/Claude-Code%E6%8B%86%E8%A7%A3/"><span class="title">Claude Code拆解</span></a><a class="item title" href="/2020/07/18/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E7%A0%B8%E5%A3%B3Frida/"><span class="title">逆向工程\_砸壳 Frida</span></a><a class="item title" href="/2018/07/30/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E9%87%8D%E7%AD%BE/"><span class="title">逆向工程_重签</span></a><a class="item title" href="/2018/04/18/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"><span class="title">逆向工程_环境配置</span></a><a class="item title" href="/2018/07/09/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8/"><span class="title">逆向工程_状态寄存器</span></a><a class="item title" href="/2018/04/19/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E6%B1%87%E7%BC%96/"><span class="title">逆向工程_汇编</span></a><a class="item title" href="/2016/02/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"><span class="title">我的第一篇博客</span></a><a class="item title" href="/2017/01/22/%E6%96%B0%E5%B9%B4%E6%96%B0%E7%9A%84%E5%BC%80%E7%AB%AF/"><span class="title">新年新的开端</span></a><a class="item title" href="/2017/09/04/%E8%AE%B0%E5%BF%86%E7%8A%B9%E6%96%B0%E7%9A%84%E4%B8%80%E6%AC%A1%E9%9D%A2%E8%AF%95/"><span class="title">记忆犹新的一次面试</span></a><a class="item title" href="/2018/07/09/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E5%87%BD%E6%95%B0%E6%9C%AC%E8%B4%A8/"><span class="title">逆向工程_函数本质</span></a></div></widget>
 </div>
 
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
+</div></aside><div class="l_main" id="main">
 
 
 
- </div>
-    </header>
 
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
 
-  <div id="posts" class="posts-expand">
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2018-04-19T03:07:09.000Z">2018-04-19</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2026-03-24T17:05:48.782Z">2026-03-25</time></span></div></div></div>
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="大宝">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黑客与画家">
-    </span>
-
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>逆向工程_汇编</span></h1>
+        
+      </div>
+    </div>
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">逆向工程_汇编</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-19T11:07:09+08:00">
-                2018-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/04/19/逆向工程-汇编/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/04/19/逆向工程-汇编/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-             <span id="/2018/04/19/逆向工程-汇编/" class="leancloud_visitors" data-flag-title="逆向工程_汇编">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>寄存器介绍<br><a id="more"></a></p>
-<the rest="" of="" contents="" |="" 余下全文\="">
-
-<h1 id="u521D_u8BC6_u6C47_u7F16"><a href="#u521D_u8BC6_u6C47_u7F16" class="headerlink" title="初识汇编"></a>初识汇编</h1><p>我们知道,一个APP安装在手机上面的可执行文件本质上是二进制文件.因为iPhone手机本质上执行的指令是二进制.是由手机上的CPU执行的.所以逆向开发是建立在分析二进制上面。</p>
-<h2 id="u6C47_u7F16_u8BED_u8A00_u7684_u53D1_u5C55"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u53D1_u5C55" class="headerlink" title="汇编语言的发展"></a>汇编语言的发展</h2><h3 id="u673A_u5668_u8BED_u8A00"><a href="#u673A_u5668_u8BED_u8A00" class="headerlink" title="机器语言"></a>机器语言</h3><blockquote>
+  </div>
+  </div><article class="md-text content"><p>寄存器介绍</p>
+<span id="more"></span>
+<p>&lt;The rest of contents | 余下全文&gt;</p>
+<h1 id="初识汇编"><a href="#初识汇编" class="headerlink" title="初识汇编"></a>初识汇编</h1><p>我们知道,一个APP安装在手机上面的可执行文件本质上是二进制文件.因为iPhone手机本质上执行的指令是二进制.是由手机上的CPU执行的.所以逆向开发是建立在分析二进制上面。</p>
+<h2 id="汇编语言的发展"><a href="#汇编语言的发展" class="headerlink" title="汇编语言的发展"></a>汇编语言的发展</h2><h3 id="机器语言"><a href="#机器语言" class="headerlink" title="机器语言"></a>机器语言</h3><blockquote>
 <p>由0和1组成的机器指令.</p>
 </blockquote>
 <ul>
@@ -373,32 +120,32 @@
 <li>乘：1111 0111 1110 0000</li>
 <li>除：1111 0111 1111 0000</li>
 </ul>
-<h3 id="u6C47_u7F16_u8BED_u8A00_28assembly_language_29"><a href="#u6C47_u7F16_u8BED_u8A00_28assembly_language_29" class="headerlink" title="汇编语言(assembly language)"></a>汇编语言(assembly language)</h3><blockquote>
+<h3 id="汇编语言-assembly-language"><a href="#汇编语言-assembly-language" class="headerlink" title="汇编语言(assembly language)"></a>汇编语言(assembly language)</h3><blockquote>
 <p>使用助记符代替机器语言<br>如:</p>
 </blockquote>
 <ul>
-<li>加：INC EAX        通过编译器 0100 0000</li>
-<li>减：DEC EAX        通过编译器 0100 1000</li>
-<li>乘：MUL EAX         通过编译器 1111 0111 1110 0000</li>
-<li>除：DIV EAX        通过编译器 1111 0111 1111 0000</li>
+<li>加：INC EAX		通过编译器 0100 0000</li>
+<li>减：DEC EAX		通过编译器 0100 1000</li>
+<li>乘：MUL EAX 		通过编译器 1111 0111 1110 0000</li>
+<li>除：DIV EAX		通过编译器 1111 0111 1111 0000</li>
 </ul>
-<h3 id="u9AD8_u7EA7_u8BED_u8A00_uFF08High-level_programming_language_29"><a href="#u9AD8_u7EA7_u8BED_u8A00_uFF08High-level_programming_language_29" class="headerlink" title="高级语言（High-level programming language)"></a>高级语言（High-level programming language)</h3><blockquote>
+<h3 id="高级语言（High-level-programming-language"><a href="#高级语言（High-level-programming-language" class="headerlink" title="高级语言（High-level programming language)"></a>高级语言（High-level programming language)</h3><blockquote>
 <p>C\C++\Java\OC\Swift,更加接近人类的自然语言<br>比如C语言:</p>
 </blockquote>
 <ul>
-<li>加：A+B        通过编译器            0100 0000</li>
-<li>减：A-B        通过编译器            0100 1000</li>
-<li>乘：A*B     通过编译器            1111 0111 1110 0000</li>
-<li>除：A/B        通过编译器            1111 0111 1111 0000</li>
+<li>加：A+B		通过编译器			0100 0000</li>
+<li>减：A-B		通过编译器			0100 1000</li>
+<li>乘：A*B 	通过编译器			1111 0111 1110 0000</li>
+<li>除：A&#x2F;B		通过编译器			1111 0111 1111 0000</li>
 </ul>
 <p>我们的代码在终端设备上是这样的过程:</p>
-<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193669666308.jpg" alt=""></p>
+<p><img src="/.com//15193666448504/15193669666308.jpg"></p>
 <ul>
 <li><strong>汇编语言</strong>与<strong>机器语言</strong>一一对应，每一条机器指令都有与之对应的汇编指令</li>
 <li><strong>汇编语言</strong>可以通过编译得到<strong>机器语言</strong>，<strong>机器语言</strong>可以通过反汇编得到<strong>汇编语言</strong></li>
 <li><strong>高级语言</strong>可以通过编译得到<strong>汇编语言</strong> \ <strong>机器语言</strong>，但汇编语言\机器语言几乎不可能还原成<strong>高级语言</strong></li>
 </ul>
-<h3 id="u6C47_u7F16_u8BED_u8A00_u7684_u7279_u70B9"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u7279_u70B9" class="headerlink" title="汇编语言的特点"></a>汇编语言的特点</h3><ul>
+<h3 id="汇编语言的特点"><a href="#汇编语言的特点" class="headerlink" title="汇编语言的特点"></a>汇编语言的特点</h3><ul>
 <li><p>可以直接访问、控制各种硬件设备，比如存储器、CPU等，能最大限度地发挥硬件的功能</p>
 </li>
 <li><p>能够不受编译器的限制，对生成的二进制代码进行完全的控制</p>
@@ -412,7 +159,7 @@
 <li><p>不区分大小写，比如mov和MOV是一样的</p>
 </li>
 </ul>
-<h3 id="u6C47_u7F16_u7684_u7528_u9014_28_u54E5_u4E48_u6211_u5B66_u4E86_u80FD_u5E72_u5565_3F_29"><a href="#u6C47_u7F16_u7684_u7528_u9014_28_u54E5_u4E48_u6211_u5B66_u4E86_u80FD_u5E72_u5565_3F_29" class="headerlink" title="汇编的用途(哥么我学了能干啥?)"></a>汇编的用途(哥么我学了能干啥?)</h3><ul>
+<h3 id="汇编的用途-哥么我学了能干啥"><a href="#汇编的用途-哥么我学了能干啥" class="headerlink" title="汇编的用途(哥么我学了能干啥?)"></a>汇编的用途(哥么我学了能干啥?)</h3><ul>
 <li>编写驱动程序、操作系统（比如Linux内核的某些关键部分）</li>
 <li>对性能要求极高的程序或者代码片段，可与高级语言混合使用（内联汇编）</li>
 <li>软件安全<ul>
@@ -435,7 +182,7 @@
 <blockquote>
 <p>越底层越单纯!真正的程序员都需要了解的一门非常重要的语言,汇编!</p>
 </blockquote>
-<h3 id="u6C47_u7F16_u8BED_u8A00_u7684_u79CD_u7C7B"><a href="#u6C47_u7F16_u8BED_u8A00_u7684_u79CD_u7C7B" class="headerlink" title="汇编语言的种类"></a>汇编语言的种类</h3><ul>
+<h3 id="汇编语言的种类"><a href="#汇编语言的种类" class="headerlink" title="汇编语言的种类"></a>汇编语言的种类</h3><ul>
 <li><p>目前讨论比较多的汇编语言有</p>
 <ul>
 <li>8086汇编（8086处理器是16bit的CPU）</li>
@@ -455,8 +202,7 @@
 <th>设备</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>armv6</td>
 <td>iPhone, iPhone2, iPhone3G, 第一代、第二代 iPod Touch</td>
 </tr>
@@ -472,18 +218,17 @@
 <td>arm64</td>
 <td>iPhone5S 以后 iPhoneX , iPad Air, iPad mini2以后</td>
 </tr>
-</tbody>
-</table>
-<h3 id="u51E0_u4E2A_u5FC5_u8981_u7684_u5E38_u8BC6"><a href="#u51E0_u4E2A_u5FC5_u8981_u7684_u5E38_u8BC6" class="headerlink" title="几个必要的常识"></a>几个必要的常识</h3><ul>
+</tbody></table>
+<h3 id="几个必要的常识"><a href="#几个必要的常识" class="headerlink" title="几个必要的常识"></a>几个必要的常识</h3><ul>
 <li>要想学好汇编,首先需要了解CPU等硬件结构</li>
-<li>APP/程序的执行过程</li>
+<li>APP&#x2F;程序的执行过程</li>
 </ul>
-<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193672391363.jpg" alt=""></p>
+<p><img src="/.com//15193666448504/15193672391363.jpg"></p>
 <ul>
-<li>硬件相关最为重要是CPU/内存</li>
+<li>硬件相关最为重要是CPU&#x2F;内存</li>
 <li>在汇编中,大部分指令都是和CPU与内存相关的</li>
 </ul>
-<h3 id="u603B_u7EBF"><a href="#u603B_u7EBF" class="headerlink" title="总线"></a>总线</h3><p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193692496345.jpg" alt=""><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193692648349.jpg" alt=""></p>
+<h3 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h3><p><img src="/.com//15193666448504/15193692496345.jpg"><img src="/.com//15193666448504/15193692648349.jpg"></p>
 <ul>
 <li>每一个CPU芯片都有许多管脚，这些管脚和总线相连，CPU通过总线跟外部器件进行交互</li>
 <li>总线：一根根导线的集合</li>
@@ -494,29 +239,29 @@
 </ul>
 </li>
 </ul>
-<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193693448725.jpg" alt=""></p>
+<p><img src="/.com//15193666448504/15193693448725.jpg"></p>
 <p><strong>举个例子</strong></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2990730-bfac743167c4e554.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="来至书上的截图"></p>
 <ul>
 <li><strong>地址总线</strong><ul>
-<li>它的宽度决定了CPU的<em>寻址能力</em></li>
-<li>8086的地址总线宽度是<em>20</em>，所以寻址能力是<em>1M</em>（ 2^20  ）</li>
+<li>它的宽度决定了CPU的_寻址能力_</li>
+<li>8086的地址总线宽度是_20_，所以寻址能力是_1M_（ 2^20  ）</li>
 </ul>
 </li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/2990730-b22c5ebccc4e6a9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2990730-b22c5ebccc4e6a9c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
 <ul>
 <li><strong>数据总线</strong><ul>
-<li>它的宽度决定了CPU的单次数据传送量，也就是数据<em>传送速度</em></li>
-<li>8086的数据总线宽度是<em>16</em>，所以单次最大传递<em>2个字节</em>的数据</li>
+<li>它的宽度决定了CPU的单次数据传送量，也就是数据_传送速度_</li>
+<li>8086的数据总线宽度是_16_，所以单次最大传递_2个字节_的数据</li>
 </ul>
 </li>
 <li><strong>控制总线</strong><ul>
-<li>它的宽度决定了CPU对其他器件的<em>控制能力</em>、能有多少种控制</li>
+<li>它的宽度决定了CPU对其他器件的_控制能力_、能有多少种控制</li>
 </ul>
 </li>
 </ul>
-<h3 id="u5185_u5B58"><a href="#u5185_u5B58" class="headerlink" title="内存"></a>内存</h3><p><img src="http://upload-images.jianshu.io/upload_images/2990730-cb3c46652c7bad8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储区的逻辑连接"></p>
+<h3 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h3><p><img src="http://upload-images.jianshu.io/upload_images/2990730-cb3c46652c7bad8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储区的逻辑连接"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2990730-49e73b88a2e7af92.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储器的逻辑连接-物理地址对应图"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2990730-d723c11cce5cdaaf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="各类存储器的物理地址情况"></p>
 <ul>
@@ -529,11 +274,11 @@
 <li><p>0xC0000~0xFFFFF：存储各种硬件\系统信息。只读</p>
 </li>
 </ul>
-<h2 id="u8FDB_u5236"><a href="#u8FDB_u5236" class="headerlink" title="进制"></a>进制</h2><p><strong>学习进制的障碍</strong></p>
+<h2 id="进制"><a href="#进制" class="headerlink" title="进制"></a>进制</h2><p><strong>学习进制的障碍</strong></p>
 <blockquote>
 <p>很多人学不好进制，原因是总以十进制为依托去考虑其他进制，需要运算的时候也总是先转换成十进制，这种学习方法是错误的.<br>我们为什么一定要转换十进制呢？仅仅是因为我们对十进制最熟悉，所以才转换.<br>每一种进制都是完美的,想学好进制首先要忘掉十进制，也要忘掉进制间的转换！</p>
 </blockquote>
-<h3 id="u8FDB_u5236_u7684_u5B9A_u4E49"><a href="#u8FDB_u5236_u7684_u5B9A_u4E49" class="headerlink" title="进制的定义"></a>进制的定义</h3><ul>
+<h3 id="进制的定义"><a href="#进制的定义" class="headerlink" title="进制的定义"></a>进制的定义</h3><ul>
 <li>八进制由8个符号组成:0 1 2 3 4 5 6 7 逢八进一</li>
 <li>十进制由10个符号组成:0 1 2 3 4 5 6 7 8 9逢十进一</li>
 <li>N进制就是由N个符号组成:逢N进一</li>
@@ -542,52 +287,64 @@
 <blockquote>
 <p><strong>十进制</strong>由十个<strong>符号</strong>组成,逢十进一,<strong>符号</strong>是可以<strong>自定义</strong>的!!</p>
 </blockquote>
-<h3 id="u8FDB_u5236_u7684_u8FD0_u7B97"><a href="#u8FDB_u5236_u7684_u8FD0_u7B97" class="headerlink" title="进制的运算"></a>进制的运算</h3><h5 id="u516B_u8FDB_u5236_u52A0_u6CD5_u8868"><a href="#u516B_u8FDB_u5236_u52A0_u6CD5_u8868" class="headerlink" title="八进制加法表"></a>八进制加法表</h5><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>  <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span></div><div class="line"><span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span></div><div class="line"><span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span> <span class="number">25</span> <span class="number">26</span> <span class="number">27</span></div><div class="line">...</div><div class="line"></div><div class="line"><span class="number">1</span>+<span class="number">1</span> = <span class="number">2</span>						</div><div class="line"><span class="number">1</span>+<span class="number">2</span> = <span class="number">3</span>   <span class="number">2</span>+<span class="number">2</span> = <span class="number">4</span>				</div><div class="line"><span class="number">1</span>+<span class="number">3</span> = <span class="number">4</span>   <span class="number">2</span>+<span class="number">3</span> = <span class="number">5</span>   <span class="number">3</span>+<span class="number">3</span> = <span class="number">6</span></div><div class="line"><span class="number">1</span>+<span class="number">4</span> = <span class="number">5</span>   <span class="number">2</span>+<span class="number">4</span> = <span class="number">6</span>   <span class="number">3</span>+<span class="number">4</span> = <span class="number">7</span>   <span class="number">4</span>+<span class="number">4</span> = <span class="number">10</span>  </div><div class="line"><span class="number">1</span>+<span class="number">5</span> = <span class="number">6</span>   <span class="number">2</span>+<span class="number">5</span> = <span class="number">7</span>   <span class="number">3</span>+<span class="number">5</span> = <span class="number">10</span>  <span class="number">4</span>+<span class="number">5</span> = <span class="number">11</span>  <span class="number">5</span>+<span class="number">5</span> = <span class="number">12</span></div><div class="line"><span class="number">1</span>+<span class="number">6</span> = <span class="number">7</span>   <span class="number">2</span>+<span class="number">6</span> = <span class="number">10</span>  <span class="number">3</span>+<span class="number">6</span> = <span class="number">11</span>  <span class="number">4</span>+<span class="number">6</span> = <span class="number">12</span>  <span class="number">5</span>+<span class="number">6</span> = <span class="number">13</span>  <span class="number">6</span>+<span class="number">6</span> = <span class="number">14</span></div><div class="line"><span class="number">1</span>+<span class="number">7</span> = <span class="number">10</span>  <span class="number">2</span>+<span class="number">7</span> = <span class="number">11</span>  <span class="number">3</span>+<span class="number">7</span> = <span class="number">12</span>  <span class="number">4</span>+<span class="number">7</span> = <span class="number">13</span>  <span class="number">5</span>+<span class="number">7</span> = <span class="number">14</span>  <span class="number">6</span>+<span class="number">7</span> = <span class="number">15</span>  <span class="number">7</span>+<span class="number">7</span> = <span class="number">16</span></div></pre></td></tr></table></figure>
-<h5 id="u516B_u8FDB_u5236_u4E58_u6CD5_u8868"><a href="#u516B_u8FDB_u5236_u4E58_u6CD5_u8868" class="headerlink" title="八进制乘法表"></a>八进制乘法表</h5><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span> <span class="number">25</span> <span class="number">26</span> <span class="number">27.</span>..</div><div class="line"><span class="number">1</span>*<span class="number">1</span> = <span class="number">1</span>						</div><div class="line"><span class="number">1</span>*<span class="number">2</span> = <span class="number">2</span>	  <span class="number">2</span>*<span class="number">2</span> = <span class="number">4</span>				</div><div class="line"><span class="number">1</span>*<span class="number">3</span> = <span class="number">3</span>	  <span class="number">2</span>*<span class="number">3</span> = <span class="number">6</span>	<span class="number">3</span>*<span class="number">3</span> = <span class="number">11</span></div><div class="line"><span class="number">1</span>*<span class="number">4</span> = <span class="number">4</span>	  <span class="number">2</span>*<span class="number">4</span> = <span class="number">10</span>	<span class="number">3</span>*<span class="number">4</span> = <span class="number">14</span>  <span class="number">4</span>*<span class="number">4</span> = <span class="number">20</span></div><div class="line"><span class="number">1</span>*<span class="number">5</span> = <span class="number">5</span>	  <span class="number">2</span>*<span class="number">5</span> = <span class="number">12</span>	<span class="number">3</span>*<span class="number">5</span> = <span class="number">17</span>  <span class="number">4</span>*<span class="number">5</span> = <span class="number">24</span>  <span class="number">5</span>*<span class="number">5</span> = <span class="number">31</span></div><div class="line"><span class="number">1</span>*<span class="number">6</span> = <span class="number">6</span>	  <span class="number">2</span>*<span class="number">6</span> = <span class="number">14</span>	<span class="number">3</span>*<span class="number">6</span> = <span class="number">22</span>  <span class="number">4</span>*<span class="number">6</span> = <span class="number">30</span>  <span class="number">5</span>*<span class="number">6</span> = <span class="number">36</span>  <span class="number">6</span>*<span class="number">6</span> = <span class="number">44</span></div><div class="line"><span class="number">1</span>*<span class="number">7</span> = <span class="number">7</span>	  <span class="number">2</span>*<span class="number">7</span> = <span class="number">16</span>	<span class="number">3</span>*<span class="number">7</span> = <span class="number">25</span>  <span class="number">4</span>*<span class="number">7</span> = <span class="number">34</span>  <span class="number">5</span>*<span class="number">7</span> = <span class="number">43</span>  <span class="number">6</span>*<span class="number">7</span> = <span class="number">52</span>  <span class="number">7</span>*<span class="number">7</span> = <span class="number">61</span></div></pre></td></tr></table></figure>
-<h5 id="u5B9E_u6218_u56DB_u5219_u8FD0_u7B97"><a href="#u5B9E_u6218_u56DB_u5219_u8FD0_u7B97" class="headerlink" title="实战四则运算"></a>实战四则运算</h5><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   <span class="number">277</span>         <span class="number">236</span>         <span class="number">276</span>         <span class="number">234</span></div><div class="line">+  <span class="number">333</span>       -  <span class="number">54</span>       *  <span class="number">54</span>       /   <span class="number">4</span></div><div class="line">--------    --------    --------    --------</div></pre></td></tr></table></figure>
-<h3 id="u4E8C_u8FDB_u5236_u7684_u7B80_u5199_u5F62_u5F0F"><a href="#u4E8C_u8FDB_u5236_u7684_u7B80_u5199_u5F62_u5F0F" class="headerlink" title="二进制的简写形式"></a>二进制的简写形式</h3><figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">       二进制:<span class="number"> 1 </span>0<span class="number"> 1 </span>1<span class="number"> 1 </span>0<span class="number"> 1 </span>1<span class="number"> 1 </span>1<span class="number"> 0 </span>0</div><div class="line">三个二进制一组:<span class="number"> 101 </span>110<span class="number"> 111 </span>100</div><div class="line">       八进制:  <span class="number"> 5 </span> <span class="number"> 6 </span> <span class="number"> 7 </span>  4</div><div class="line">四个二进制一组:<span class="number"> 1011 </span>1011 1100</div><div class="line">     十六进制:    b    b    c</div></pre></td></tr></table></figure>
+<h3 id="进制的运算"><a href="#进制的运算" class="headerlink" title="进制的运算"></a>进制的运算</h3><h5 id="八进制加法表"><a href="#八进制加法表" class="headerlink" title="八进制加法表"></a>八进制加法表</h5><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span> 7</span><br><span class="line">10<span class="number"> 11 </span>12<span class="number"> 13 </span>14<span class="number"> 15 </span>16 17</span><br><span class="line">20<span class="number"> 21 </span>22<span class="number"> 23 </span>24<span class="number"> 25 </span>26 27</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">1+1 = 2						</span><br><span class="line">1+2 =<span class="number"> 3 </span>  2+2 = 4				</span><br><span class="line">1+3 =<span class="number"> 4 </span>  2+3 =<span class="number"> 5 </span>  3+3 = 6</span><br><span class="line">1+4 =<span class="number"> 5 </span>  2+4 =<span class="number"> 6 </span>  3+4 =<span class="number"> 7 </span>  4+4 =<span class="number"> 10 </span> </span><br><span class="line">1+5 =<span class="number"> 6 </span>  2+5 =<span class="number"> 7 </span>  3+5 =<span class="number"> 10 </span> 4+5 =<span class="number"> 11 </span> 5+5 = 12</span><br><span class="line">1+6 =<span class="number"> 7 </span>  2+6 =<span class="number"> 10 </span> 3+6 =<span class="number"> 11 </span> 4+6 =<span class="number"> 12 </span> 5+6 =<span class="number"> 13 </span> 6+6 = 14</span><br><span class="line">1+7 =<span class="number"> 10 </span> 2+7 =<span class="number"> 11 </span> 3+7 =<span class="number"> 12 </span> 4+7 =<span class="number"> 13 </span> 5+7 =<span class="number"> 14 </span> 6+7 =<span class="number"> 15 </span> 7+7 = 16</span><br></pre></td></tr></table></figure>
+
+<h5 id="八进制乘法表"><a href="#八进制乘法表" class="headerlink" title="八进制乘法表"></a>八进制乘法表</h5><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span> <span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span> <span class="number">25</span> <span class="number">26</span> <span class="number">27</span>...</span><br><span class="line"><span class="attribute">1</span>*<span class="number">1</span> = <span class="number">1</span>						</span><br><span class="line"><span class="attribute">1</span>*<span class="number">2</span> = <span class="number">2</span>	  <span class="number">2</span>*<span class="number">2</span> = <span class="number">4</span>				</span><br><span class="line"><span class="attribute">1</span>*<span class="number">3</span> = <span class="number">3</span>	  <span class="number">2</span>*<span class="number">3</span> = <span class="number">6</span>	<span class="number">3</span>*<span class="number">3</span> = <span class="number">11</span></span><br><span class="line"><span class="attribute">1</span>*<span class="number">4</span> = <span class="number">4</span>	  <span class="number">2</span>*<span class="number">4</span> = <span class="number">10</span>	<span class="number">3</span>*<span class="number">4</span> = <span class="number">14</span>  <span class="number">4</span>*<span class="number">4</span> = <span class="number">20</span></span><br><span class="line"><span class="attribute">1</span>*<span class="number">5</span> = <span class="number">5</span>	  <span class="number">2</span>*<span class="number">5</span> = <span class="number">12</span>	<span class="number">3</span>*<span class="number">5</span> = <span class="number">17</span>  <span class="number">4</span>*<span class="number">5</span> = <span class="number">24</span>  <span class="number">5</span>*<span class="number">5</span> = <span class="number">31</span></span><br><span class="line"><span class="attribute">1</span>*<span class="number">6</span> = <span class="number">6</span>	  <span class="number">2</span>*<span class="number">6</span> = <span class="number">14</span>	<span class="number">3</span>*<span class="number">6</span> = <span class="number">22</span>  <span class="number">4</span>*<span class="number">6</span> = <span class="number">30</span>  <span class="number">5</span>*<span class="number">6</span> = <span class="number">36</span>  <span class="number">6</span>*<span class="number">6</span> = <span class="number">44</span></span><br><span class="line"><span class="attribute">1</span>*<span class="number">7</span> = <span class="number">7</span>	  <span class="number">2</span>*<span class="number">7</span> = <span class="number">16</span>	<span class="number">3</span>*<span class="number">7</span> = <span class="number">25</span>  <span class="number">4</span>*<span class="number">7</span> = <span class="number">34</span>  <span class="number">5</span>*<span class="number">7</span> = <span class="number">43</span>  <span class="number">6</span>*<span class="number">7</span> = <span class="number">52</span>  <span class="number">7</span>*<span class="number">7</span> = <span class="number">61</span></span><br></pre></td></tr></table></figure>
+<h5 id="实战四则运算"><a href="#实战四则运算" class="headerlink" title="实战四则运算"></a>实战四则运算</h5><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  <span class="number"> 277 </span>       <span class="number"> 236 </span>       <span class="number"> 276 </span>        234</span><br><span class="line">+ <span class="number"> 333 </span>      - <span class="number"> 54 </span>      * <span class="number"> 54 </span>      /   4</span><br><span class="line">--------    --------    --------    --------    </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="二进制的简写形式"><a href="#二进制的简写形式" class="headerlink" title="二进制的简写形式"></a>二进制的简写形式</h3><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">       二进制:<span class="number"> 1 </span>0<span class="number"> 1 </span>1<span class="number"> 1 </span>0<span class="number"> 1 </span>1<span class="number"> 1 </span>1<span class="number"> 0 </span>0</span><br><span class="line">三个二进制一组:<span class="number"> 101 </span>110<span class="number"> 111 </span>100</span><br><span class="line">       八进制:  <span class="number"> 5 </span> <span class="number"> 6 </span> <span class="number"> 7 </span>  4</span><br><span class="line">四个二进制一组:<span class="number"> 1011 </span>1011 1100</span><br><span class="line">     十六进制:    b    b    c</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>二进制：从0 写到 1111<br>0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111<br>这种二进制使用起来太麻烦，改成更简单一点的符号：<br>0 1 2 3 4 5 6 7 8 9 A B C D E F 这就是十六进制了</p>
 </blockquote>
-<h3 id="u6570_u636E_u7684_u5BBD_u5EA6"><a href="#u6570_u636E_u7684_u5BBD_u5EA6" class="headerlink" title="数据的宽度"></a>数据的宽度</h3><p>数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">&lt;UIKit/UIKit.h&gt;</span></span></div><div class="line"><span class="meta">#import <span class="meta-string">"AppDelegate.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">int</span> test()&#123;</div><div class="line">    <span class="keyword">int</span> cTemp = <span class="number">0x1FFFFFFFF</span>;</div><div class="line">    <span class="keyword">return</span> cTemp;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</div><div class="line">    printf(<span class="string">"%x\n"</span>,test());</div><div class="line">    <span class="keyword">@autoreleasepool</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="u8BA1_u7B97_u673A_u4E2D_u5E38_u89C1_u7684_u6570_u636E_u5BBD_u5EA6"><a href="#u8BA1_u7B97_u673A_u4E2D_u5E38_u89C1_u7684_u6570_u636E_u5BBD_u5EA6" class="headerlink" title="计算机中常见的数据宽度"></a>计算机中常见的数据宽度</h3><ul>
+<h3 id="数据的宽度"><a href="#数据的宽度" class="headerlink" title="数据的宽度"></a>数据的宽度</h3><p>数学上的数字，是没有大小限制的，可以无限的大。但在计算机中，由于受硬件的制约，数据都是有长度限制的（我们称为数据宽度），超过最多宽度的数据会被丢弃。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;AppDelegate.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> test()&#123;</span><br><span class="line">    <span class="type">int</span> cTemp = <span class="number">0x1FFFFFFFF</span>;</span><br><span class="line">    <span class="keyword">return</span> cTemp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> main(<span class="type">int</span> argc, <span class="type">char</span> * argv[]) &#123;</span><br><span class="line">    printf(<span class="string">&quot;%x\n&quot;</span>,test());</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="计算机中常见的数据宽度"><a href="#计算机中常见的数据宽度" class="headerlink" title="计算机中常见的数据宽度"></a>计算机中常见的数据宽度</h3><ul>
 <li>位(Bit): 1个位就是1个二进制位.0或者1</li>
 <li>字节(Byte): 1个字节由8个Bit组成(8位).内存中的最小单元Byte.</li>
 <li>字(Word): 1个字由2个字节组成(16位),这2个字节分别称为高字节和低字节.</li>
 <li>双字(Doubleword): 1个双字由两个字组成(32位)</li>
 </ul>
-<p>那么计算机存储数据它会分为有符号数和无符号数.那么关于这个看图就理解了!<br><img src="/2018/04/19/逆向工程-汇编/15170403463820/15178439312380.jpg" alt=""></p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">无符号数,直接换算!</div><div class="line">有符号数:</div><div class="line">正数:  0    1    2    3    4    5    6    7</div><div class="line">负数:  F    E    D    B    C    A    9    8</div><div class="line">      <span class="string">-1</span>   <span class="string">-2</span>   <span class="string">-3</span>   <span class="string">-4</span>   <span class="string">-5</span>   <span class="string">-6</span>   <span class="string">-7</span>   <span class="string">-8</span></div></pre></td></tr></table></figure>
-<h3 id="u81EA_u5B9A_u4E49_u8FDB_u5236_u7B26_u53F7"><a href="#u81EA_u5B9A_u4E49_u8FDB_u5236_u7B26_u53F7" class="headerlink" title="自定义进制符号"></a>自定义进制符号</h3><figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">十进制:   <span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span><span class="number"> 7 </span><span class="number"> 8 </span> 9</div><div class="line">自定义:   <span class="number"> 2 </span><span class="number"> 9 </span><span class="number"> 1 </span><span class="number"> 7 </span><span class="number"> 6 </span><span class="number"> 5 </span><span class="number"> 4 </span><span class="number"> 8 </span><span class="number"> 3 </span> A</div><div class="line">        <span class="number"> 92 </span>99<span class="number"> 91 </span>97<span class="number"> 96 </span>95<span class="number"> 94 </span>98<span class="number"> 93 </span>9A</div><div class="line">        <span class="number"> 12 </span>19<span class="number"> 11 </span>17<span class="number"> 16 </span>15<span class="number"> 14 </span>18<span class="number"> 13 </span>1A</div><div class="line">        <span class="number"> 72 </span>79<span class="number"> 71 </span>77<span class="number"> 76 </span>75<span class="number"> 74 </span>78<span class="number"> 73 </span>7A</div><div class="line">        <span class="number"> 62 </span>69<span class="number"> 61 </span>67<span class="number"> 66 </span>65<span class="number"> 64 </span>68<span class="number"> 63 </span>6A</div><div class="line">        <span class="number"> 52 </span>59<span class="number"> 51 </span>57<span class="number"> 56 </span>55<span class="number"> 54 </span>58<span class="number"> 53 </span>5A</div><div class="line">        <span class="number"> 42 </span>49<span class="number"> 41 </span>47<span class="number"> 46 </span>45<span class="number"> 44 </span>48<span class="number"> 43 </span>4A</div><div class="line">        <span class="number"> 82 </span>89<span class="number"> 81 </span>87<span class="number"> 86 </span>85<span class="number"> 84 </span>88<span class="number"> 83 </span>8A</div><div class="line">        <span class="number"> 32 </span>39<span class="number"> 31 </span>37<span class="number"> 36 </span>35<span class="number"> 34 </span>38<span class="number"> 33 </span>3A</div><div class="line">         922</div></pre></td></tr></table></figure>
+<p>那么计算机存储数据它会分为有符号数和无符号数.那么关于这个看图就理解了!<br><img src="/.com//15170403463820/15178439312380.jpg"></p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">无符号数,直接换算!</span><br><span class="line">有符号数:</span><br><span class="line">正数:  0    1    2    3    4    5    6    7</span><br><span class="line">负数:  F    E    D    B    C    A    9    8</span><br><span class="line">      <span class="string">-1</span>   <span class="string">-2</span>   <span class="string">-3</span>   <span class="string">-4</span>   <span class="string">-5</span>   <span class="string">-6</span>   <span class="string">-7</span>   <span class="string">-8</span></span><br></pre></td></tr></table></figure>
+<h3 id="自定义进制符号"><a href="#自定义进制符号" class="headerlink" title="自定义进制符号"></a>自定义进制符号</h3><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">十进制:   <span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span><span class="number"> 7 </span><span class="number"> 8 </span> 9</span><br><span class="line">自定义:   <span class="number"> 2 </span><span class="number"> 9 </span><span class="number"> 1 </span><span class="number"> 7 </span><span class="number"> 6 </span><span class="number"> 5 </span><span class="number"> 4 </span><span class="number"> 8 </span><span class="number"> 3 </span> A</span><br><span class="line">        <span class="number"> 92 </span>99<span class="number"> 91 </span>97<span class="number"> 96 </span>95<span class="number"> 94 </span>98<span class="number"> 93 </span>9A</span><br><span class="line">        <span class="number"> 12 </span>19<span class="number"> 11 </span>17<span class="number"> 16 </span>15<span class="number"> 14 </span>18<span class="number"> 13 </span>1A</span><br><span class="line">        <span class="number"> 72 </span>79<span class="number"> 71 </span>77<span class="number"> 76 </span>75<span class="number"> 74 </span>78<span class="number"> 73 </span>7A</span><br><span class="line">        <span class="number"> 62 </span>69<span class="number"> 61 </span>67<span class="number"> 66 </span>65<span class="number"> 64 </span>68<span class="number"> 63 </span>6A</span><br><span class="line">        <span class="number"> 52 </span>59<span class="number"> 51 </span>57<span class="number"> 56 </span>55<span class="number"> 54 </span>58<span class="number"> 53 </span>5A</span><br><span class="line">        <span class="number"> 42 </span>49<span class="number"> 41 </span>47<span class="number"> 46 </span>45<span class="number"> 44 </span>48<span class="number"> 43 </span>4A</span><br><span class="line">        <span class="number"> 82 </span>89<span class="number"> 81 </span>87<span class="number"> 86 </span>85<span class="number"> 84 </span>88<span class="number"> 83 </span>8A</span><br><span class="line">        <span class="number"> 32 </span>39<span class="number"> 31 </span>37<span class="number"> 36 </span>35<span class="number"> 34 </span>38<span class="number"> 33 </span>3A</span><br><span class="line">         922</span><br></pre></td></tr></table></figure>
+
+
+
 <p>那么刚才通过10进制运算可以转化10进制然后查表!但是如果是其他进制.我们就不能转换,要直接学会查表</p>
 <ul>
-<li>现在有9进制数 9个符号分别是：2，9，1，7，6，5，4， 8，3 逢9进1 那么： 123 + 234 = <em>__</em></li>
+<li>现在有9进制数 9个符号分别是：2，9，1，7，6，5，4， 8，3 逢9进1 那么： 123 + 234 &#x3D; ____</li>
 </ul>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">十进制:   <span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span><span class="number"> 7 </span><span class="number"> 8 </span> </div><div class="line">自定义:   <span class="number"> 2 </span><span class="number"> 9 </span><span class="number"> 1 </span><span class="number"> 7 </span><span class="number"> 6 </span><span class="number"> 5 </span><span class="number"> 4 </span><span class="number"> 8 </span><span class="number"> 3 </span> </div><div class="line">        <span class="number"> 92 </span>99<span class="number"> 91 </span>97<span class="number"> 96 </span>95<span class="number"> 94 </span>98 93</div><div class="line">        <span class="number"> 12 </span>19<span class="number"> 11 </span>17<span class="number"> 16 </span>15<span class="number"> 14 </span>18 13</div><div class="line">        <span class="number"> 72 </span>79<span class="number"> 71 </span>77<span class="number"> 76 </span>75<span class="number"> 74 </span>78 73</div><div class="line">        <span class="number"> 62 </span>69<span class="number"> 61 </span>67<span class="number"> 66 </span>65<span class="number"> 64 </span>68 63</div><div class="line">        <span class="number"> 52 </span>59<span class="number"> 51 </span>57<span class="number"> 56 </span>55<span class="number"> 54 </span>58 53</div><div class="line">        <span class="number"> 42 </span>49<span class="number"> 41 </span>47<span class="number"> 46 </span>45<span class="number"> 44 </span>48 43</div><div class="line">        <span class="number"> 82 </span>89<span class="number"> 81 </span>87<span class="number"> 86 </span>85<span class="number"> 84 </span>88 83</div><div class="line">        <span class="number"> 32 </span>39<span class="number"> 31 </span>37<span class="number"> 36 </span>35<span class="number"> 34 </span>38 33</div><div class="line">         922</div></pre></td></tr></table></figure>
-<h3 id="u5BC4_u5B58_u5668"><a href="#u5BC4_u5B58_u5668" class="headerlink" title="寄存器"></a>寄存器</h3><p><strong>内部部件之间由总线连接</strong><br><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193738988252.jpg" alt=""></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">十进制:   <span class="number"> 0 </span><span class="number"> 1 </span><span class="number"> 2 </span><span class="number"> 3 </span><span class="number"> 4 </span><span class="number"> 5 </span><span class="number"> 6 </span><span class="number"> 7 </span><span class="number"> 8 </span> </span><br><span class="line">自定义:   <span class="number"> 2 </span><span class="number"> 9 </span><span class="number"> 1 </span><span class="number"> 7 </span><span class="number"> 6 </span><span class="number"> 5 </span><span class="number"> 4 </span><span class="number"> 8 </span><span class="number"> 3 </span> </span><br><span class="line">        <span class="number"> 92 </span>99<span class="number"> 91 </span>97<span class="number"> 96 </span>95<span class="number"> 94 </span>98 93</span><br><span class="line">        <span class="number"> 12 </span>19<span class="number"> 11 </span>17<span class="number"> 16 </span>15<span class="number"> 14 </span>18 13</span><br><span class="line">        <span class="number"> 72 </span>79<span class="number"> 71 </span>77<span class="number"> 76 </span>75<span class="number"> 74 </span>78 73</span><br><span class="line">        <span class="number"> 62 </span>69<span class="number"> 61 </span>67<span class="number"> 66 </span>65<span class="number"> 64 </span>68 63</span><br><span class="line">        <span class="number"> 52 </span>59<span class="number"> 51 </span>57<span class="number"> 56 </span>55<span class="number"> 54 </span>58 53</span><br><span class="line">        <span class="number"> 42 </span>49<span class="number"> 41 </span>47<span class="number"> 46 </span>45<span class="number"> 44 </span>48 43</span><br><span class="line">        <span class="number"> 82 </span>89<span class="number"> 81 </span>87<span class="number"> 86 </span>85<span class="number"> 84 </span>88 83</span><br><span class="line">        <span class="number"> 32 </span>39<span class="number"> 31 </span>37<span class="number"> 36 </span>35<span class="number"> 34 </span>38 33</span><br><span class="line">         922</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><p><strong>内部部件之间由总线连接</strong><br><img src="/.com//15193666448504/15193738988252.jpg"></p>
 <ul>
 <li>对程序员来说，CPU中最主要部件是寄存器，可以通过改变寄存器的内容来实现对CPU的控制</li>
 <li>不同的CPU，寄存器的个数、结构是不相同的</li>
 </ul>
-<h3 id="u901A_u7528_u5BC4_u5B58_u5668"><a href="#u901A_u7528_u5BC4_u5B58_u5668" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><ul>
+<h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><ul>
 <li><p>ARM64拥有有31个64位的通用寄存器 x0 到 x30,这些寄存器通常用来存放一般性的数据，称为通用寄存器（有时也有特定用途）</p>
 <ul>
 <li>那么w0 到 w28 这些是32位的. 因为64位CPU可以兼容32位.所以可以只使用64位寄存器的低32位.</li>
-<li><p>比如 w0 就是 x0的低32位!</p>
-<p><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193699098685.jpg" alt=""></p>
-</li>
+<li>比如 w0 就是 x0的低32位!</li>
 </ul>
+<p>  <img src="/.com//15193666448504/15193699098685.jpg"></p>
 </li>
-<li>通常，CPU会先将内存中的数据存储到通用寄存器中，然后再对通用寄存器中的数据进行运算</li>
-<li>假设内存中有块红色内存空间的值是3，现在想把它的值加1，并将结果存储到蓝色内存空间<br><img src="/2018/04/19/逆向工程-汇编/15193666448504/15193703231861.jpg" alt=""></li>
-</ul>
+<li><p>通常，CPU会先将内存中的数据存储到通用寄存器中，然后再对通用寄存器中的数据进行运算</p>
+</li>
+<li><p>假设内存中有块红色内存空间的值是3，现在想把它的值加1，并将结果存储到蓝色内存空间<br><img src="/.com//15193666448504/15193703231861.jpg"></p>
 <ul>
 <li>CPU首先会将红色内存空间的值放到X0寄存器中：mov X0,红色内存空间</li>
 <li>然后让X0寄存器与1相加：add X0,1</li>
 <li>最后将值赋值给内存空间：mov 蓝色内存空间,X0</li>
 </ul>
-<h3 id="pc_u5BC4_u5B58_u5668_28program_counter_29"><a href="#pc_u5BC4_u5B58_u5668_28program_counter_29" class="headerlink" title="pc寄存器(program counter)"></a>pc寄存器(program counter)</h3><ul>
+</li>
+</ul>
+<h3 id="pc寄存器-program-counter"><a href="#pc寄存器-program-counter" class="headerlink" title="pc寄存器(program counter)"></a>pc寄存器(program counter)</h3><ul>
 <li>为指令指针寄存器，它指示了CPU当前要读取指令的地址</li>
 <li>在内存或者磁盘上，指令和数据没有任何区别，都是二进制信息</li>
 <li>CPU在工作的时候把有的信息看做指令，有的信息看做数据，为同样的信息赋予了不同的意义<ul>
@@ -602,9 +359,11 @@
 </ul>
 </li>
 </ul>
-<h3 id="bl_u6307_u4EE4"><a href="#bl_u6307_u4EE4" class="headerlink" title="bl指令"></a>bl指令</h3><ul>
-<li>CPU从何处执行指令是由pc中的内容决定的，我们可以通过改变pc的内容来控制CPU执行目标指令</li>
-<li>ARM64提供了一个mov指令（传送指令），可以用来修改大部分寄存器的值，比如<ul>
+<h3 id="bl指令"><a href="#bl指令" class="headerlink" title="bl指令"></a>bl指令</h3><ul>
+<li><p>CPU从何处执行指令是由pc中的内容决定的，我们可以通过改变pc的内容来控制CPU执行目标指令</p>
+</li>
+<li><p>ARM64提供了一个mov指令（传送指令），可以用来修改大部分寄存器的值，比如</p>
+<ul>
 <li>mov x0,#10、mov x1,#20</li>
 </ul>
 </li>
@@ -613,590 +372,744 @@
 <li><p>ARM64提供了另外的指令来修改PC的值，这些指令统称为转移指令，最简单的是bl指令</p>
 </li>
 </ul>
-<h3 id="bl_u6307_u4EE4__u2013__u7EC3_u4E60"><a href="#bl_u6307_u4EE4__u2013__u7EC3_u4E60" class="headerlink" title="bl指令 – 练习"></a>bl指令 – 练习</h3><p>现在有两段代码!假设程序先执行A,请写出指令执行顺序.最终寄存器x0的值是多少?</p>
-<figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">_A:</div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="symbol">#0</span>xa<span class="number">0</span></div><div class="line">    mov <span class="keyword">x</span><span class="number">1</span>,<span class="symbol">#0</span><span class="keyword">x</span><span class="number">00</span></div><div class="line">    <span class="keyword">add</span> <span class="keyword">x</span><span class="number">1</span>, <span class="keyword">x</span><span class="number">0</span>, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">14</span></div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="keyword">x</span><span class="number">1</span></div><div class="line">    bl _B</div><div class="line">    mov <span class="keyword">x</span><span class="number">0</span>,<span class="symbol">#0</span><span class="keyword">x</span><span class="number">0</span></div><div class="line">    <span class="keyword">ret</span></div><div class="line"></div><div class="line">_B:</div><div class="line">    <span class="keyword">add</span> <span class="keyword">x</span><span class="number">0</span>, <span class="keyword">x</span><span class="number">0</span>, <span class="symbol">#0</span><span class="keyword">x</span><span class="number">10</span></div><div class="line">    <span class="keyword">ret</span></div></pre></td></tr></table></figure>
-</the>
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-      <strong>本文作者：</strong>
-      大宝
-    </li>
-    <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="http://www.tiandabao.com/2018/04/19/逆向工程-汇编/" title="逆向工程_汇编">http://www.tiandabao.com/2018/04/19/逆向工程-汇编/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong>
-      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/逆向/" rel="tag"># 逆向</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/04/18/逆向工程-环境配置/" rel="next" title="逆向工程_环境配置">
-                <i class="fa fa-chevron-left"></i> 逆向工程_环境配置
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/09/逆向工程-函数本质/" rel="prev" title="逆向工程_函数本质">
-                逆向工程_函数本质 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
+<h3 id="bl指令-–-练习"><a href="#bl指令-–-练习" class="headerlink" title="bl指令 – 练习"></a>bl指令 – 练习</h3><p>现在有两段代码!假设程序先执行A,请写出指令执行顺序.最终寄存器x0的值是多少?</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">_A:</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">x0</span>,<span class="number">#0xa0</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">x1</span>,<span class="number">#0x00</span></span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">x1</span>, <span class="built_in">x0</span>, <span class="number">#0x14</span></span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">x0</span>,<span class="built_in">x1</span></span><br><span class="line">    <span class="keyword">bl</span> _B</span><br><span class="line">    <span class="keyword">mov</span> <span class="built_in">x0</span>,<span class="number">#0x0</span></span><br><span class="line">    ret</span><br><span class="line"></span><br><span class="line"><span class="symbol">_B:</span></span><br><span class="line">    <span class="keyword">add</span> <span class="built_in">x0</span>, <span class="built_in">x0</span>, <span class="number">#0x10</span></span><br><span class="line">    ret</span><br></pre></td></tr></table></figure>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>License</span></div>
+      <div class="body"><p>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
     
-      <div id="SOHUCS"></div>
-    
-  </div>
 
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="大宝" />
-          <p class="site-author-name" itemprop="name">大宝</p>
-           
-              <p class="site-description motion-element" itemprop="description">只是一点点</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/">
-                <span class="site-state-item-count">23</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/tiandabao" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/tdbailmy" target="_blank" title="微博">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  微博
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/baorsmile" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.facebook.com/dabao.tian.71" target="_blank" title="Facebook">
-                  
-                    <i class="fa fa-fw fa-facebook"></i>
-                  
-                  Facebook
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.zhihu.com/people/tiandabao/activities" target="_blank" title="知乎">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  知乎
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.douban.com/people/122382501/" target="_blank" title="豆瓣">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  豆瓣
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u521D_u8BC6_u6C47_u7F16"><span class="nav-number">1.</span> <span class="nav-text">初识汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#u6C47_u7F16_u8BED_u8A00_u7684_u53D1_u5C55"><span class="nav-number">1.1.</span> <span class="nav-text">汇编语言的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u673A_u5668_u8BED_u8A00"><span class="nav-number">1.1.1.</span> <span class="nav-text">机器语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6C47_u7F16_u8BED_u8A00_28assembly_language_29"><span class="nav-number">1.1.2.</span> <span class="nav-text">汇编语言(assembly language)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u9AD8_u7EA7_u8BED_u8A00_uFF08High-level_programming_language_29"><span class="nav-number">1.1.3.</span> <span class="nav-text">高级语言（High-level programming language)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6C47_u7F16_u8BED_u8A00_u7684_u7279_u70B9"><span class="nav-number">1.1.4.</span> <span class="nav-text">汇编语言的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6C47_u7F16_u7684_u7528_u9014_28_u54E5_u4E48_u6211_u5B66_u4E86_u80FD_u5E72_u5565_3F_29"><span class="nav-number">1.1.5.</span> <span class="nav-text">汇编的用途(哥么我学了能干啥?)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6C47_u7F16_u8BED_u8A00_u7684_u79CD_u7C7B"><span class="nav-number">1.1.6.</span> <span class="nav-text">汇编语言的种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u51E0_u4E2A_u5FC5_u8981_u7684_u5E38_u8BC6"><span class="nav-number">1.1.7.</span> <span class="nav-text">几个必要的常识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u603B_u7EBF"><span class="nav-number">1.1.8.</span> <span class="nav-text">总线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5185_u5B58"><span class="nav-number">1.1.9.</span> <span class="nav-text">内存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8FDB_u5236"><span class="nav-number">1.2.</span> <span class="nav-text">进制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u8FDB_u5236_u7684_u5B9A_u4E49"><span class="nav-number">1.2.1.</span> <span class="nav-text">进制的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u8FDB_u5236_u7684_u8FD0_u7B97"><span class="nav-number">1.2.2.</span> <span class="nav-text">进制的运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#u516B_u8FDB_u5236_u52A0_u6CD5_u8868"><span class="nav-number">1.2.2.0.1.</span> <span class="nav-text">八进制加法表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#u516B_u8FDB_u5236_u4E58_u6CD5_u8868"><span class="nav-number">1.2.2.0.2.</span> <span class="nav-text">八进制乘法表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#u5B9E_u6218_u56DB_u5219_u8FD0_u7B97"><span class="nav-number">1.2.2.0.3.</span> <span class="nav-text">实战四则运算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u4E8C_u8FDB_u5236_u7684_u7B80_u5199_u5F62_u5F0F"><span class="nav-number">1.2.3.</span> <span class="nav-text">二进制的简写形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6570_u636E_u7684_u5BBD_u5EA6"><span class="nav-number">1.2.4.</span> <span class="nav-text">数据的宽度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u8BA1_u7B97_u673A_u4E2D_u5E38_u89C1_u7684_u6570_u636E_u5BBD_u5EA6"><span class="nav-number">1.2.5.</span> <span class="nav-text">计算机中常见的数据宽度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u81EA_u5B9A_u4E49_u8FDB_u5236_u7B26_u53F7"><span class="nav-number">1.2.6.</span> <span class="nav-text">自定义进制符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5BC4_u5B58_u5668"><span class="nav-number">1.2.7.</span> <span class="nav-text">寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u901A_u7528_u5BC4_u5B58_u5668"><span class="nav-number">1.2.8.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pc_u5BC4_u5B58_u5668_28program_counter_29"><span class="nav-number">1.2.9.</span> <span class="nav-text">pc寄存器(program counter)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bl_u6307_u4EE4"><span class="nav-number">1.2.10.</span> <span class="nav-text">bl指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bl_u6307_u4EE4__u2013__u7EC3_u4E60"><span class="nav-number">1.2.11.</span> <span class="nav-text">bl指令 – 练习</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">大宝</span>
 </div>
 
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">Newer</div><a href="/2018/07/09/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E5%87%BD%E6%95%B0%E6%9C%AC%E8%B4%A8/">逆向工程_函数本质</a></div><div class="item" id="next"><div class="note">Older</div><a href="/2018/04/18/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">逆向工程_环境配置</a></div></section></div>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">大宝</a> 使用 <a href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9D%E8%AF%86%E6%B1%87%E7%BC%96"><span class="toc-text">初识汇编</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8F%91%E5%B1%95"><span class="toc-text">汇编语言的发展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80"><span class="toc-text">机器语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80-assembly-language"><span class="toc-text">汇编语言(assembly language)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E8%AF%AD%E8%A8%80%EF%BC%88High-level-programming-language"><span class="toc-text">高级语言（High-level programming language)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-text">汇编语言的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E7%9A%84%E7%94%A8%E9%80%94-%E5%93%A5%E4%B9%88%E6%88%91%E5%AD%A6%E4%BA%86%E8%83%BD%E5%B9%B2%E5%95%A5"><span class="toc-text">汇编的用途(哥么我学了能干啥?)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-text">汇编语言的种类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E5%BF%85%E8%A6%81%E7%9A%84%E5%B8%B8%E8%AF%86"><span class="toc-text">几个必要的常识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF"><span class="toc-text">总线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98"><span class="toc-text">内存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6"><span class="toc-text">进制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">进制的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6%E7%9A%84%E8%BF%90%E7%AE%97"><span class="toc-text">进制的运算</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%AB%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95%E8%A1%A8"><span class="toc-text">八进制加法表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%AB%E8%BF%9B%E5%88%B6%E4%B9%98%E6%B3%95%E8%A1%A8"><span class="toc-text">八进制乘法表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97"><span class="toc-text">实战四则运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9A%84%E7%AE%80%E5%86%99%E5%BD%A2%E5%BC%8F"><span class="toc-text">二进制的简写形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AE%BD%E5%BA%A6"><span class="toc-text">数据的宽度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AE%BD%E5%BA%A6"><span class="toc-text">计算机中常见的数据宽度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%9B%E5%88%B6%E7%AC%A6%E5%8F%B7"><span class="toc-text">自定义进制符号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text">通用寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pc%E5%AF%84%E5%AD%98%E5%99%A8-program-counter"><span class="toc-text">pc寄存器(program counter)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bl%E6%8C%87%E4%BB%A4"><span class="toc-text">bl指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bl%E6%8C%87%E4%BB%A4-%E2%80%93-%E7%BB%83%E4%B9%A0"><span class="toc-text">bl指令 – 练习</span></a></li></ol></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>Scroll to Top</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
 </div>
+</div><div class="scripts">
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
 
 <script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `Just`,
+      min: `minutes ago`,
+      hour: `hours ago`,
+      day: `days ago`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
   }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `Switched to Light Mode`,
+      dark: `Switched to Dark Mode`,
+      auto: `Switched to Auto Mode`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
 </script>
 
 
-
-
-
-
-
-
-
-  
-
-
-  
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-  
-  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/three.min.js"></script>
-
-  
-  <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-  
-    <script type="text/javascript">
-    (function(){
-      var appid = 'cyt7Ldtdo';
-      var conf = '6e7560cdf2453c7fa6f757c862b348df';
-      var width = window.innerWidth || document.documentElement.clientWidth;
-      if (width < 960) {
-      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
-        window.changyan.api.config({appid:appid,conf:conf})});
-      }
-    })();
-    </script>
-    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
-  
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("38MQDsEsjao0caCNrigjz5wi-gzGzoHsz", "o0Ei8csU4K9x8atRuGKVCC3b");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
             }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
+          });
+        }
+      }
     }
 
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
 
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
             });
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
             });
           }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
+          chat_quote_obverser.observe(chatCellDom);
         }
       });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
     });
-  </script>
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
 
 
+<!-- inject -->
 
-  
-
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
+</div></body></html>
