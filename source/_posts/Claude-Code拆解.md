@@ -503,9 +503,9 @@ graph LR
     end
     
     subgraph Bridge["桥接层"]
-        BM["bridgeMain.ts<br/>(115K)"]
-        RB["replBridge.ts<br/>(100K)"]
-        JWT["jwtUtils.ts<br/>JWT 认证"]
+        BM["bridgeMain.ts (115K)"]
+        RB["replBridge.ts (100K)"]
+        JWT["jwtUtils.ts JWT 认证"]
     end
     
     subgraph CLI["CLI 侧"]
@@ -513,10 +513,10 @@ graph LR
         TOOLS["工具系统"]
     end
     
-    VSC <-->|WebSocket/stdio| BM
-    JB <-->|WebSocket/stdio| BM
-    BM <--> RB
-    RB <--> REPL2
+    VSC -- WebSocket/stdio --- BM
+    JB -- WebSocket/stdio --- BM
+    BM --- RB
+    RB --- REPL2
     REPL2 --> TOOLS
 ```
 
