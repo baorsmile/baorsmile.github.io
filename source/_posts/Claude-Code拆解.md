@@ -1,0 +1,717 @@
+title: Claude Code拆解
+date: 2026-04-01 00:21:12
+tags:
+category:
+mermaid: true
+---
+
+# Claude Code 源码深度分析报告
+
+> **分析日期**: 2026-04-01  
+> **源码来源**: 2026-03-31 通过 npm registry `.map` 文件泄露  
+> **分支**: `backup`
+
+---
+
+## 1. 项目总览
+
+| 指标 | 数值 |
+|------|------|
+| **源文件数量** | 1,884 个 (.ts/.tsx) |
+| **代码总行数** | 512,664 行 |
+| **目录数量** | 301 个 |
+| **语言** | TypeScript (strict) |
+| **运行时** | Bun |
+| **终端 UI 框架** | React + Ink (React for CLI) |
+| **CLI 解析** | Commander.js (extra-typings) |
+| **Schema 校验** | Zod v4 |
+| **API SDK** | Anthropic SDK |
+| **协议支持** | MCP (Model Context Protocol), LSP |
+| **遥测** | OpenTelemetry + gRPC |
+| **特性开关** | GrowthBook + `bun:bundle` DCE |
+| **认证** | OAuth 2.0, JWT, macOS Keychain |
+
+---
+
+## 2. 代码规模 Top 25 文件
+
+以下是代码行数最多的 25 个文件，反映了系统的复杂度中心：
+
+| 排名 | 文件 | 行数 | 功能描述 |
+|------|------|------|----------|
+| 1 | `cli/print.ts` | 5,594 | Headless/SDK 模式下的输出渲染 |
+| 2 | `utils/messages.ts` | 5,512 | 消息创建、转换、过滤工具集 |
+| 3 | `utils/sessionStorage.ts` | 5,105 | 会话持久化 (JSON 序列化/反序列化) |
+| 4 | `utils/hooks.ts` | 5,022 | Pre/PostToolUse Hooks 执行引擎 |
+| 5 | `screens/REPL.tsx` | 5,005 | 主交互界面 (REPL 屏幕) |
+| 6 | `main.tsx` | 4,683 | 入口：CLI 解析 + Ink 渲染器初始化 |
+| 7 | `utils/bash/bashParser.ts` | 4,436 | Bash 命令 AST 解析器 |
+| 8 | `utils/attachments.ts` | 3,997 | 附件处理 (CLAUDE.md、图片、记忆) |
+| 9 | `services/api/claude.ts` | 3,419 | Anthropic API 调用核心 (流式响应) |
+| 10 | `services/mcp/client.ts` | 3,348 | MCP 客户端连接管理 |
+| 11 | `utils/plugins/pluginLoader.ts` | 3,302 | 插件加载器 |
+| 12 | `commands/insights.ts` | 3,200 | `/insights` 用量分析报告生成 |
+| 13 | `bridge/bridgeMain.ts` | 2,999 | IDE 桥接主循环 (VS Code/JetBrains) |
+| 14 | `utils/bash/ast.ts` | 2,679 | Bash AST 节点类型定义 |
+| 15 | `utils/plugins/marketplaceManager.ts` | 2,643 | 插件市场管理器 |
+| 16 | `tools/BashTool/bashPermissions.ts` | 2,621 | Bash 命令权限矩阵 |
+| 17 | `tools/BashTool/bashSecurity.ts` | 2,592 | Bash 安全检测 (危险命令拦截) |
+| 18 | `native-ts/yoga-layout/index.ts` | 2,578 | Yoga 布局引擎 (纯 TS 实现) |
+| 19 | `services/mcp/auth.ts` | 2,465 | MCP OAuth 认证流程 |
+| 20 | `bridge/replBridge.ts` | 2,406 | REPL 桥接 (IDE ↔ CLI 双向通信) |
+| 21 | `components/PromptInput/PromptInput.tsx` | 2,338 | 提示词输入组件 |
+| 22 | `commands/plugin/ManagePlugins.tsx` | 2,214 | 插件管理 UI |
+| 23 | `tools/PowerShellTool/pathValidation.ts` | 2,049 | PowerShell 路径验证 |
+| 24 | `utils/auth.ts` | 2,002 | 认证工具 (API Key, OAuth, 3P) |
+| 25 | `query.ts` | 1,730 | 查询循环 (tool_use → tool_result) |
+
+> [!IMPORTANT]
+> `screens/REPL.tsx` 文件大小高达 **895KB**（5,005 行），是整个项目最庞大的单文件组件，承载了几乎所有交互逻辑。
+
+---
+
+## 3. 核心架构
+
+### 3.1 整体架构图
+
+```mermaid
+graph TB
+    subgraph Entrypoints["入口层"]
+        CLI["main.tsx<br/>Commander.js CLI"]
+        SDK["entrypoints/sdk/<br/>Agent SDK"]
+        MCP_EP["entrypoints/mcp.ts<br/>MCP Server"]
+    end
+
+    subgraph Core["核心引擎"]
+        QE["QueryEngine.ts<br/>查询引擎"]
+        Q["query.ts<br/>查询循环"]
+        API["services/api/claude.ts<br/>Anthropic API Client"]
+    end
+
+    subgraph ToolSystem["工具系统"]
+        TR["tools.ts<br/>工具注册表"]
+        T["Tool.ts<br/>工具类型定义"]
+        BT["BashTool"]
+        FRT["FileReadTool"]
+        FET["FileEditTool"]
+        FWT["FileWriteTool"]
+        AT["AgentTool"]
+        ST["SkillTool"]
+        MT["MCPTool"]
+        OT["40+ 其他工具..."]
+    end
+
+    subgraph Commands["命令系统"]
+        CR["commands.ts<br/>命令注册表"]
+        SC["86+ 斜杠命令目录"]
+    end
+
+    subgraph UI["用户界面"]
+        REPL["screens/REPL.tsx"]
+        COMP["components/<br/>144 个 UI 组件"]
+        HOOKS["hooks/<br/>85 个 React Hooks"]
+    end
+
+    subgraph Services["服务层"]
+        MCP_S["services/mcp/<br/>MCP 客户端"]
+        LSP_S["services/lsp/<br/>LSP 集成"]
+        OAUTH["services/oauth/<br/>OAuth 2.0"]
+        ANALYTICS["services/analytics/<br/>GrowthBook"]
+        COMPACT["services/compact/<br/>上下文压缩"]
+    end
+
+    subgraph Infra["基础设施"]
+        BRIDGE["bridge/<br/>IDE 桥接"]
+        COORD["coordinator/<br/>多 Agent 协调"]
+        PLUGINS["plugins/<br/>插件系统"]
+        SKILLS["skills/<br/>技能系统"]
+        STATE["state/<br/>状态管理"]
+        REMOTE["remote/<br/>远程会话"]
+    end
+
+    CLI --> QE
+    SDK --> QE
+    QE --> Q
+    Q --> API
+    Q --> TR
+    TR --> T
+    T --> BT & FRT & FET & FWT & AT & ST & MT & OT
+    QE --> CR
+    CLI --> REPL
+    REPL --> COMP
+    REPL --> HOOKS
+    Q --> MCP_S & LSP_S & COMPACT
+    QE --> OAUTH & ANALYTICS
+    REPL --> BRIDGE
+    AT --> COORD
+    QE --> PLUGINS & SKILLS
+    QE --> STATE
+    SDK --> REMOTE
+```
+
+### 3.2 请求生命周期
+
+```mermaid
+sequenceDiagram
+    participant U as 用户
+    participant REPL as REPL.tsx
+    participant QE as QueryEngine
+    participant Q as query()
+    participant API as claude.ts
+    participant T as Tool
+    participant P as Permission
+
+    U->>REPL: 输入提示词
+    REPL->>QE: submitMessage(prompt)
+    QE->>QE: processUserInput()
+    QE->>QE: fetchSystemPromptParts()
+    QE->>Q: query({messages, systemPrompt, ...})
+    
+    loop 查询循环 (tool_use → tool_result)
+        Q->>Q: autocompact / snip / microcompact
+        Q->>API: callModel(messages, tools)
+        API-->>Q: stream assistant response
+        
+        alt 包含 tool_use
+            Q->>P: canUseTool(tool, input)
+            P-->>Q: allow / deny
+            alt 允许
+                Q->>T: tool.call(input, context)
+                T-->>Q: ToolResult
+                Q->>Q: 追加 tool_result 消息
+            else 拒绝
+                Q->>Q: 追加拒绝消息
+            end
+        else 纯文本响应
+            Q-->>QE: 结束循环
+        end
+    end
+    
+    QE-->>REPL: yield SDKMessage
+    REPL-->>U: 渲染响应
+```
+
+---
+
+## 4. 核心模块详解
+
+### 4.1 QueryEngine — 查询引擎 (`QueryEngine.ts`, 1,296 行)
+
+QueryEngine 是整个系统的**心脏**，每个会话对应一个实例。
+
+**核心职责**:
+- 管理会话状态 (消息历史、文件缓存、用量统计)
+- 组装系统提示词 (System Prompt + User Context + Memory)
+- 驱动 `query()` 循环
+- 跟踪权限拒绝 (SDK 报告)
+- 管理技能/插件发现
+
+**关键数据流**:
+```
+submitMessage(prompt)
+  → processUserInput()       // 处理斜杠命令
+  → fetchSystemPromptParts() // 系统提示词组装
+  → query()                  // 核心查询循环
+  → yield SDKMessage         // 流式输出
+```
+
+**配置参数** (`QueryEngineConfig`):
+| 字段 | 用途 |
+|------|------|
+| `tools` | 可用工具列表 |
+| `commands` | 斜杠命令列表 |
+| `mcpClients` | MCP 服务器连接 |
+| `canUseTool` | 权限检查回调 |
+| `thinkingConfig` | 思维模式 (adaptive/disabled) |
+| `maxTurns` | 最大回合数 |
+| `maxBudgetUsd` | 预算上限 (美元) |
+| `jsonSchema` | 结构化输出 Schema |
+
+### 4.2 query() — 查询循环 (`query.ts`, 1,730 行)
+
+这是 Claude 与工具交互的核心循环，实现了完整的 `tool_use → tool_result` 协议。
+
+**循环流程**:
+1. **上下文压缩** — snip → microcompact → context collapse → autocompact
+2. **API 调用** — 流式调用 Anthropic API
+3. **工具执行** — 支持**流式并行执行** (`StreamingToolExecutor`)
+4. **止步钩子** — PostToolUse / stop_reason 处理
+5. **故障恢复** — max_output_tokens 恢复, reactive compact, fallback model
+
+**关键特性**:
+- **Token 预算追踪** — `task_budget` 跨压缩保持
+- **流式工具执行** — 在 API 流式输出时即开始执行工具
+- **自动上下文压缩** — 4 层压缩策略 (snip, microcompact, collapse, autocompact)
+- **Fallback 模型** — streaming 期间自动降级
+
+### 4.3 Tool 系统 (`Tool.ts`, 793 行)
+
+每个工具是一个自包含模块，遵循统一接口：
+
+```typescript
+type Tool = {
+  name: string
+  inputSchema: ZodSchema         // 输入验证
+  call(): Promise<ToolResult>    // 执行逻辑
+  checkPermissions(): Promise<PermissionResult>  // 权限检查
+  isReadOnly(input): boolean     // 只读判断
+  isDestructive(input): boolean  // 破坏性判断
+  isConcurrencySafe(input): boolean  // 并发安全
+  prompt(): Promise<string>      // 模型提示词
+  // ... 渲染方法
+}
+```
+
+**`buildTool()` 工厂函数** — 所有工具通过此函数构建，提供安全默认值 (fail-closed):
+- `isEnabled` → `true`
+- `isConcurrencySafe` → `false`
+- `isReadOnly` → `false`
+- `isDestructive` → `false`
+
+### 4.4 完整工具清单 (40+ 工具)
+
+| 类别 | 工具名 | 代码量 | 描述 |
+|------|--------|--------|------|
+| **Shell** | `BashTool` | 160K (tsx) + 98K (permissions) + 102K (security) | Shell 命令执行，含 AST 安全分析 |
+| **Shell** | `PowerShellTool` | 含路径验证 43K | Windows PowerShell |
+| **文件** | `FileReadTool` | — | 文件读取 (图片/PDF/Notebook) |
+| **文件** | `FileEditTool` | — | 部分文件修改 (字符串替换) |
+| **文件** | `FileWriteTool` | — | 文件创建/覆写 |
+| **搜索** | `GlobTool` | — | 文件路径匹配 |
+| **搜索** | `GrepTool` | — | ripgrep 内容搜索 |
+| **网络** | `WebFetchTool` | — | URL 内容获取 |
+| **网络** | `WebSearchTool` | — | 网络搜索 |
+| **Agent** | `AgentTool` | — | 子 Agent 生成 |
+| **Agent** | `TeamCreateTool` | — | 团队 Agent 创建 |
+| **Agent** | `TeamDeleteTool` | — | 团队 Agent 删除 |
+| **Agent** | `SendMessageTool` | — | Agent 间消息传递 |
+| **任务** | `TaskCreateTool` | — | 任务创建 |
+| **任务** | `TaskGetTool` | — | 任务查询 |
+| **任务** | `TaskUpdateTool` | — | 任务更新 |
+| **任务** | `TaskListTool` | — | 任务列表 |
+| **任务** | `TaskStopTool` | — | 任务停止 |
+| **任务** | `TaskOutputTool` | — | 任务输出 |
+| **技能** | `SkillTool` | — | 技能执行 |
+| **技能** | `ToolSearchTool` | — | 延迟工具发现 |
+| **MCP** | `MCPTool` | — | MCP 服务器工具调用 |
+| **MCP** | `ListMcpResourcesTool` | — | MCP 资源列表 |
+| **MCP** | `ReadMcpResourceTool` | — | MCP 资源读取 |
+| **MCP** | `McpAuthTool` | — | MCP 认证 |
+| **LSP** | `LSPTool` | — | 语言服务器集成 |
+| **Notebook** | `NotebookEditTool` | — | Jupyter Notebook 编辑 |
+| **模式** | `EnterPlanModeTool` | — | 进入计划模式 |
+| **模式** | `ExitPlanModeTool` | — | 退出计划模式 |
+| **模式** | `EnterWorktreeTool` | — | 进入 Git Worktree |
+| **模式** | `ExitWorktreeTool` | — | 退出 Git Worktree |
+| **其他** | `AskUserQuestionTool` | — | 向用户提问 |
+| **其他** | `TodoWriteTool` | — | 待办事项管理 |
+| **其他** | `BriefTool` | — | 简洁输出 |
+| **其他** | `ConfigTool` | — | 配置管理 (ant-only) |
+| **其他** | `SyntheticOutputTool` | — | 结构化输出 |
+| **触发** | `SleepTool` | — | 主动模式等待 |
+| **触发** | `ScheduleCronTool` | — | 定时任务 |
+| **触发** | `RemoteTriggerTool` | — | 远程触发 |
+| **测试** | `REPLTool` | — | REPL 模式 (ant-only) |
+
+> [!NOTE]
+> `BashTool` 是最复杂的工具，总代码量超过 **560KB**，包含完整的 bash 命令 AST 解析器、安全检测引擎和权限矩阵。
+
+### 4.5 命令系统 (`commands.ts`, 755 行)
+
+共 **86+ 个斜杠命令目录** + 15 个独立命令文件：
+
+| 类别 | 命令 | 描述 |
+|------|------|------|
+| **Git** | `/commit`, `/branch`, `/diff`, `/pr_comments` | Git 工作流 |
+| **Review** | `/review`, `/security-review` | 代码审查 |
+| **上下文** | `/compact`, `/context`, `/memory` | 上下文管理 |
+| **配置** | `/config`, `/mcp`, `/plugin`, `/hooks` | 设置管理 |
+| **诊断** | `/doctor`, `/stats`, `/cost`, `/usage` | 环境诊断 |
+| **会话** | `/resume`, `/session`, `/share`, `/export` | 会话管理 |
+| **UI** | `/theme`, `/vim`, `/keybindings` | 界面定制 |
+| **认证** | `/login`, `/logout` | 身份认证 |
+| **Agent** | `/agents`, `/tasks` | Agent & 任务 |
+| **技能** | `/skills`, `/plan` | 技能 & 计划模式 |
+| **远程** | `/desktop`, `/mobile`, `/teleport` | 远程/跨端 |
+| **高级** | `/ultraplan`, `/rewind`, `/thinkback` | 高级功能 |
+| **内部** | `/bughunter`, `/insights`, `/stickers` | 内部工具 |
+
+---
+
+## 5. 特性开关系统 (Feature Flags)
+
+通过 `bun:bundle` 的 `feature()` 进行**编译时死码消除 (DCE)**。共发现 **86 个特性开关**：
+
+````carousel
+### 核心功能开关
+| Flag | 描述 |
+|------|------|
+| `COORDINATOR_MODE` | 多 Agent 协调模式 |
+| `BRIDGE_MODE` | IDE 桥接 (VS Code/JetBrains) |
+| `VOICE_MODE` | 语音输入 |
+| `PROACTIVE` | 主动模式 |
+| `KAIROS` | Kairos 平台 (移动端/推送/GitHub集成) |
+| `DAEMON` | 守护进程模式 |
+| `AGENT_TRIGGERS` | Agent 触发器 (Cron) |
+| `AGENT_TRIGGERS_REMOTE` | 远程 Agent 触发 |
+| `WORKFLOW_SCRIPTS` | 工作流脚本 |
+| `MCP_SKILLS` | MCP 技能系统 |
+<!-- slide -->
+### 上下文管理开关
+| Flag | 描述 |
+|------|------|
+| `HISTORY_SNIP` | 历史剪切压缩 |
+| `REACTIVE_COMPACT` | 响应式压缩 |
+| `CACHED_MICROCOMPACT` | 缓存微压缩 |
+| `CONTEXT_COLLAPSE` | 上下文折叠 |
+| `TOKEN_BUDGET` | Token 预算管理 |
+| `COMPACTION_REMINDERS` | 压缩提醒 |
+<!-- slide -->
+### 实验性功能
+| Flag | 描述 |
+|------|------|
+| `ULTRAPLAN` | 超级计划模式 |
+| `ULTRATHINK` | 超级思考模式 |
+| `FORK_SUBAGENT` | 子 Agent 分叉 |
+| `WEB_BROWSER_TOOL` | 网页浏览器工具 |
+| `TERMINAL_PANEL` | 终端面板 |
+| `BUDDY` | 伴侣精灵 (彩蛋) |
+| `TORCH` | Torch 功能 |
+| `EXPERIMENTAL_SKILL_SEARCH` | 实验性技能搜索 |
+| `TEMPLATES` | 模板系统 |
+````
+
+---
+
+## 6. 权限系统
+
+### 6.1 权限模式
+
+| 模式 | 行为 |
+|------|------|
+| `default` | 每次工具调用都征求用户批准 |
+| `plan` | 只读工具自动通过，写入工具需批准 |
+| `auto` | 自动批准安全操作 (含分类器) |
+| `bypassPermissions` | 跳过所有权限检查 |
+
+### 6.2 权限检查流程
+
+```mermaid
+flowchart TD
+    A["tool_use 请求"] --> B{"全局 Deny 规则?"}
+    B -->|匹配| C["拒绝"]
+    B -->|不匹配| D{"Always Allow 规则?"}
+    D -->|匹配| E["允许"]
+    D -->|不匹配| F{"工具自身 checkPermissions()"}
+    F --> G{"权限模式?"}
+    G -->|default| H["提示用户"]
+    G -->|plan| I{"isReadOnly?"}
+    I -->|是| E
+    I -->|否| H
+    G -->|auto| J["安全分类器"]
+    J -->|安全| E
+    J -->|不安全| H
+    G -->|bypass| E
+```
+
+### 6.3 BashTool 安全子系统
+
+BashTool 的安全检测是最复杂的子系统 (超过 200K 代码)：
+
+| 文件 | 行数 | 功能 |
+|------|------|------|
+| `bashPermissions.ts` | 2,621 | 权限矩阵 (命令 → 权限级别) |
+| `bashSecurity.ts` | 2,592 | 安全检测 (危险命令拦截) |
+| `readOnlyValidation.ts` | 1,900+ | 只读命令验证 |
+| `pathValidation.ts` | 1,200+ | 路径安全验证 |
+| `sedValidation.ts` | 580+ | sed 命令安全验证 |
+| `bashParser.ts` | 4,436 | 完整 Bash AST 解析器 |
+| `ast.ts` | 2,679 | AST 节点类型 |
+
+工作原理：每个 Bash 命令先被解析为 AST，然后通过多层安全检查：
+1. **命令分类** — 识别 read-only / write / destructive
+2. **路径验证** — 确保在允许的工作目录内
+3. **sed 分析** — 检测 sed 的 in-place 修改
+4. **破坏性警告** — `rm -rf`, `kill` 等命令的特殊处理
+
+---
+
+## 7. 多 Agent 协调系统
+
+### 7.1 Coordinator Mode (`coordinator/coordinatorMode.ts`)
+
+当启用 `COORDINATOR_MODE` 时，Claude Code 变为**协调者 (Coordinator)**，不直接执行工具，而是指挥多个 Worker 并行执行任务。
+
+**协调者工具集**:
+- `AgentTool` — 生成 worker
+- `SendMessageTool` — 向 worker 发送后续指令
+- `TaskStopTool` — 停止 worker
+
+**工作流**:
+```
+Research (并行 workers) → 协调者综合 → Implementation (workers) → Verification (workers)
+```
+
+**关键设计原则**:
+- 协调者**必须综合** worker 的研究结果，而非简单转发
+- Worker 的消息以 `<task-notification>` XML 格式送达
+- 并行是超级能力 — 独立任务尽量并行执行
+- 验证必须**独立证明**代码可用，不能只确认文件存在
+
+### 7.2 Agent Swarms
+
+通过 `TeamCreateTool` / `TeamDeleteTool` 实现团队级并行工作：
+- 子 Agent 通过 `AgentTool` 生成
+- Agent 间通过 `SendMessageTool` 通信
+- 支持 in-process 和分叉两种模式
+
+---
+
+## 8. 上下文管理策略
+
+Claude Code 实现了**4 层上下文压缩**策略，确保长会话不超出 Token 限制：
+
+```mermaid
+flowchart LR
+    A["原始消息"] --> B["1. Snip<br/>(历史剪切)"]
+    B --> C["2. Microcompact<br/>(内联压缩)"]
+    C --> D["3. Context Collapse<br/>(上下文折叠)"]
+    D --> E["4. Autocompact<br/>(自动压缩)"]
+    E --> F["发送到 API"]
+```
+
+| 层级 | 策略 | 触发条件 |
+|------|------|----------|
+| **Snip** | 剪切旧历史，保留最近的会话 | Token 超过阈值 |
+| **Microcompact** | 内联压缩冗余的工具结果 | 每次查询前 |
+| **Context Collapse** | 将已解决的工具调用折叠为摘要 | Token 接近限制 |
+| **Autocompact** | 调用 API 生成完整会话摘要 | Token 超过自动压缩阈值 |
+
+还有 **Reactive Compact** 作为后备 — 当 API 返回 `prompt_too_long` 错误时触发紧急压缩。
+
+---
+
+## 9. IDE 桥接系统 (`bridge/`, 31 个文件)
+
+### 9.1 架构
+
+```mermaid
+graph LR
+    subgraph IDE["IDE 侧"]
+        VSC["VS Code Extension"]
+        JB["JetBrains Plugin"]
+    end
+    
+    subgraph Bridge["桥接层"]
+        BM["bridgeMain.ts<br/>(115K)"]
+        RB["replBridge.ts<br/>(100K)"]
+        JWT["jwtUtils.ts<br/>JWT 认证"]
+    end
+    
+    subgraph CLI["CLI 侧"]
+        REPL2["REPL.tsx"]
+        TOOLS["工具系统"]
+    end
+    
+    VSC <-->|WebSocket/stdio| BM
+    JB <-->|WebSocket/stdio| BM
+    BM <--> RB
+    RB <--> REPL2
+    REPL2 --> TOOLS
+```
+
+### 9.2 关键文件
+
+| 文件 | 大小 | 功能 |
+|------|------|------|
+| `bridgeMain.ts` | 115K | 桥接主循环 (连接管理) |
+| `replBridge.ts` | 100K | REPL 会话桥接 |
+| `remoteBridgeCore.ts` | 39K | 远程桥接核心 |
+| `initReplBridge.ts` | 24K | REPL 桥接初始化 |
+| `bridgeApi.ts` | 18K | 桥接 API |
+| `sessionRunner.ts` | 18K | 会话执行管理 |
+
+---
+
+## 10. 插件与技能系统
+
+### 10.1 插件系统
+
+- **内建插件** (`plugins/bundled/`) — 预装插件
+- **第三方插件** — 通过 `plugins/` 子系统加载
+- **插件市场** (`utils/plugins/marketplaceManager.ts`, 2,643 行)
+
+### 10.2 技能系统
+
+技能是可复用的工作流，通过 `SkillTool` 执行：
+- **内建技能** (`skills/bundled/`) — 预装技能
+- **用户技能** — 从 `.claude/skills/` 目录加载
+- **MCP 技能** — 通过 MCP 协议加载
+- **动态技能** — 运行时发现 (文件操作时触发)
+
+---
+
+## 11. 状态管理
+
+### 11.1 AppState (`state/AppStateStore.ts`, 21K)
+
+使用自定义的 `createStore` + `useSyncExternalStore` 模式 (非 Redux/Zustand)：
+
+```typescript
+AppState = {
+  toolPermissionContext  // 权限状态
+  mcp                    // MCP 连接 & 工具
+  fastMode               // 快速模式
+  effortValue            // 推理强度
+  fileHistory            // 文件历史
+  attribution            // 代码归属
+  speculation            // 推测执行
+  // ...
+}
+```
+
+**特点**:
+- 单一 Store，Context Provider 稳定引用
+- `useAppState(selector)` — 选择器模式避免不必要的 re-render
+- `useSetAppState()` — 无订阅的 updater
+
+### 11.2 Bootstrap State (`bootstrap/state.ts`)
+
+会话级全局状态 (非 React)：
+- Session ID
+- API 用量计数器
+- 成本追踪
+- SDK betas
+- Feature flags cache
+
+---
+
+## 12. 性能优化策略
+
+### 12.1 启动优化
+
+| 策略 | 实现 |
+|------|------|
+| **并行预取** | MDM 设置、Keychain 读取、API 预连接并行执行 |
+| **延迟加载** | OpenTelemetry (~400KB)、gRPC (~700KB) 动态 `import()` |
+| **编译时 DCE** | `bun:bundle` feature flags 消除未使用代码 |
+| **缓存优先加载** | 插件使用 `loadAllPluginsCacheOnly()` |
+
+### 12.2 运行时优化
+
+| 策略 | 实现 |
+|------|------|
+| **流式工具执行** | `StreamingToolExecutor` — API 流式输出时即开始执行工具 |
+| **Memoization** | `lodash-es/memoize` 大量缓存命令/技能加载结果 |
+| **增量渲染** | `VirtualMessageList` 虚拟滚动 |
+| **FPS 追踪** | `fpsTracker.ts` 监控终端渲染性能 |
+| **Token 估算** | `tokenEstimation.ts` 避免频繁 API 调用 |
+
+### 12.3 内存管理
+
+| 策略 | 实现 |
+|------|------|
+| **工具结果预算** | `toolResultStorage.ts` (38K) — 超大结果存磁盘 |
+| **100 条环形缓冲** | 错误日志 ring buffer |
+| **火与forget** | 非关键的 transcript 写入异步执行 |
+| **Heap dump** | `heapDumpService.ts` — 支持运行时内存分析 |
+
+---
+
+## 13. 安全机制
+
+| 层级 | 机制 |
+|------|------|
+| **命令层** | Bash AST 解析 → 安全分类 → 权限矩阵 |
+| **文件层** | 路径验证 (沙盒限制)、Scratchpad 隔离 |
+| **认证层** | OAuth 2.0, JWT, macOS Keychain, API Key 验证 |
+| **网络层** | mTLS, CA 证书配置, 代理支持 |
+| **权限层** | 多模式权限系统 (default/plan/auto/bypass) |
+| **分类器** | Auto-mode 安全分类器 (yolo classifier) |
+| **策略层** | 组织策略限制 (`policyLimits/`) |
+| **沙盒** | 可选沙盒模式 (`sandbox/`) |
+| **Hook 系统** | PreToolUse / PostToolUse 自定义检查 |
+
+---
+
+## 14. 遥测与分析
+
+| 系统 | 用途 |
+|------|------|
+| **GrowthBook** | 特性开关 + A/B 测试 |
+| **OpenTelemetry** | 分布式追踪 (延迟加载) |
+| **gRPC** | 遥测数据传输 |
+| **Sentry** | 错误边界 (`SentryErrorBoundary.ts`) |
+| **自定义事件** | `logEvent()` — 行为分析 |
+| **诊断日志** | `diagnosticTracking.ts` — 性能诊断 |
+| **VCR 录制** | `vcr.ts` — API 请求/响应录制 (调试用) |
+
+---
+
+## 15. 值得注意的设计决策
+
+### 15.1 React for CLI
+
+使用 [Ink](https://github.com/vadimdemedes/ink) 将 React 渲染到终端，这是一个非常规但强大的选择：
+- **组件模型** — 144 个复杂 UI 组件复用
+- **Hook 生态** — 85 个 React Hook 管理状态
+- **React Compiler** — 代码中可见 `react/compiler-runtime` 使用
+
+### 15.2 Bun 运行时
+
+- `bun:bundle` 用于编译时特性开关 (DCE)
+- 比 Node.js 更快的启动时间
+- 原生 TypeScript 支持
+
+### 15.3 内外部版本分离
+
+通过 `USER_TYPE === 'ant'` 和 feature flags 实现:
+- **Internal (ant)** — 包含 REPLTool, ConfigTool, TungstenTool, 调试命令等
+- **External** — 公开发布版本，通过 DCE 移除内部代码
+
+### 15.4 CLAUDE.md 记忆系统
+
+`utils/claudemd.ts` (46K) 实现了项目级持久记忆：
+- 自动发现 `.claude/` 目录下的 CLAUDE.md
+- 支持嵌套记忆 (nested memory attachments)
+- 通过 `memdir/` 实现持久化
+
+---
+
+## 16. 未公开的前沿功能
+
+从 feature flags 和代码中发现的**尚未公开发布**的功能：
+
+| 功能 | 证据 | 状态 |
+|------|------|------|
+| **Ultraplan** | `commands/ultraplan.tsx` (66K) | Feature flag 控制 |
+| **Voice Mode** | `voice/`, `services/voice.ts` (17K), STT 流式处理 | Feature flag 控制 |
+| **Web Browser Tool** | `WEB_BROWSER_TOOL` flag | Feature flag 控制 |
+| **Buddy 精灵** | `buddy/` 目录, `BUDDY` flag | 复活节彩蛋 |
+| **Fork Subagent** | 子 Agent 内存共享分叉 | 实验性 |
+| **Kairos 平台** | 移动推送、GitHub Webhooks、频道系统 | 大型未发布平台 |
+| **Teleport** | `utils/teleport.tsx` (175K) — 会话跨设备迁移 | 开发中 |
+| **Stickers** | `commands/stickers/` | 趣味功能 |
+| **Context Collapse** | 上下文折叠压缩 | 实验性 |
+| **UDS Inbox** | Unix Domain Socket 进程间通信 | 实验性 |
+
+> [!WARNING]
+> `Kairos` 相关 flags 约有 6 个变体 (`KAIROS`, `KAIROS_BRIEF`, `KAIROS_CHANNELS`, `KAIROS_DREAM`, `KAIROS_GITHUB_WEBHOOKS`, `KAIROS_PUSH_NOTIFICATION`)，暗示这是一个大型的、尚未公开的**始终在线 Agent 平台**。
+
+---
+
+## 17. 总结
+
+Claude Code 是一个**工程复杂度极高**的产品级 AI 代理系统，核心亮点：
+
+1. **512K 行 TypeScript** — 这是一个成熟的、严肃的工程产品
+2. **4 层上下文压缩** — 精心设计的长会话管理
+3. **560K+ 的 BashTool** — 安全是第一优先级，含完整 AST 分析
+4. **86 个 Feature Flags** — 精密的渐进式发布管道
+5. **Multi-Agent 协调** — 不仅是单 Agent，而是 Agent 编排器
+6. **React for CLI** — 非传统但极其有效的技术选择
+7. **Kairos 平台** — 一个尚未发布的始终在线 Agent 系统
+8. **Teleport (175K)** — 跨设备会话迁移是一个巨大的工程投入
+
+> [!CAUTION]
+> 此代码来自泄露的源码，所有原始代码归 [Anthropic](https://www.anthropic.com) 所有。本报告仅用于技术学习和分析目的。
